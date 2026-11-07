@@ -19,6 +19,39 @@ No build step, and nothing to install. GSAP loads from CDN. Deploy by copying
 
 ---
 
+## Handing it to a deployment
+
+It is a static site. Copy `index.html` and `assets/` to a web root and it
+runs — there is no build, no server code and no environment to configure
+(`serve.js` is only for working on it locally). `docs/`, `tools/`, `source/`,
+`.backup/` and `recordly-test.html` are the project's own workings and do not
+need to be published.
+
+Three things the host has to get right:
+
+- **Content types.** The site serves `.mp4`, `.json`, `.css`, `.js`, `.png`,
+  `.jpg` and one `.webp`. A host that sends `.mp4` as
+  `application/octet-stream` will leave every scene blank.
+- **HTTP range requests.** Every scene seeks inside its recording, so the
+  server must answer `Range:` with `206 Partial Content`. Nearly all do;
+  verify it, because without it seeking silently restarts the download.
+- **Cache headers.** Everything under `assets/` is immutable in practice —
+  give it a long `max-age`, and keep `index.html` short so a redeploy is
+  picked up.
+
+Fonts come from Google Fonts and GSAP from cdnjs, so the page wants outbound
+access to `fonts.googleapis.com`, `fonts.gstatic.com` and
+`cdnjs.cloudflare.com`. If the deployment has to be self-contained, those are
+the only two external origins to vendor.
+
+Verified against a fresh `git clone` served as a deployment would serve it:
+the deck boots, all nine sections build, every beat walks forward and the
+whole deck walks back to the first step, **90 files served including all 21
+recordings and 18 cue tracks, nothing 404s and no page errors**
+(`scratchpad/smoke_clone.js`).
+
+---
+
 ## What ships, and what does not
 
 `assets/` is the site: 53 MB, of which 51 MB is recordings. Everything else —
