@@ -417,11 +417,12 @@ nothing left in it.
 
 ---
 
-## Day 8, later — 7 Nov 2026
+## Day 8, later — 7–8 Nov 2026
 
-The same day, after the control room was signed off: section 08 rebuilt a
-second time, section 09 rebuilt, the shell made to behave, and the site made
-fit to put on the internet.
+The same day, after the control room was signed off, running into the small
+hours: section 08 rebuilt a second time, section 09 rebuilt, the shell made to
+behave, the site made fit to put on the internet, and the whole thing handed
+over. This closes the build.
 
 **08 · Admin Panel — rebuilt again, as a house.** The client's reference was a
 white isometric warehouse cutaway on graph paper with labels floating over it.
@@ -508,7 +509,7 @@ to pane pixels, so shrinking them is exactly the thing that would make them
 look cheap. The index moved to the front of each file, so playback can start
 while the rest is still arriving.
 
-**Into Git.** First commit pushed to
+**Into Git, and handed over.** Three commits on `main` at
 `github.com/Akhilesh-Varanasi-18/OwlCoderProfile`. The raw material — the
 client's screenshot and brochure pack and the original screen captures, over a
 gigabyte between them — is deliberately not in it: nothing the site serves
@@ -516,10 +517,40 @@ reads them, and they belong in a backup or in Git LFS, not in the tree. The
 dead weight inside `assets/` went too: five crops from the first, scrapped
 version of the Dashboard and one logo for a site the deck never names.
 
+The handover was not taken on trust. The repository was cloned back from
+GitHub into a clean folder and served exactly as a deployment would serve it:
+the deck boots, all nine sections build, every beat walks forward and the
+whole deck walks back to the first step, ninety files served including all
+twenty-one recordings and eighteen cue tracks, nothing missing and no errors.
+The clone is identical to the working copy down to the checksums of the
+videos and images.
+
+The README gained a short note for whoever deploys it — it is a static site
+with no build, so the only things a host has to get right are the content
+types, support for range requests (every scene seeks inside its recording),
+and cache headers. The two external origins the page reaches for, Google
+Fonts and cdnjs, are named there in case the deployment has to be
+self-contained. **The repository is public**, which is worth saying out loud:
+the product recordings, the real platform figures and the six college logos
+are world-readable.
+
 **Testing.** Every scene's stress test; the rail audit across all nine sections
-and eight beats, both ways; the entry-flash check on all twenty-five routes
-into a section; 240 real key presses with none lost and no errors; the styling
-check unchanged. All clean against the re-encoded recordings as well as before
-them.
+and eight beats, both ways; the shell check on the toggle and present mode;
+the entry-flash check on all twenty-five routes into a section; 240 real key
+presses with none lost and no errors; the styling check unchanged; and the
+clone smoke test above. All clean against the re-encoded recordings as well as
+before them.
+
+Two red results during the day were the harness, not the site, and both are
+worth remembering: a batch run that reported lost key presses turned out to be
+two of my own test browsers racing each other for the machine — run alone it
+was 240 presses and nothing lost — and an earlier one came from stale browser
+profile folders left behind by previous runs.
+
+**One thing got built twice.** Present mode was reported as "the sidebar is
+completely broken", and it was read as "take it away" when it meant "make it
+work there". It was hidden, the client said so plainly, and it was put back
+the same evening. The sentence to keep: when something is called broken, that
+is a request to fix it, not to remove it.
 
 ---
