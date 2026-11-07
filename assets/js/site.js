@@ -617,9 +617,9 @@
     paintRail(at);
   });
 
-  /* The rail collapses and expands, present mode hides it, and fullscreen
-     comes and goes — every one of those changes the width of the stage while
-     the window stays exactly the same size. A scene that only listens for
+  /* The rail collapses and expands, and fullscreen comes and goes — both of
+     those change the width of the stage while the window stays exactly the
+     same size. A scene that only listens for
      'resize' therefore keeps the geometry it was laid out with and sits at the
      wrong width until something else nudges it: recordings at the old size,
      a wall of badges still spaced for the other rail.

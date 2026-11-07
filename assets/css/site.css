@@ -196,15 +196,17 @@ body.rail-min .rn-sec::after { content: attr(data-name); position: absolute; lef
   font-size: 12px; font-weight: 600; white-space: nowrap; box-shadow: 0 8px 22px rgba(16,35,26,.32);
   opacity: 0; pointer-events: none; transition: opacity .18s var(--ease), translate .18s var(--ease); }
 body.rail-min .rn-sec:hover::after { opacity: 1; translate: 0 -50%; }
-body.present { --rail-w: 0px; }
-/* A rail of zero width does not go anywhere when it is translated by -100% of
-   itself. Present mode set --rail-w to 0 and then slid the rail "off screen"
-   by nought pixels, so its background vanished and every icon, the wordmark
-   and the toggle spilled across the slide. It is hidden outright instead —
-   the overflow matters on its own, because .rail-tog deliberately hangs over
-   the rail's right edge and would otherwise still show. */
-body.present .rail { width: 0; transform: none; overflow: hidden;
-  visibility: hidden; pointer-events: none; }
+/* Present mode leaves the rail alone.
+
+   It used to set --rail-w to 0 and then slide the rail "off screen" with
+   translateX(-100%) — which, on a box of zero width, is nought pixels. The
+   background had no width to paint, but the icons, the wordmark and the
+   toggle are laid out beyond it and went on drawing straight onto the slide.
+
+   Hiding it properly was the wrong fix: presenting is exactly when you want
+   to jump to a section. So present mode now changes two things and no more —
+   the screen it fills, and the button that gets you out. The rail keeps the
+   state you left it in and the toggle goes on working. */
 
 @media (max-width: 1080px) {
   :root { --rail-w: 0px; }

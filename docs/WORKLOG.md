@@ -488,7 +488,10 @@ an open card sitting on top of its own description.
   rail's width to zero and then slid it "off screen" by -100% of itself, which
   on a box of zero width is nought pixels: the background disappeared and the
   icons, the wordmark and the toggle were left on the stage with nothing
-  behind them. Present mode hides it outright.
+  behind them. Hiding it properly was tried first and was the wrong answer —
+  presenting is exactly when you want to jump to a section. Present mode now
+  changes two things and no more: the screen it fills and the button that gets
+  you out. The sidebar is whole inside it and still expands and collapses.
 
 **The recordings, for the live site.** Every clip came off the screen recorder
 at about 6.9 Mbps — a bitrate for camera footage, not for a screen, where most

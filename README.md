@@ -77,7 +77,9 @@ Two levels, taken from the Myna deck.
 - **A step rail sits along the bottom** of every multi-step slide, naming each
   step in that section, so you can see how far through it you are without
   looking left.
-- **Present** goes fullscreen, hides the rail and returns to the first step.
+- **Present** goes fullscreen and returns to the first step. It leaves the
+  rail alone: presenting is when you most want to jump to a section, so the
+  rail keeps the state you left it in and the toggle goes on working.
 
 ---
 
@@ -915,9 +917,9 @@ against the file itself, not just against the others.**
 
 Every scene lays itself out from its own `clientWidth` and re-lays-out on
 `resize`. That is enough for a window being dragged, and not enough for this
-deck: the rail collapses and expands, present mode hides it, fullscreen comes
-and goes — and each of those changes the width of `.stage` while the window
-stays exactly the same size. A scene therefore kept the geometry it was built
+deck: the rail collapses and expands, fullscreen comes and goes — and each of
+those changes the width of `.stage` while the window stays exactly the same
+size. A scene therefore kept the geometry it was built
 with and sat at the wrong width: recordings at the old size, a wall of badges
 still spaced for the other rail.
 
@@ -937,16 +939,22 @@ at the foot of the collapsed one, so the button that opened the rail and the
 button that closed it were at opposite ends of it. It is at the top in both,
 hanging half over the rail's right edge.
 
-**Present mode was painting the whole sidebar onto the slide.** It sets
+**Present mode was painting the whole sidebar onto the slide.** It set
 `--rail-w` to `0` and then slid the rail off screen with
 `transform: translateX(-100%)` — which, on a box of zero width, is nought
 pixels. The background had no width to draw, but the icons, the wordmark and
 the toggle are laid out beyond it and went on painting, with the slide showing
-through behind them. Present mode hides the rail outright now; the `overflow`
-matters on its own, because `.rail-tog` deliberately hangs over the rail's
-right edge and would otherwise still show. `scratchpad/test_present.js` covers
-both, and that leaving present mode restores the rail, its width and its open
-section list.
+through behind them.
+
+Hiding it properly was the wrong fix, and the client said so: presenting is
+exactly when you want to jump to a section. **Present mode now changes two
+things and no more — the screen it fills, and the button that gets you out.**
+The rail keeps the state you left it in and expands and collapses inside
+present mode like anywhere else; the stage follows it as usual, because the
+stage watcher does not care what caused the width to change.
+`scratchpad/test_present.js` covers the toggle's seat, the rail surviving
+present mode whole, collapsing and expanding inside it with the stage
+following, and the state surviving the way out.
 
 ### The toggle does not slide, and that is the point
 
