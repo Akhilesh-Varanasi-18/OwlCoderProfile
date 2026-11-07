@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recordly test</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/css/recordly.css">
+<style>
+  html, body { margin: 0; height: 100%; background: #0d1a12; font: 13px/1.4 ui-monospace, Consolas, monospace; color: #cfe5d6; }
+  #host { position: absolute; inset: 0; }
+  #hud { position: fixed; left: 12px; bottom: 10px; padding: 6px 10px; background: rgba(0,0,0,.6); border-radius: 6px; white-space: pre; pointer-events: none; z-index: 2; }
+  #help { position: fixed; right: 12px; bottom: 10px; padding: 6px 10px; background: rgba(0,0,0,.6); border-radius: 6px; z-index: 2; }
+</style>
+</head>
+<body>
+<div id="host"></div>
+<div id="hud">loading…</div>
+<div id="help">space pause · ← → seek 2 s · 0 restart</div>
+<script src="assets/js/recordly.js"></script>
+<script>
+  var q = new URLSearchParams(location.search);
+  var clip = q.get('clip') || 'screen_recordings/_test/owlcoder-60s';
+  var hud = document.getElementById('hud');
+  Recordly.load(document.getElementById('host'), clip + '.mp4', clip + '.cues.json', { autoplay: true })
+    .then(function (r) {
+      window.R = r;
+      var n = (r.video && r.video.src) ? clip : '?';
+      function upd() {
+        var s = r.state();
+        hud.textContent = n + '\n' +
+          't ' + s.t.toFixed(2) + 's   z ' + s.z.toFixed(2) + ' → ' + s.goal.z.toFixed(2) +
+          '   pan ' + s.x.toFixed(0) + ',' + s.y.toFixed(0) +
+          (r.video.paused ? '   ⏸' : '   ▶');
+        requestAnimationFrame(upd);
+      }
+      upd();
+      addEventListener('keydown', function (e) {
+        if (e.key === ' ') { e.preventDefault(); r.video.paused ? r.play() : r.pause(); }
+        if (e.key === 'ArrowRight') r.seek(r.video.currentTime + 2);
+        if (e.key === 'ArrowLeft')  r.seek(Math.max(0, r.video.currentTime - 2));
+        if (e.key === '0') r.seek(0);
+      });
+    });
+</script>
+</body>
+</html>

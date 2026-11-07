@@ -1,0 +1,287 @@
+/* ══════════════════════════════════════════════════════════════════
+   09 · CLOSE — "who runs it, and on what"
+   Two steps, one scene file. First the colleges come forward out of the
+   admin arc and stand in a row across the front of the room, lit, each
+   carrying what it actually holds. Then the three machines Owl Coder
+   runs on stand together and the deck ends on the invitation.
+   Prefixes: cz- (the scene), cg- (a college), dv- (a device).
+   ══════════════════════════════════════════════════════════════════ */
+
+.close { position: absolute; inset: 0; overflow: hidden; --k: 1;
+  font-family: var(--sans); color: var(--ink); }
+
+/* ───────── the room ─────────
+   Warmer and brighter than the control room: Act III ends by stepping back
+   out into daylight. */
+.cz-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  background: linear-gradient(176deg, #F8FBF9 0%, #EFF7F1 52%, #E6F1E9 100%); }
+.cz-sky { position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 66% 56% at 50% 24%, rgba(255,255,255,.96), rgba(255,255,255,0) 72%),
+    radial-gradient(ellipse 44% 36% at 92% 6%, rgba(60,179,113,.14), transparent 70%),
+    radial-gradient(ellipse 44% 38% at 6% 94%, rgba(247,181,0,.09), transparent 72%); }
+.cz-floor { position: absolute; left: 0; right: 0; bottom: 0; height: 40%;
+  background: linear-gradient(180deg, rgba(14,70,42,0) 0%, rgba(14,70,42,.04) 44%, rgba(14,70,42,.1) 100%); }
+/* the light the row of colleges stands in */
+.cz-pool { position: absolute; left: 50%; bottom: 4%; translate: -50% 0; width: 84%; height: 40%;
+  background: radial-gradient(ellipse 50% 50% at 50% 62%, rgba(60,179,113,.15), transparent 72%);
+  filter: blur(10px); }
+
+.cz-world { position: absolute; inset: 0; z-index: 2; perspective: 1700px; perspective-origin: 50% 46%;
+  transform-style: preserve-3d; pointer-events: none; }
+
+/* ───────── the words ───────── */
+.cz-head { position: absolute; z-index: 7; }
+.cz-kick { display: block; margin-bottom: .8em; font-size: calc(12px * var(--k)); font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--green); }
+.cz-h { font-size: calc(46px * var(--k)); line-height: 1.04; letter-spacing: -.038em; font-weight: 800; }
+.cz-h em { font-style: normal; color: var(--green); }
+.cz-say { margin: .9em 0 0; max-width: calc(620px * var(--k));
+  font-size: calc(15.5px * var(--k)); line-height: 1.62; color: var(--ink-2); }
+.close[data-view="devices"] .cz-say { margin-inline: auto; }
+/* how to play with the wall */
+.cz-hint { display: flex; align-items: center; gap: .62em; margin: 1.3em 0 0;
+  font: 700 calc(10.5px * var(--k)) var(--mono); letter-spacing: .13em;
+  text-transform: uppercase; color: var(--ink-3); }
+.cz-hint i { width: .5em; height: .5em; border-radius: 50%; flex: none; background: var(--green);
+  box-shadow: 0 0 0 .3em rgba(21,137,63,.14); }
+
+/* ───────── the room is not empty ─────────
+   A drafting grid, and the word the slide is about standing behind the wall
+   in the deck's own extruded type. */
+.cz-grid { position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(21,137,63,.05) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(0deg, rgba(21,137,63,.04) 0 1px, transparent 1px 64px);
+  -webkit-mask-image: linear-gradient(180deg, transparent 4%, #000 34%, #000 74%, transparent 98%);
+  mask-image: linear-gradient(180deg, transparent 4%, #000 34%, #000 74%, transparent 98%); }
+.cz-word { position: absolute; right: 3.2%; top: 4%; text-align: right;
+  font-weight: 900; line-height: .84; letter-spacing: -.055em; white-space: nowrap;
+  color: #F7FBF9; -webkit-text-stroke: 1px rgba(21,137,63,.11);
+  text-shadow:
+    1px 1px 0 #F0F7F3,  2px 2px 0 #EBF4EF,  3px 3px 0 #E6F1EB,  4px 4px 0 #E1EEE7,
+    5px 5px 0 #DCEBE3,  6px 6px 0 #D7E8DF,  7px 7px 0 #D2E5DB,  8px 8px 0 #CDE2D7,
+    9px 9px 0 #C8DFD3, 10px 10px 0 #C3DCCF, 11px 11px 0 #BED9CB, 12px 12px 0 #B9D6C7,
+    13px 13px 0 #B4D3C3, 14px 14px 0 #AFD0BF, 16px 18px 26px rgba(16,60,34,.1); }
+
+/* ══════════ the wall of badges ══════════
+   One wire across the room; from each anchor a cord, from each cord a clip,
+   and under each clip a college's ID badge. Three layers, because they each
+   do one job: .cg is placed and faded by the deck, .bg-hang swings on its
+   clip, .bg-flip turns over. Putting two of those on one element makes the
+   swing fight the flip. */
+.cz-wire { position: absolute; pointer-events: none; overflow: visible; }
+.cz-wire-l { fill: none; stroke: rgba(16,74,44,.34); stroke-width: 1.4; stroke-linecap: round; }
+.cz-cord { stroke: rgba(16,74,44,.3); stroke-width: 1.1; }
+.cz-anchor { fill: #7E9789; stroke: rgba(255,255,255,.85); stroke-width: 1; }
+
+/* the world turns pointer events off; a badge is the one thing here you
+   are meant to be able to touch */
+.cg { position: absolute; z-index: 20; cursor: pointer; pointer-events: auto;
+  perspective: 1100px; will-change: transform, opacity; }
+/* the clip stays with the cord; the badge swings under it */
+.bg-clip { position: absolute; left: 50%; top: -.95em; translate: -50% 0;
+  width: 2.5em; height: 1.5em; border-radius: .3em; z-index: 3;
+  background: linear-gradient(170deg, #FDFEFE, #C9D8CF 58%, #A7BCAF);
+  box-shadow: 0 0 0 1px rgba(16,74,44,.22), 0 .5em .7em -.4em rgba(13,46,27,.5); }
+.bg-clip::after { content: ""; position: absolute; left: 50%; top: .42em; translate: -50% 0;
+  width: 1.3em; height: .34em; border-radius: .2em;
+  background: rgba(16,74,44,.26); box-shadow: inset 0 1px 1px rgba(255,255,255,.5); }
+
+.bg-hang { position: absolute; inset: 0; transform-origin: 50% 0;
+  transform-style: preserve-3d; will-change: transform; }
+.bg-flip { position: absolute; inset: 0; transform-style: preserve-3d;
+  transition: transform .66s cubic-bezier(.2,.78,.24,1); }
+.cg.flip .bg-flip { transform: rotateY(180deg); }
+
+.bg-face { position: absolute; inset: 0; border-radius: .9em; overflow: hidden;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  display: flex; flex-direction: column; padding: 1em 1em 0;
+  box-shadow: 0 0 0 1px rgba(16,74,44,.12), 0 2em 2.6em -1.2em rgba(13,46,27,.42); }
+.bg-f { background: linear-gradient(168deg, #FFFFFF 0%, #F6FAF8 62%, #EFF6F2 100%); }
+.bg-b { background: linear-gradient(168deg, #0E5C2E 0%, #0A4523 70%, #08381D 100%);
+  transform: rotateY(180deg); color: #fff; }
+
+/* the strip across the top of either face */
+.bg-hd { display: flex; align-items: center; gap: .6em; flex: none;
+  font: 700 .78em var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+.bg-hd b { font-weight: 700; color: var(--green-d); }
+.bg-hd s { flex: 1; height: 1px; background: rgba(21,137,63,.24); text-decoration: none; }
+.bg-hd em { font-style: normal; color: rgba(21,137,63,.6); }
+.bg-b .bg-hd b { color: #BFF0D2; }
+.bg-b .bg-hd s { background: rgba(191,240,210,.3); }
+.bg-b .bg-hd em { color: rgba(191,240,210,.66); }
+
+/* the college's own mark, on a plate of its own so every logo sits on white */
+/* The plate is a definite box and the mark is laid absolutely inside it.
+   Not a centred grid with max-height: 100% on the image: that percentage is
+   cyclic — the row track is sized by the item — so it is dropped, and a
+   square logo runs straight over the name underneath. */
+.bg-mark { position: relative; margin-top: .9em; flex: none; height: 38%;
+  border-radius: .55em; background: #fff; box-shadow: inset 0 0 0 1px rgba(16,74,44,.1); }
+.bg-mark img { position: absolute; inset: .7em; width: calc(100% - 1.4em);
+  height: calc(100% - 1.4em); object-fit: contain; display: block; }
+.bg-id { margin-top: .85em; font: 800 1.5em var(--sans); letter-spacing: -.03em;
+  line-height: 1; color: var(--ink); }
+.bg-nm { margin-top: .4em; font-size: .82em; line-height: 1.3; font-weight: 600;
+  color: var(--ink-2); }
+.bg-loc { margin-top: .36em; font: 700 .68em var(--mono); letter-spacing: .08em;
+  color: var(--ink-3); }
+.bg-ft { margin: auto -1em 0; padding: .7em 1em; display: flex; align-items: center; gap: .5em;
+  border-top: 1px solid var(--line); font: 700 .68em var(--mono);
+  letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.bg-dot { width: .54em; height: .54em; border-radius: 50%; flex: none; background: var(--green);
+  box-shadow: 0 0 0 .22em rgba(21,137,63,.16); }
+.bg-ft span { color: var(--green-d); }
+.bg-ft u { margin-left: auto; text-decoration: none; }
+
+/* the sheen that runs over a badge as the cursor comes near it */
+.bg-sheen { position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: linear-gradient(104deg, transparent 34%, rgba(255,255,255,.72) 50%, transparent 66%);
+  transform: translateX(-120%); transition: opacity .3s ease; }
+.cg:hover .bg-sheen { opacity: 1; animation: cz-sheen 1.1s ease-out; }
+@keyframes cz-sheen { from { transform: translateX(-120%); } to { transform: translateX(120%); } }
+
+/* ── the back: our side of the same card ── */
+.bg-foil { position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background:
+    radial-gradient(ellipse 60% 40% at 18% 12%, rgba(127,227,168,.5), transparent 60%),
+    radial-gradient(ellipse 52% 40% at 84% 78%, rgba(247,181,0,.26), transparent 62%),
+    linear-gradient(128deg, transparent 32%, rgba(255,255,255,.22) 50%, transparent 68%); }
+.bg-owl { position: relative; width: 34%; margin: .9em auto .2em; display: block; }
+.bg-bt { position: relative; margin-top: .5em; text-align: center;
+  font: 800 1.02em var(--sans); letter-spacing: -.02em; line-height: 1.2; }
+.bg-bt em { display: block; font-style: normal; color: #7FE3A8; }
+.bg-st { position: relative; margin: auto 0 0; padding: .8em 0;
+  display: flex; justify-content: space-between; gap: .5em;
+  border-top: 1px solid rgba(191,240,210,.22); }
+.bg-st span { display: flex; flex-direction: column; gap: .18em; min-width: 0; }
+.bg-st b { font: 800 1em var(--sans); letter-spacing: -.028em; line-height: 1; color: #fff; }
+.bg-st s { text-decoration: none; font: 700 .58em var(--mono); letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(191,240,210,.72); }
+.bg-note { position: relative; margin: auto 0 0; padding: .8em 0;
+  border-top: 1px solid rgba(191,240,210,.22);
+  font-size: .74em; line-height: 1.45; color: rgba(214,243,226,.8); }
+.bg-bf { position: relative; margin: 0 -1em; padding: .66em 1em;
+  border-top: 1px solid rgba(191,240,210,.16);
+  font: 700 .64em var(--mono); letter-spacing: .08em; color: rgba(191,240,210,.76); }
+
+/* the one line of platform figures under the whole row */
+.cz-band { position: absolute; left: 50%; translate: -50% 0; z-index: 6;
+  display: flex; align-items: stretch; gap: calc(30px * var(--k)); }
+.cz-bi { display: flex; flex-direction: column; align-items: center; gap: .18em; }
+.cz-bi b { font-size: calc(26px * var(--k)); font-weight: 800; letter-spacing: -.035em; line-height: 1;
+  color: var(--green-d); font-variant-numeric: tabular-nums; }
+.cz-bi s { text-decoration: none; font-size: calc(10.5px * var(--k)); font-weight: 700;
+  letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); }
+.cz-bs { width: 1px; background: var(--line-2); }
+
+/* ══════════ the three machines ══════════
+   A monitor, a laptop and a tablet with a keyboard. No phone anywhere:
+   Owl Coder is a browser product that also runs on a tablet. */
+.dv { position: absolute; transform-style: preserve-3d; will-change: transform, opacity; }
+.dv-in { position: absolute; inset: 0; transform-style: preserve-3d; }
+.dv-cast { position: absolute; left: 4%; right: 4%; bottom: -12%; height: 12%;
+  background: radial-gradient(ellipse at 50% 50%, rgba(8,44,26,.34), transparent 66%);
+  filter: blur(9px); transform: translateZ(-50px); }
+.dv-scr { position: absolute; border-radius: .2em; overflow: hidden; z-index: 2;
+  background: linear-gradient(168deg, #FBFDFC, #EDF6F0); }
+.dv-glass { position: absolute; border-radius: .2em; pointer-events: none; z-index: 5;
+  background: linear-gradient(116deg, rgba(255,255,255,.4) 0%, rgba(255,255,255,.1) 26%, rgba(255,255,255,0) 48%); }
+.dv.m1 .dv-scr, .dv.m1 .dv-glass { inset: .42em; }
+.dv.m2 .dv-scr, .dv.m2 .dv-glass { inset: .34em .34em .5em; }
+.dv.m3 .dv-scr, .dv.m3 .dv-glass { inset: .36em; }
+
+/* the monitor */
+.dv.m1 .dv-body { position: absolute; inset: 0; border-radius: .5em;
+  background: linear-gradient(168deg, #39443E, #222D27 46%, #141C17);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.2), 0 34px 58px -28px rgba(10,30,18,.56); }
+.dv.m1 .dv-neck { position: absolute; left: 50%; translate: -50% 0;
+  background: linear-gradient(94deg, #9FB4A6, #CBDCD1 38%, #8FA698); }
+.dv.m1 .dv-foot { position: absolute; left: 50%; translate: -50% 0; border-radius: .46em;
+  background: linear-gradient(180deg, #CEDDD4, #9AB2A4); box-shadow: 0 14px 24px -12px rgba(10,40,24,.54); }
+
+/* the laptop: a lid and a base hinged away from the camera */
+.dv.m2 .dv-body { position: absolute; inset: 0; border-radius: .44em .44em .16em .16em;
+  background: linear-gradient(165deg, #46504A, #262E29 48%, #171D19);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.16), 0 30px 52px -26px rgba(10,30,18,.5); }
+.dv.m2 .dv-base { position: absolute; left: -3%; right: -3%; top: 100%; height: .34em;
+  border-radius: 0 0 .44em .44em; background: linear-gradient(180deg, #3A433D, #1C231E);
+  transform: rotateX(70deg); transform-origin: top; }
+
+/* the tablet with its keyboard */
+.dv.m3 .dv-body { position: absolute; inset: 0; border-radius: .5em;
+  background: linear-gradient(166deg, #3B4640, #212B26 50%, #161E19);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.16), 0 26px 44px -22px rgba(10,30,18,.48); }
+.dv.m3 .dv-kbd { position: absolute; left: -6%; right: -6%; top: 100%; height: .3em;
+  border-radius: 0 0 .4em .4em; background: linear-gradient(180deg, #CBDACF, #A6BCAE);
+  transform: rotateX(68deg); transform-origin: top; }
+
+/* ───────── the coded face the three machines carry ─────────
+   The same product at three widths: that is the whole claim of the step, so
+   the faces are the same parts reflowed, not three different drawings. */
+.dv-ui { position: absolute; inset: 0; display: flex; flex-direction: column; font-size: 1em; }
+.dv-nav { display: flex; align-items: center; gap: .4em; padding: .42em .55em;
+  border-bottom: 1px solid rgba(21,137,63,.1); background: rgba(255,255,255,.76); }
+.dv-nav i { width: .52em; height: .52em; border-radius: .15em; flex: none;
+  background: linear-gradient(150deg, var(--green-l), var(--green)); }
+.dv-nav b { font-size: .46em; font-weight: 800; letter-spacing: -.01em; color: var(--green-d); }
+.dv-nav u { margin-left: auto; width: .62em; height: .62em; border-radius: 50%;
+  background: var(--mint-2); }
+.dv-bd { flex: 1; display: flex; min-height: 0; }
+.dv-side { width: 22%; padding: .42em .36em; display: flex; flex-direction: column; gap: .3em;
+  border-right: 1px solid rgba(21,137,63,.09); background: rgba(240,248,243,.7); }
+.dv-side i { height: .26em; border-radius: .16em; background: rgba(21,137,63,.14); }
+.dv-side i:first-child { background: var(--green); }
+.dv-main { flex: 1; padding: .48em .5em; display: flex; flex-direction: column; gap: .4em; min-width: 0; }
+.dv-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: .32em; }
+.dv-tile { border-radius: .2em; padding: .32em .3em; background: #fff;
+  box-shadow: 0 0 0 1px rgba(21,137,63,.1); display: flex; flex-direction: column; gap: .1em; }
+.dv-tile b { font-size: .5em; font-weight: 800; line-height: 1; color: var(--ink);
+  font-variant-numeric: tabular-nums; }
+.dv-tile s { text-decoration: none; font-size: .3em; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-3); }
+/* the heatmap, the strongest single image in the deck, closing it out */
+.dv-heat { margin-top: auto; display: grid; grid-auto-flow: column; grid-template-rows: repeat(5, 1fr);
+  gap: .11em; }
+.dv-heat i { aspect-ratio: 1; border-radius: .06em; background: var(--mint); }
+.dv-heat i.l1 { background: #BFE6CD; }
+.dv-heat i.l2 { background: #7FCB9C; }
+.dv-heat i.l3 { background: #35A35F; }
+.dv-heat i.l4 { background: var(--green-d); }
+/* narrow faces drop the sidebar and the tiles go to two across */
+.dv.sm .dv-side { display: none; }
+.dv.sm .dv-tiles { grid-template-columns: repeat(2, 1fr); }
+
+/* ───────── the invitation ───────── */
+.cz-cta { position: absolute; left: 50%; translate: -50% 0; width: min(92%, calc(740px * var(--k)));
+  text-align: center; z-index: 7; }
+.cz-ch { font-size: calc(46px * var(--k)); line-height: 1.03; letter-spacing: -.042em; font-weight: 800; }
+.cz-ch em { font-style: normal; color: var(--green); }
+.cz-row { margin-top: calc(21px * var(--k)); display: flex; justify-content: center;
+  gap: calc(12px * var(--k)); flex-wrap: wrap; pointer-events: auto; }
+.cz-btn { display: inline-flex; align-items: center; gap: .5em; border-radius: 999px;
+  padding: calc(13px * var(--k)) calc(26px * var(--k));
+  font-size: calc(14.5px * var(--k)); font-weight: 700; letter-spacing: -.01em;
+  background: var(--green); color: #fff;
+  box-shadow: 0 14px 26px -12px rgba(21,137,63,.6);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+.cz-btn:hover { transform: translateY(-2px); box-shadow: 0 20px 32px -12px rgba(21,137,63,.66); }
+.cz-btn.ghost { background: transparent; color: var(--green-d);
+  box-shadow: inset 0 0 0 1.5px var(--line-2); }
+.cz-btn.ghost:hover { box-shadow: inset 0 0 0 1.5px var(--green-l); }
+.cz-url { margin-top: calc(16px * var(--k)); font-family: var(--mono);
+  font-size: calc(12.5px * var(--k)); letter-spacing: .04em; color: var(--ink-3); }
+.cz-by { margin-top: calc(6px * var(--k)); font-size: calc(12px * var(--k)); color: var(--ink-3); }
+.cz-by b { color: var(--ink-2); }
+
+/* the owl sees the deck out: it has watched every step, so it is allowed to
+   be looked at once, at the end */
+.cz-owl { position: absolute; z-index: 8; pointer-events: none; }
+
+/* ───────── narrow ───────── */
+.close.narrow .cz-h { font-size: calc(32px * var(--k)); }
+.close.narrow .cz-ch { font-size: calc(36px * var(--k)); }
+.close.narrow .cz-say { font-size: calc(14px * var(--k)); }
+.close.narrow .cz-band { gap: calc(18px * var(--k)); }
+.close.narrow .cz-bi b { font-size: calc(20px * var(--k)); }

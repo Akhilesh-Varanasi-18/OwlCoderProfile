@@ -1,0 +1,320 @@
+/* ══════════════════════════════════════════════════════════════════
+   08 · ADMIN PANEL — "the admin house"
+
+   A white isometric cutaway of the building the institution is run
+   from, on graph paper, with five lit points standing over its parts.
+   Everything in the model is generated and projected in JS; this file
+   only says what each face is made of. See assets/js/house.js.
+
+   Prefixes: hs- (the room, the model, the points and the panel).
+   ══════════════════════════════════════════════════════════════════ */
+
+.house { position: absolute; inset: 0; overflow: hidden; --k: 1;
+  font-family: var(--sans); color: var(--ink); }
+
+/* ───────── the room ───────── */
+.hs-room { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.hs-sky { position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 64% 58% at 50% 40%, #FFFFFF, rgba(255,255,255,0) 72%),
+    radial-gradient(ellipse 46% 40% at 88% 10%, rgba(60,179,113,.1), transparent 70%),
+    radial-gradient(ellipse 40% 36% at 8% 92%, rgba(60,179,113,.07), transparent 72%),
+    linear-gradient(176deg, #F7FBF9 0%, #EFF6F2 52%, #E9F2ED 100%); }
+.hs-vig { position: absolute; inset: 0;
+  background: radial-gradient(ellipse 78% 74% at 50% 48%, transparent 58%, rgba(18,36,26,.07) 100%); }
+
+/* ── the drafting lattice the room is set out on ──
+   Three sets of lines at the model's own angles, so the background reads as the
+   paper the building is drawn on rather than as decoration. Masked out of the
+   middle: it fills the room without ever being seen behind the model. */
+.hs-weave { position: absolute; inset: -12%;
+  background:
+    repeating-linear-gradient(30deg, rgba(21,137,63,.055) 0 1px, transparent 1px 48px),
+    repeating-linear-gradient(-30deg, rgba(21,137,63,.055) 0 1px, transparent 1px 48px),
+    repeating-linear-gradient(90deg, rgba(21,137,63,.035) 0 1px, transparent 1px 48px);
+  -webkit-mask-image: radial-gradient(ellipse 54% 52% at 60% 50%, transparent 14%, #000 80%);
+  mask-image: radial-gradient(ellipse 54% 52% at 60% 50%, transparent 14%, #000 80%); }
+/* The clear window follows the house when it steps aside. Switched, not
+   transitioned: animating a mask-image re-rasterises the whole room every
+   frame and cost the scene a quarter of its frame rate. At this weight the
+   switch cannot be seen. */
+.house.hs-open .hs-weave {
+  -webkit-mask-image: radial-gradient(ellipse 40% 50% at 20% 50%, transparent 14%, #000 82%);
+  mask-image: radial-gradient(ellipse 40% 50% at 20% 50%, transparent 14%, #000 82%); }
+
+/* a wash that gives the empty corner some weight */
+.hs-wash { position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 48% 44% at 12% 84%, rgba(60,179,113,.11), transparent 72%),
+    radial-gradient(ellipse 32% 30% at 96% 14%, rgba(60,179,113,.07), transparent 74%); }
+
+/* ── what is going on in the room ──
+   Rings go out from four places in it, the way one panel reaches the colleges
+   it serves, and motes drift up through the drawing. Everything here moves on
+   transform and opacity only, so it is handed to the compositor and the scene
+   pays nothing for it; it runs only while the section is on stage. */
+.hs-air { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.hs-air i { animation-play-state: paused; }
+.house.hs-live .hs-air i { animation-play-state: running; }
+
+.hs-ring { position: absolute; left: var(--x); top: var(--y);
+  width: calc(300px * var(--k)); height: calc(300px * var(--k));
+  margin: calc(-150px * var(--k)) 0 0 calc(-150px * var(--k));
+  border-radius: 50%; border: 1px solid rgba(21,137,63,.3);
+  opacity: 0; transform: scale(.14);
+  animation: hs-rad 8.4s cubic-bezier(.2,.6,.4,1) infinite; animation-delay: var(--d); }
+@keyframes hs-rad {
+  0%   { transform: scale(.14); opacity: 0; }
+  14%  { opacity: .42; }
+  100% { transform: scale(1.5); opacity: 0; } }
+
+.hs-mote { position: absolute; left: var(--x); top: var(--y);
+  width: calc(7px * var(--k)); height: calc(7px * var(--k));
+  background: rgba(21,137,63,.34); border-radius: 1px;
+  opacity: 0; animation: hs-drift 15s linear infinite; animation-delay: var(--d); }
+@keyframes hs-drift {
+  0%   { transform: translate3d(0, 20px, 0) rotate(45deg) scale(var(--s)); opacity: 0; }
+  16%  { opacity: .5; }
+  80%  { opacity: .42; }
+  100% { transform: translate3d(calc(14px * var(--s)), -130px, 0) rotate(45deg) scale(var(--s)); opacity: 0; } }
+
+/* the walk on the plan runs, so the drawing is never quite still */
+.house.hs-live .hs-pl-rt { animation: hs-flow 3.6s linear infinite; }
+@keyframes hs-flow { to { stroke-dashoffset: -2; } }
+
+/* ── the room's watermark: the plan the model was drawn from ── */
+.hs-plan { position: absolute; left: -2%; bottom: 7%; width: 34%; height: auto; pointer-events: none;
+  transform-origin: 50% 50%; will-change: transform;
+  transition: transform .62s cubic-bezier(.65,0,.35,1); }
+/* A plan and an isometric model are both faint green line work, so behind the
+   house they read as one confused drawing. While a point is open the house
+   stands on the left, so the plan crosses to the other side and turns off
+   square — a drawing tucked under the panel rather than under the building. */
+/* Moved by transform rather than by left/width: the same journey, but the
+   browser does not lay the drawing out again on every frame of it. */
+.house.hs-open .hs-plan { transform: translate(154.5%, 9%) scale(.853) rotate(-7deg); }
+.hs-pl-slab { fill: none; stroke: rgba(21,137,63,.12); stroke-width: .16; }
+.hs-pl-roof { fill: none; stroke: rgba(21,137,63,.07); stroke-width: .12; stroke-dasharray: .7 .5; }
+.hs-pl-wall { fill: rgba(21,137,63,.055); }
+.hs-pl-p { fill: rgba(21,137,63,.035); stroke: rgba(21,137,63,.07); stroke-width: .1; }
+.hs-pl-rt { fill: none; stroke: rgba(21,137,63,.105); stroke-width: .16;
+  stroke-dasharray: .55 .45; stroke-linejoin: round; stroke-linecap: round; }
+.hs-pl-n { fill: rgba(21,137,63,.1); }
+.hs-pl-tk { stroke: rgba(21,137,63,.09); stroke-width: .1; }
+.hs-pl-rule { stroke: rgba(21,137,63,.1); stroke-width: .12; }
+.hs-pl-t1 { font: 800 1.6px var(--sans); fill: rgba(21,137,63,.105); letter-spacing: .03px; }
+.hs-pl-t2 { font: 600 .92px var(--mono); fill: rgba(21,137,63,.085); letter-spacing: .1px; }
+
+/* ───────── the model ───────── */
+/* Promoted, because the house floats while a point is open: without a layer
+   of its own, moving it re-rasterises every element in the model on every
+   frame and the beat change falls to 40fps. */
+.hs-stage { position: absolute; z-index: 2; will-change: transform; }
+.hs-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;
+  transition: opacity .5s ease; }
+.hs-stage.dim .hs-svg { opacity: .34; }
+/* the route keeps its colour: it is how far through the section you are */
+.hs-stage.dim .hs-routetop { opacity: 1; }
+.hs-routetop { pointer-events: none; }
+
+/* the graph paper it stands on */
+.hs-grid { stroke: rgba(21,137,63,.13); stroke-width: .6; vector-effect: non-scaling-stroke; }
+/* every box: a bright top, a mid left face, a deeper right face */
+.hs-top { fill: #FDFEFE; }
+.hs-lft { fill: #EDF4F0; }
+.hs-rgt { fill: #DFE9E4; }
+.hs-ed  { stroke: rgba(16,74,44,.2); stroke-width: .7; vector-effect: non-scaling-stroke;
+  stroke-linecap: round; }
+
+/* what each part is made of */
+.hs-floor.hs-top { fill: #F4F9F6; }
+.hs-floor.hs-lft { fill: #E4EEE9; }
+.hs-floor.hs-rgt { fill: #D7E4DD; }
+.hs-pale.hs-top { fill: #FAFDFB; }
+.hs-pale.hs-lft { fill: #EBF3EF; }
+.hs-pale.hs-rgt { fill: #DDE8E2; }
+.hs-roofTone.hs-top { fill: #FFFFFF; }
+.hs-roofTone.hs-lft { fill: #E8F1EC; }
+.hs-roofTone.hs-rgt { fill: #D9E6DF; }
+.hs-plate.hs-top { fill: #FFFFFF; }
+.hs-plate.hs-lft { fill: #E4F0EA; }
+.hs-plate.hs-rgt { fill: #D2E3DA; }
+.hs-rack.hs-top { fill: #F7FBF9; }
+.hs-rack.hs-lft { fill: #E6F1EA; }
+.hs-rack.hs-rgt { fill: #D5E5DC; }
+.hs-crate.hs-top { fill: #E6F6EC; }
+.hs-crate.hs-lft { fill: #CFEBDA; }
+.hs-crate.hs-rgt { fill: #B6DDC6; }
+.hs-desk.hs-top { fill: #F2F9F5; }
+.hs-desk.hs-lft { fill: #DFEDE5; }
+.hs-desk.hs-rgt { fill: #CFE1D7; }
+.hs-screen.hs-top { fill: #CFEBDB; }
+.hs-screen.hs-lft { fill: #9FD8BA; }
+.hs-screen.hs-rgt { fill: #7FC7A1; }
+.hs-dais.hs-top { fill: #F3F9F6; }
+.hs-dais.hs-lft { fill: #E2EEE8; }
+.hs-dais.hs-rgt { fill: #D2E2D9; }
+.hs-podium.hs-top { fill: #BDE7CD; }
+.hs-podium.hs-lft { fill: #9BD7B3; }
+.hs-podium.hs-rgt { fill: #7CC699; }
+.hs-van.hs-top { fill: #EAF4EE; }
+.hs-van.hs-lft { fill: #D5E6DC; }
+.hs-van.hs-rgt { fill: #C2D8CC; }
+.hs-vanCab.hs-top { fill: #DCEDE4; }
+.hs-vanCab.hs-lft { fill: #C8DFD2; }
+.hs-vanCab.hs-rgt { fill: #B4D0C1; }
+
+/* the walk along the floor */
+/* No non-scaling-stroke on the route: with it, the dash pattern is measured
+   in screen pixels while getTotalLength() answers in user units, so a path
+   "hidden" by a full dash offset shows up in pieces. Both are user units here. */
+/* The lit line is drawn WIDER than the bed and on exactly the same geometry,
+   so the walked part covers its bed completely. Two lines of equal weight
+   leave a pale fringe down the edge of the fill, which is what made the
+   route read as two overlapping lines instead of one filling one. */
+.hs-route-bed { fill: none; stroke: rgba(21,137,63,.3); stroke-width: 1.45;
+  stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 2.2 2.6; }
+.hs-route-lit { fill: none; stroke: #15893F; stroke-width: 1.7;
+  stroke-linecap: round; stroke-linejoin: round; }
+/* where the walk has got to */
+.hs-route-head { fill: #15893F; stroke: #FFFFFF; stroke-width: 1.1;
+  filter: drop-shadow(0 0 2.2px rgba(21,137,63,.55)); }
+/* the five floor nodes: open until the walk reaches them */
+.hs-node { fill: #FFFFFF; stroke: rgba(21,137,63,.42); stroke-width: 1;
+  transition: fill .35s ease, stroke .35s ease; }
+.hs-node.on { fill: #15893F; stroke: #15893F; }
+/* the stems the points stand on */
+.hs-stem { stroke: rgba(21,137,63,.55); stroke-width: 1; vector-effect: non-scaling-stroke;
+  stroke-dasharray: 3 3; }
+
+/* the house's name, lying on the roof */
+.hs-rooftext { pointer-events: none; }
+.hs-rt { font: 800 3.4px var(--sans); fill: #15893F; letter-spacing: .02px; }
+.hs-rt2 { font: 700 1.05px var(--mono); fill: rgba(21,137,63,.6); letter-spacing: .3px; }
+
+/* ───────── the five points ───────── */
+/* The pill hangs its foot on its head point. That offset is NOT written here
+   as transform: translate(-50%,-100%): gsap rewrites the transform on every
+   scale change and drops the vertical half, which leaves every pill hanging
+   its own height below its stem. House.js sets it as xPercent/yPercent. */
+.hs-pin { position: absolute; z-index: 4;
+  transform-origin: 50% 100%; will-change: transform;
+  display: flex; align-items: center; gap: .55em; padding: .5em .95em .5em .7em;
+  border: 0; border-radius: 999px; cursor: pointer;
+  font: 700 calc(13px * var(--k)) var(--sans); color: var(--ink);
+  background: #fff; white-space: nowrap;
+  box-shadow: 0 0 0 1px rgba(16,74,44,.1), 0 .7em 1.4em -.6em rgba(13,46,27,.35);
+  transition: background .35s, color .35s, box-shadow .35s, padding .45s ease; }
+.hs-pin .hs-dot { width: 1.5em; height: 1.5em; border-radius: 50%; flex: none;
+  background: radial-gradient(circle at 36% 32%, #7FE3A8, #15893F 70%);
+  box-shadow: 0 0 0 .22em rgba(21,137,63,.14); transition: box-shadow .35s; }
+.hs-pin b { display: block; max-width: 24em; overflow: hidden;
+  transition: max-width .45s ease, opacity .3s ease, margin-left .45s ease; }
+.hs-pin:hover { box-shadow: 0 0 0 1px rgba(21,137,63,.3), 0 .9em 1.8em -.6em rgba(13,46,27,.4); }
+.hs-pin.on { background: linear-gradient(140deg, #1C9A49 0%, #0B5D2C 100%); color: #fff;
+  box-shadow: 0 0 0 1px rgba(21,137,63,.5), 0 1em 2em -.6em rgba(13,46,27,.5); }
+.hs-pin.on .hs-dot { background: #fff; box-shadow: 0 0 0 .3em rgba(255,255,255,.3); }
+/* While a point is open the house is small, so only the open name is spelled
+   out; the other four fold back to their dot rather than shrink to a smudge.
+   The pills themselves are counter-scaled in js, so this name reads full size. */
+.hs-stage.away .hs-pin { padding-right: .55em; }
+.hs-stage.away .hs-pin b { max-width: 0; opacity: 0; margin-left: -.55em; }
+.hs-stage.away .hs-pin.on { padding-right: 1.05em; }
+.hs-stage.away .hs-pin.on b { max-width: 24em; opacity: 1; margin-left: 0; }
+
+/* read the pills at full size, whatever pose the scene happens to be in */
+.house.hs-measuring .hs-pin { padding-right: .95em !important; transition: none !important; }
+.house.hs-measuring .hs-pin b { max-width: 24em !important; opacity: 1 !important;
+  margin-left: 0 !important; transition: none !important; }
+
+/* ───────── the panel that rises out of a point ───────── */
+.hs-pop { position: absolute; z-index: 5; pointer-events: none; }
+.hs-lead { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; }
+.hs-lead-p { fill: none; stroke: #15893F; stroke-width: 1.6; stroke-linecap: round;
+  filter: drop-shadow(0 0 3px rgba(21,137,63,.4)); }
+.hs-card { position: absolute; inset: 0; display: flex; gap: 1.15em; padding: .95em;
+  border-radius: 1em; background: rgba(255,255,255,.95); pointer-events: auto;
+  box-shadow: 0 0 0 1px rgba(16,74,44,.1), 0 2.6em 4.4em -1.4em rgba(13,46,27,.45);
+  backdrop-filter: blur(2px); }
+/* the picture and the name it carries travel together */
+.hs-show { width: var(--vw, 66%); flex: none; align-self: center; min-width: 0;
+  display: flex; flex-direction: column; gap: .5em; }
+.hs-vid { position: relative; width: 100%; border-radius: .6em; overflow: hidden;
+  background: #F6FAF8; box-shadow: 0 0 0 1px rgba(16,74,44,.12); }
+
+/* ── the slide's name, on a plate across the top of its picture ──
+   Whoever is presenting should be able to read which room they are standing in
+   without looking anywhere else, so the name sits on the picture rather than in
+   the small type beside it. It fills itself in from the left when the point
+   opens, in the same mono the rest of the deck labels things with. */
+.hs-slate { position: relative; display: flex; align-items: center; gap: .62em;
+  padding: .34em .72em; border-radius: .42em; overflow: hidden; flex: none;
+  background: linear-gradient(100deg, rgba(21,137,63,.1), rgba(21,137,63,.028));
+  box-shadow: inset 0 0 0 1px rgba(21,137,63,.17); }
+.hs-slate-dot { width: .44em; height: .44em; border-radius: 50%; flex: none;
+  background: var(--green); box-shadow: 0 0 0 .24em rgba(21,137,63,.15); }
+.hs-slate-t { position: relative; white-space: nowrap; flex: none; }
+.hs-slate-t b { display: block; font: 700 .92em var(--mono);
+  letter-spacing: .2em; text-transform: uppercase; line-height: 1.5; }
+.hs-slate-b { color: rgba(21,137,63,.24); }
+.hs-slate-f { position: absolute; left: 0; top: 0; color: var(--green-d);
+  will-change: clip-path; }
+.hs-slate-r { flex: 1; min-width: 1em; height: 1px; border: 0; margin: 0;
+  background: linear-gradient(90deg, rgba(21,137,63,.34), rgba(21,137,63,0)); }
+.hs-slate-n { flex: none; font: 700 .72em var(--mono); font-style: normal;
+  letter-spacing: .14em; color: rgba(21,137,63,.52); }
+/* a slow sweep across it, so the plate is never quite still while the
+   recording runs. Transform only, and only while the section is on stage. */
+.hs-slate::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(100deg, transparent 38%, rgba(255,255,255,.6) 50%, transparent 62%);
+  transform: translateX(-130%); }
+.house.hs-live .hs-slate::after { animation: hs-sweep 6s ease-in-out infinite; }
+@keyframes hs-sweep { 0%, 64% { transform: translateX(-130%); }
+  100% { transform: translateX(130%); } }
+.hs-rly { position: absolute; inset: 0; }
+.hs-one { position: absolute; inset: 0; }
+.hs-gloss { position: absolute; inset: 0; pointer-events: none; border-radius: .6em;
+  background: linear-gradient(118deg, rgba(255,255,255,.22) 0%, rgba(255,255,255,0) 26%); }
+.hs-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; padding: .35em .45em .35em 0; }
+
+.hs-kick { display: flex; align-items: center; gap: .7em; font: 600 .6em var(--mono);
+  letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.hs-kick b, .hs-kick em { font-style: normal; }
+.hs-kick b { color: var(--green-d); font-weight: 700; }
+.hs-kick s { flex: 1; height: 1px; max-width: 3em; background: var(--line-2); text-decoration: none; }
+.hs-ph { margin: .45em 0 0; font-size: 1.62em; line-height: 1.12; letter-spacing: -.035em;
+  font-weight: 800; min-height: 2.24em; }
+.hs-ph em { font-style: normal; color: var(--green-d); }
+.hs-ph.hs-typing::after { content: ""; display: inline-block; width: .5em; height: 1em;
+  margin-left: .06em; vertical-align: -.14em; background: var(--green);
+  animation: hs-blink .7s steps(1) infinite; }
+@keyframes hs-blink { 50% { opacity: 0; } }
+.hs-psay { margin: .62em 0 0; font-size: .95em; line-height: 1.6; color: var(--ink-2); }
+.hs-plist { margin: .95em 0 0; display: grid; gap: .55em; padding-top: .85em;
+  border-top: 1px solid var(--line); }
+.hs-plist span { position: relative; padding-left: 1.15em; font-size: .88em; line-height: 1.5;
+  font-weight: 600; color: var(--ink-2); }
+.hs-plist span::before { content: ""; position: absolute; left: 0; top: .5em; width: .38em; height: .38em;
+  border-radius: 50%; background: var(--green); }
+
+/* ───────── the words ───────── */
+.hs-copy { position: absolute; z-index: 3; font-size: calc(16px * var(--k)); }
+.hs-h { margin: .5em 0 0; font-size: 2.9em; line-height: 1.04; letter-spacing: -.045em; font-weight: 800; }
+.hs-h em { font-style: normal; display: block; color: var(--green-d); }
+.hs-say { margin: .8em 0 0; font-size: 1em; line-height: 1.62; color: var(--ink-2); max-width: 24em; }
+
+.hs-nav { position: absolute; z-index: 4; display: flex; align-items: center; gap: .55em; }
+.hs-dotn { width: 2em; height: .3em; border-radius: 999px; background: var(--line-2); cursor: pointer;
+  transition: background .3s, width .3s; }
+.hs-dotn:hover { background: var(--green-l); }
+.hs-dotn.on { background: var(--green); width: 3.4em; }
+.hs-nav em { margin-left: .5em; font: 600 .7em var(--mono); color: var(--ink-3);
+  letter-spacing: .14em; font-style: normal; }
+
+/* ───────── narrow screens ───────── */
+.house.narrow .hs-h { font-size: 2em; }
+.house.narrow .hs-say { display: none; }
+.house.narrow .hs-plan { width: 56%; bottom: 4%; }
+.house.narrow.hs-open .hs-plan { transform: translate(62%, 7%) scale(.8) rotate(-7deg); }
+.house.narrow .hs-card { flex-direction: column; }
+.house.narrow .hs-show { width: 100%; }

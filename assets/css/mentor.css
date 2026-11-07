@@ -1,0 +1,203 @@
+/* ══════════════════════════════════════════════════════════════════
+   05 · AI MENTOR — "three moments"
+   Three slides: before you start, while you code, after you submit.
+   Each is one unit — words, a live screen, and the person at their desk.
+   The arrow sends the whole slide away into the depth of the room while
+   the next one arrives from outside it.
+   Prefixes: mn- (the scene), am- (what is on the screen).
+   ══════════════════════════════════════════════════════════════════ */
+
+.mentor { position: absolute; inset: 0; overflow: hidden; --k: 1; --fw: 700px; --pw: 560px; --cw: 460px;
+  font-family: var(--sans); color: var(--ink); }
+
+/* ───────── the room ───────── */
+.mn-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.mn-sky { position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 64% 58% at 62% 34%, rgba(233,246,236,.92), rgba(246,250,247,0) 72%),
+    radial-gradient(ellipse 42% 36% at 88% 10%, rgba(60,179,113,.14), transparent 72%),
+    radial-gradient(ellipse 40% 34% at 8% 88%, rgba(247,181,0,.09), transparent 72%); }
+.mn-mote { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: rgba(60,179,113,.42); opacity: 0; }
+
+/* ───────── the depth the slides travel through ───────── */
+.mn-world { position: absolute; inset: 0; z-index: 2; perspective: 1500px; perspective-origin: 52% 48%;
+  transform-style: preserve-3d; pointer-events: none; }
+.mn-slide { position: absolute; inset: 0; opacity: 0; transform-style: preserve-3d; will-change: transform, opacity; }
+
+/* ───────── the person ───────── */
+.mn-fig { position: absolute; width: var(--fw); pointer-events: none; }
+.mn-fig .mn-lot { width: 100%; }
+.mn-fig .mn-lot svg { display: block; width: 100% !important; height: auto !important; }
+.mn-fig-glow { position: absolute; left: 50%; top: 54%; width: 88%; aspect-ratio: 1.45; translate: -50% -50%;
+  border-radius: 50%; background: radial-gradient(circle, rgba(60,179,113,.13), transparent 68%); z-index: -1; }
+
+/* ───────── the live screen ───────── */
+.mn-screen { position: absolute; width: var(--pw); border-radius: 1.15em; overflow: hidden;
+  background: #fff; font-size: calc(15px * var(--k));
+  box-shadow: 0 42px 70px -34px rgba(18,26,21,.42), 0 0 0 1px rgba(18,26,21,.07),
+    0 0 0 7px rgba(255,255,255,.55), 0 18px 60px -30px rgba(21,137,63,.45); }
+.mn-screen::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(168deg, rgba(255,255,255,.7) 0%, rgba(255,255,255,0) 26%); }
+/* ── the head of the panel ──
+   This is the part that has to carry the section: who is talking, and which of
+   the three moments you are looking at. So the bar is dark, the moments are a
+   large segmented control sitting on it, and the live one is a filled pill. */
+.am-bar { display: flex; align-items: center; gap: .7em; padding: .92em 1.05em .86em;
+  background: linear-gradient(145deg, #15301F, #0B1D13); color: #fff; }
+.am-bot { width: 2.5em; height: 2.5em; border-radius: .72em; flex: none; display: grid; place-items: center; color: #0B1D13;
+  background: linear-gradient(145deg, #8FE3B0, var(--green-l));
+  box-shadow: 0 .36em .8em -.26em rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.5); }
+.am-bot svg { width: 1.45em; height: 1.45em; stroke-width: 2.1; }
+.am-name { font-weight: 800; font-size: 1.12em; letter-spacing: -.016em; line-height: 1.12; }
+.am-name s { display: block; text-decoration: none; color: rgba(255,255,255,.52); font-weight: 600; font-size: .66em; letter-spacing: .04em; }
+.am-dot-live { margin-left: auto; display: inline-flex; align-items: center; gap: .44em; padding: .34em .72em .34em .58em;
+  border-radius: 999px; background: rgba(111,227,155,.16); color: #8FE3B0;
+  font: 700 .66em var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+.am-dot-live i { width: .5em; height: .5em; border-radius: 50%; background: #6FE39B; box-shadow: 0 0 0 .22em rgba(111,227,155,.22); }
+
+/* the three moments, as the product names them — the whole point of the header */
+.am-tabs { position: relative; display: flex; gap: .3em; padding: .55em; background: #0B1D13; }
+.am-tab { position: relative; z-index: 1; flex: 1; text-align: center; padding: .62em .4em;
+  font-size: 1.02em; font-weight: 700; letter-spacing: -.012em; color: rgba(255,255,255,.5); white-space: nowrap;
+  transition: color .3s; }
+.am-tab.on { color: #0B1D13; font-weight: 800; }
+/* the filled pill slides under whichever moment this slide is */
+.am-ink { position: absolute; top: .55em; bottom: .55em; left: 0; width: 0; border-radius: .6em;
+  background: linear-gradient(145deg, #8FE3B0, var(--green-l));
+  box-shadow: 0 .3em .7em -.26em rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.45); }
+
+.am-body { position: relative; padding: .95em 1.05em 1.05em; overflow: hidden; }
+/* the timeline along the bottom: the last thing that says "this is running" */
+.am-track { height: .26em; background: var(--paper-2); }
+.am-track i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--green), var(--green-l)); }
+
+/* ── the question list ── */
+.am-qs { display: grid; gap: .36em; }
+.am-q { display: flex; align-items: center; gap: .55em; padding: .66em .82em; border-radius: .62em;
+  background: var(--paper-2); font-size: .88em; font-weight: 600; color: var(--ink-2); position: relative;
+  border: 1px solid transparent; will-change: transform;
+  transition: background .22s, color .22s, border-color .22s, box-shadow .26s, transform .26s cubic-bezier(.22,1,.36,1); }
+.am-q > span { min-width: 0; }
+.am-q i { position: absolute; right: .72em; width: 1.05em; height: 1.05em; color: var(--green); opacity: 0; transform: scale(.7);
+  transition: opacity .22s, transform .26s cubic-bezier(.34,1.56,.64,1); }
+.am-q i svg { width: 100%; height: 100%; }
+/* the one under the pointer lifts clear of the rest */
+.am-q.hot { background: #fff; color: var(--ink); border-color: var(--line-2); transform: translateX(.3em) scale(1.022);
+  box-shadow: 0 .85em 1.5em -.75em rgba(18,26,21,.3), 0 0 0 .22em rgba(60,179,113,.1); }
+.am-q.hot i { opacity: 1; transform: scale(1); }
+.am-q.on { background: var(--green); color: #fff; border-color: var(--green); transform: none;
+  box-shadow: 0 .7em 1.3em -.7em rgba(21,137,63,.75); }
+.am-q.on i { opacity: 1; transform: scale(1); color: #fff; }
+
+/* ── the mentor thinking ──
+   The panel is pinned to the height of its tallest answer, so a short card at
+   the top would leave a white void under it. It is centred in the body instead,
+   which is what a screen doing work actually looks like. */
+.am-think { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: .6em;
+  font-size: .94em; font-weight: 600; color: var(--ink-2); }
+.am-code { font: 800 1.25em var(--mono); color: var(--green); letter-spacing: -.04em; }
+.am-code s { text-decoration: none; color: var(--gold); }
+.am-think i { width: .3em; height: .3em; border-radius: 50%; background: var(--green); opacity: .3;
+  animation: amPulse 1.15s infinite ease-in-out; }
+.am-think i:nth-of-type(2) { animation-delay: .16s; }
+.am-think i:nth-of-type(3) { animation-delay: .32s; }
+@keyframes amPulse { 0%, 100% { opacity: .22; transform: translateY(0); } 45% { opacity: 1; transform: translateY(-.22em); } }
+
+/* ── the answer ── */
+.am-back { display: inline-flex; align-items: center; gap: .36em; margin-bottom: .7em;
+  font-size: .76em; font-weight: 700; color: var(--ink-3); }
+.am-back svg { width: .95em; height: .95em; }
+.am-h { font-size: 1.12em; font-weight: 800; letter-spacing: -.024em; }
+.am-sub { margin-top: .5em; font-size: .92em; font-weight: 800; letter-spacing: -.016em; color: var(--green-d); }
+.am-ol { display: grid; gap: .5em; margin-top: .6em; counter-reset: amn; }
+.am-li { display: grid; grid-template-columns: 1.45em minmax(0, 1fr); gap: .5em; font-size: .86em; color: var(--ink-2); line-height: 1.45; align-items: start; }
+.am-li p, .am-bullet p { margin: 0; min-width: 0; }
+.am-li::before { counter-increment: amn; content: counter(amn); font: 700 .78em var(--mono); color: var(--green);
+  width: 1.45em; height: 1.45em; border-radius: 50%; background: var(--mint); display: grid; place-items: center; }
+.am-ul { display: grid; gap: .44em; margin-top: .55em; }
+.am-bullet { display: grid; grid-template-columns: .95em minmax(0, 1fr); gap: .5em; font-size: .86em; color: var(--ink-2); line-height: 1.45; align-items: start; }
+.am-bullet::before { content: ""; width: .38em; height: .38em; margin-top: .52em; border-radius: .1em; background: var(--green); }
+.am-li b, .am-bullet b { color: var(--ink); }
+.am-li code, .am-bullet code, .am-note code { font-family: var(--mono); font-size: .92em; background: var(--paper-2); padding: 0 .3em; border-radius: .25em; color: var(--ink); }
+.am-note { margin-top: .7em; padding: .62em .78em; border-radius: .5em; border-left: .26em solid var(--gold);
+  background: #FFFCF2; font-size: .83em; color: var(--ink-2); line-height: 1.5; }
+.am-note b { color: var(--ink); }
+.am-row { display: flex; gap: .45em; margin-top: .6em; }
+.am-stat { flex: 1; padding: .5em .65em; border-radius: .5em; background: var(--paper); border: 1px solid var(--line); }
+.am-stat small { display: block; font: 600 .68em var(--sans); color: var(--ink-3); }
+.am-stat b { font: 800 1.05em var(--mono); }
+.am-stat em { font-style: normal; font-size: .72em; font-weight: 700; color: var(--green-d); margin-left: .3em; }
+
+/* the few motes that travel from the desk up to the screen */
+.mn-link { position: absolute; width: .5em; height: .5em; border-radius: .16em; background: var(--green-l); opacity: 0; }
+
+/* ───────── the words ───────── */
+.mn-copy { position: absolute; width: var(--cw); font-size: calc(16px * var(--k)); pointer-events: auto; }
+.mn-eyebrow { display: flex; align-items: center; gap: .7em; font: 600 .66em var(--mono); letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ink-3); }
+.mn-eyebrow b { color: var(--green-d); font-weight: 700; }
+.mn-eyebrow s { flex: 1; height: 1px; background: var(--line-2); text-decoration: none; }
+.mn-h { margin: .85em 0 0; font-size: 3.05em; line-height: 1.02; letter-spacing: -.042em; font-weight: 800; }
+.mn-h em { font-style: normal; display: block; color: var(--green-d); }
+.mn-say { margin: 1em 0 0; font-size: 1.02em; line-height: 1.62; color: var(--ink-2); max-width: 25em; }
+.mn-say b { color: var(--ink); font-weight: 700; }
+.mn-vow { margin: 1.5em 0 0; display: grid; gap: .55em; padding-top: 1.2em; border-top: 1px solid var(--line); }
+.mn-vow span { display: flex; align-items: center; gap: .7em; font-size: .92em; font-weight: 600; color: var(--ink-2); }
+.mn-vow i { width: 1.55em; height: 1.55em; border-radius: 50%; display: grid; place-items: center; flex: none;
+  background: var(--mint); color: var(--green-d); }
+.mn-vow i svg { width: .9em; height: .9em; }
+.mn-vow span.no { color: var(--ink); font-weight: 700; }
+.mn-vow span.no i { background: var(--ink); color: #fff; }
+.mn-dots { margin-top: 1.7em; display: flex; align-items: center; gap: .55em; }
+.mn-dot { width: 2.1em; height: .3em; border-radius: 999px; background: var(--line-2); cursor: pointer; transition: background .3s, width .3s; }
+.mn-dot:hover { background: var(--green-l); }
+.mn-dot.on { background: var(--green); width: 3.6em; }
+.mn-dots em { margin-left: .5em; font: 600 .7em var(--mono); color: var(--ink-3); letter-spacing: .14em; }
+
+/* ───────── narrow screens ───────── */
+.mentor.narrow .mn-h { font-size: 2.1em; }
+.mentor.narrow .mn-vow { display: none; }
+
+/* a copy parked off-stage, only ever measured */
+.mn-ghost { position: absolute; left: -99em; top: 0; visibility: hidden; pointer-events: none; }
+.mn-ghost .mn-screen { position: static; }
+
+/* ───────── the room behind the room ─────────
+   A network of four layers with every link drawn and signals running along
+   them, plus the promise of the section drifting across the back. Both are
+   kept to a whisper: they should register on the second look, never compete
+   with the panel in front of them. */
+.mn-net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .55;
+  /* the words live on the left, so the graph fades out before it reaches them */
+  -webkit-mask-image: linear-gradient(104deg, transparent 2%, rgba(0,0,0,.3) 20%, #000 46%);
+  mask-image: linear-gradient(104deg, transparent 2%, rgba(0,0,0,.3) 20%, #000 46%); }
+.mn-links line { stroke: rgba(21,137,63,.085); stroke-width: 1; }
+.mn-nodes circle { fill: rgba(21,137,63,.12); }
+.mn-net .mn-pulse { fill: var(--green-l); opacity: 0; filter: drop-shadow(0 0 5px rgba(60,179,113,.7)); }
+
+/* The wordmark is laid on the floor of the room rather than printed flat on it:
+   the near edge sits at the bottom of the stage and the band recedes away, so
+   the letters can be very large and still read as depth instead of as a banner.
+   The plane carries the tilt, the span carries the scroll — two elements,
+   because one transform cannot be owned by both CSS and GSAP. */
+.mn-mark { position: absolute; left: -14%; right: -14%; bottom: 3%; overflow: hidden; white-space: nowrap;
+  perspective: 760px; perspective-origin: 50% 10%;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); }
+/* the near edge of the plane is the baseline, so it is the TOP of the letters
+   that recedes — that is the end which fades into the room */
+.mn-mark-pl { transform: rotateX(50deg); transform-origin: 50% 100%;
+  -webkit-mask-image: linear-gradient(transparent, rgba(0,0,0,.45) 34%, #000 66%);
+  mask-image: linear-gradient(transparent, rgba(0,0,0,.45) 34%, #000 66%); }
+.mn-mark span { display: inline-block; white-space: pre; will-change: transform;
+  font: 800 clamp(96px, 12.4vw, 238px)/1.1 var(--sans); letter-spacing: .01em;
+  color: transparent; -webkit-text-stroke: 3px rgba(21,137,63,.15); }
+
+/* A place each, so the watcher is never parked twice in the same spot. They all
+   sit in the upper band: the floor of this room belongs to the wordmark, and two
+   watermarks in one strip is one too many. Smaller than elsewhere, to clear the
+   panel below them. */
+.watch.p-mn0, .watch.p-mn1, .watch.p-mn2 { width: clamp(300px, 24vw, 470px); }
+.watch.p-mn0 { left: 24%; top: 14%; rotate: -3deg; }
+.watch.p-mn1 { left: 83%; top: 13%; rotate: 3deg; }
+.watch.p-mn2 { left: 54%; top: 9%;  rotate: -2deg; }

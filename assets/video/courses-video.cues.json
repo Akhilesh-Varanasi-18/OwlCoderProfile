@@ -1,0 +1,21 @@
+{
+ "src": "courses-video.mp4",
+ "w": 1600,
+ "h": 750,
+ "duration": 24.9,
+ "cues": [
+  {
+   "t": 1.35,
+   "x": 0.282,
+   "y": 0.92,
+   "z": 1.5,
+   "kind": "focus",
+   "hold": 0.3
+  },
+  {
+   "t": 1.9,
+   "kind": "nav"
+  }
+ ],
+ "analysed": "hand-authored 24 Oct 2026 — each clip starts ~1.5 s before the click that opens its view"
+}

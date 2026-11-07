@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Owl Coder — Code Smarter. Practice Better. Get Future-Ready.</title>
+<meta name="description" content="A walkthrough of Owl Coder: dashboard, courses, practice, AI mentor, reports, coding contests and the admin panel. A product of Technical Hub.">
+<meta name="theme-color" content="#F6FAF7">
+<meta property="og:title" content="Owl Coder — the walkthrough">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315893F'/%3E%3Ccircle cx='12' cy='15' r='6' fill='%23fff'/%3E%3Ccircle cx='21' cy='15' r='6' fill='%23fff'/%3E%3Ccircle cx='12' cy='15' r='3' fill='%231F2D24'/%3E%3Ccircle cx='21' cy='15' r='3' fill='%231F2D24'/%3E%3Cpath d='M16.5 19.5 14.5 23h4Z' fill='%23F7B500'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/assembly.css">
+<link rel="stylesheet" href="assets/css/moves.css">
+<link rel="stylesheet" href="assets/css/wall.css">
+<link rel="stylesheet" href="assets/css/recordly.css">
+<link rel="stylesheet" href="assets/css/desk.css">
+<link rel="stylesheet" href="assets/css/courses.css">
+<link rel="stylesheet" href="assets/css/practise.css">
+<link rel="stylesheet" href="assets/css/mentor.css">
+<link rel="stylesheet" href="assets/css/reports.css">
+<link rel="stylesheet" href="assets/css/arena.css">
+</head>
+<body class="rail-min">
+
+<!-- ═════════ gradients + the owl, defined once ═════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="gBody" x1=".25" y1="0" x2=".7" y2="1">
+    <stop offset="0" stop-color="#FFCE52"/><stop offset=".55" stop-color="#F7B500"/><stop offset="1" stop-color="#E08D05"/></linearGradient>
+  <linearGradient id="gBelly" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#FFE1A0"/><stop offset="1" stop-color="#FFC94F"/></linearGradient>
+  <linearGradient id="gWing" x1="0" y1="0" x2=".8" y2="1">
+    <stop offset="0" stop-color="#9068F0"/><stop offset=".55" stop-color="#5E8FE0"/><stop offset="1" stop-color="#2FA4DC"/></linearGradient>
+  <linearGradient id="gTail" x1="0" y1="0" x2="1" y2=".6">
+    <stop offset="0" stop-color="#56BDEE"/><stop offset="1" stop-color="#1A8CCE"/></linearGradient>
+  <linearGradient id="gBeak" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#FFB93F"/><stop offset="1" stop-color="#DE7D04"/></linearGradient>
+</defs></svg>
+
+<template id="owlTpl"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 390">
+  <g class="o-bird">
+    <ellipse class="o-shadow" cx="180" cy="370" rx="92" ry="13"/>
+    <path class="o-tuft" d="M106 94c-10-22-12-42-4-53 12 15 29 34 40 47-13 2-26 4-36 6Z"/>
+    <path class="o-tuft" d="M254 94c10-22 12-42 4-53-12 15-29 34-40 47 13 2 26 4 36 6Z"/>
+    <path class="o-tail" d="M258 298c32 11 64 25 79 46-27 7-58 1-83-16-7-10-5-24 4-30Z"/>
+    <path class="o-body" d="M180 46c67 0 119 53 123 126 4 73-15 136-54 164-21 15-44 22-69 22s-48-7-69-22c-39-28-58-91-54-164C61 99 113 46 180 46Z"/>
+    <path class="o-belly" d="M180 228c40 0 69 32 69 71 0 33-31 55-69 55s-69-22-69-55c0-39 29-71 69-71Z"/>
+    <path class="o-wing" d="M74 204c-15 45-7 99 24 130 21-15 33-46 33-81 0-33-12-58-31-65-15-6-23 0-26 16Z"/>
+    <ellipse class="o-foot" cx="152" cy="358" rx="21" ry="9"/>
+    <ellipse class="o-foot" cx="208" cy="358" rx="21" ry="9"/>
+    <circle class="o-disc" cx="140" cy="168" r="56"/>
+    <circle class="o-disc" cx="220" cy="168" r="56"/>
+    <g class="o-eye"><circle class="o-ball" cx="140" cy="168" r="29"/>
+      <circle class="o-spark" cx="128" cy="155" r="10.5"/><circle class="o-spark sm" cx="150" cy="182" r="5"/></g>
+    <g class="o-eye"><circle class="o-ball" cx="220" cy="168" r="29"/>
+      <circle class="o-spark" cx="208" cy="155" r="10.5"/><circle class="o-spark sm" cx="230" cy="182" r="5"/></g>
+    <path class="o-beak" d="M166 198c9-7 19-7 28 0-3 20-9 29-14 32-5-3-11-12-14-32Z"/>
+  </g>
+</svg></template>
+
+<!-- the owl does not fly. It watches. -->
+<div class="watch" id="watch" aria-hidden="true">
+  <svg viewBox="0 0 520 300">
+    <g class="w-eye"><circle class="w-disc" cx="150" cy="156" r="100"/>
+      <g class="w-look"><circle class="w-ball" cx="150" cy="156" r="46"/><circle class="w-glint" cx="132" cy="138" r="12"/></g></g>
+    <g class="w-eye"><circle class="w-disc" cx="370" cy="156" r="100"/>
+      <g class="w-look"><circle class="w-ball" cx="370" cy="156" r="46"/><circle class="w-glint" cx="352" cy="138" r="12"/></g></g>
+    <path class="w-brow" d="M40 98C96 30 192 40 260 116C328 40 424 30 480 98"/>
+    <path class="w-beak" d="M260 158l-15 22 15 42 15-42z"/>
+  </svg>
+</div>
+
+<!-- ═════════ boot ═════════ -->
+<div class="boot" id="boot">
+  <svg class="owl boot-owl" viewBox="40 20 280 370" aria-hidden="true"></svg>
+  <p class="boot-word">OWL<span>CODER</span></p>
+  <div class="boot-bar"><i id="bootFill"></i></div>
+</div>
+
+<!-- ═════════ rail ═════════ -->
+<aside class="rail" id="rail">
+  <a class="rail-brand" href="#" data-go="0">
+    <svg class="owl rail-owl" viewBox="40 20 280 360" aria-hidden="true"></svg>
+    <span class="rail-word">Owl<b>Coder</b></span>
+  </a>
+  <button class="rail-tog" id="railTog" aria-label="Collapse menu"><i></i></button>
+  <nav class="rail-nav" id="railNav" aria-label="Sections"></nav>
+  <div class="rail-foot"><span class="rf-k">A product of</span><span class="rf-v">Technical Hub</span></div>
+</aside>
+
+<!-- ═════════ deck controls ═════════ -->
+<div class="deck" id="deck">
+  <button class="dk-b" id="dkPrev" aria-label="Previous"><svg viewBox="0 0 16 16"><path d="M3 10l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <span class="dk-n"><b id="dkNow">01</b><i>/</i><span id="dkAll">09</span></span>
+  <button class="dk-b" id="dkNext" aria-label="Next"><svg viewBox="0 0 16 16"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <span class="dk-sep"></span>
+  <button class="dk-b" id="dkFull" aria-label="Fullscreen"><svg viewBox="0 0 16 16"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button class="dk-go" id="dkPresent"><i></i><span>Present</span></button>
+</div>
+<div class="dk-bar" aria-hidden="true"><i id="dkBar"></i></div>
+
+<main class="stage" id="stage">
+
+<!-- ══════════════ 01 · OPENING ══════════════ -->
+<article class="step hero" data-sec="Opening" data-label="The title">
+  <div class="asm" id="asm">
+    <div class="asm-floor" aria-hidden="true"></div>
+
+    <div class="asm-rig" aria-hidden="true">
+      <div class="mon-hero">
+        <div class="panel">
+          <div class="pf">
+            <div class="scr">
+              <video class="land" src="assets/video/landing-load.mp4" muted playsinline preload="auto"></video>
+              <i class="scr-glow"></i>
+              <i class="scan-veil"></i>
+              <i class="scan-bar"></i>
+              <span class="glass"></span>
+            </div>
+          </div>
+          <i class="ps t"></i><i class="ps b"></i><i class="ps l"></i><i class="ps r"></i>
+          <div class="pb"></div>
+        </div>
+        <span class="neck"></span>
+        <span class="foot"></span>
+      </div>
+
+      <div class="skel">
+        <div class="sk sk-foot"><div class="gl-set"></div><div class="pt-set"></div></div>
+        <div class="sk sk-neck"><div class="gl-set"></div><div class="pt-set"></div></div>
+        <div class="sk sk-panel"><div class="gl-set"></div><div class="pt-set"></div></div>
+        <div class="sk sk-back gl-set"><i class="gl h f" style="top:0"></i><i class="gl h f" style="top:100%"></i><i class="gl v f" style="left:0"></i><i class="gl v f" style="left:100%"></i></div>
+        <div class="sk sk-depth"><i class="gl f d tl"></i><i class="gl f d tr"></i><i class="gl f d bl"></i><i class="gl f d br"></i></div>
+      </div>
+
+      <i class="asm-ring"></i>
+      <i class="asm-flash"></i>
+    </div>
+
+    <img class="asm-logo" src="assets/img/owlcoder-logo.png" alt="">
+
+    <div class="asm-copy">
+      <span class="badge">A product of <b>Technical&nbsp;Hub</b></span>
+      <h1 class="h1">Code Smarter.<br>Practice Better.<br><em>Get Future-Ready.</em></h1>
+      <p class="say">Learn, practise, compete and track your coding journey — on one platform, in the browser.</p>
+      <ul class="stats">
+        <li><b>3,389<sup>+</sup></b><span>Practice<br>questions</span></li>
+        <li><b>1,500<sup>+</sup></b><span>Company<br>questions</span></li>
+        <li><b>100<sup>+</sup></b><span>Company<br>tags</span></li>
+        <li><b>4</b><span>Languages<br>supported</span></li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<article class="step moves-step" data-sec="Opening" data-label="What Owl Coder is" data-subs="3" data-watch="p-tr">
+  <div class="st-wrap moves" id="moves">
+    <header class="mv-head">
+      <div><span class="kick">01 · Opening</span>
+        <h2 class="h2">One platform. <em>Four moves.</em></h2></div>
+      <p class="mv-say">Courses are built from modules, and every module carries an article, a video and your own notes — read, watch, write, in order.</p>
+    </header>
+
+    <div class="mv-grid">
+      <ol class="mv-cards">
+        <li class="mv-card" style="--c:var(--green)"><i class="n">01</i>
+          <div class="obj"><div class="bk"><i class="bc"></i><i class="pg"></i><i class="cv"></i></div></div>
+          <b>Learn</b><em>Courses, modules, articles, videos, notes</em></li>
+        <li class="mv-card" style="--c:var(--gold-d)"><i class="n">02</i>
+          <div class="obj"><div class="cube"><i class="f1">&lt;/&gt;</i><i class="f2">{ }</i><i class="f3">;</i><i class="f4">( )</i><i class="f5">#</i><i class="f6">=&gt;</i></div></div>
+          <b>Practise</b><em>3,389+ problems, four languages, a mentor</em></li>
+        <li class="mv-card" style="--c:var(--blue)"><i class="n">03</i>
+          <div class="obj"><div class="iso po"><i style="--c:#C9D3CE;--cd:#8E9A94;--cm:#AEBAB4" data-z="26"></i><i style="--c:#FFCE52;--cd:#C48A00;--cm:#E5A800" data-z="40"></i><i style="--c:#E0A878;--cd:#9C6238;--cm:#C58552" data-z="18"></i></div></div>
+          <b>Compete</b><em>Coding contests with live leaderboards</em></li>
+        <li class="mv-card" style="--c:var(--violet)"><i class="n">04</i>
+          <div class="obj"><div class="iso ht"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <b>Track</b><em>Heatmap, reports, improvement tracker</em></li>
+      </ol>
+
+      <div class="mv-stage">
+        <!-- 1 · learn -->
+        <section class="sc sc1">
+          <div class="ln-wrap">
+            <div class="ln-card">
+              <div class="ln-face ln-article">
+                <span class="kick">Complexity Analysis · Module 1</span><span class="tag">Article</span>
+                <b>Time &amp; Space Complexity</b>
+                <div class="ln-body">
+                  <div class="ln-text">
+                    <p><span class="sn">Every algorithm spends two things: <strong>time</strong> and <strong>memory</strong>.</span> <span class="sn">Complexity analysis measures both without running the code — by asking how the work grows as the input grows.</span></p>
+                    <p><span class="sn">We write that growth in <strong>Big-O</strong>.</span> <span class="sn">Constants and smaller terms are dropped, because at scale only the fastest-growing term matters.</span></p>
+                    <p><span class="sn">The six classes below are the ones you will meet most.</span> <span class="sn">A nested loop over <em>n</em> items is O(n²); a binary search is O(log n); a hash lookup is O(1).</span></p>
+                  </div>
+                  <div class="gc">
+                    <span><i style="--h:8%;--c:var(--green)"></i><em>O(1)</em></span>
+                    <span><i style="--h:16%;--c:var(--blue)"></i><em>O(log n)</em></span>
+                    <span><i style="--h:30%;--c:var(--gold)"></i><em>O(n)</em></span>
+                    <span><i style="--h:46%;--c:#F08A3E"></i><em>O(n log n)</em></span>
+                    <span><i style="--h:68%;--c:var(--red)"></i><em>O(n²)</em></span>
+                    <span><i style="--h:94%;--c:var(--violet)"></i><em>O(2ⁿ)</em></span>
+                  </div>
+                </div>
+                <div class="ln-foot"><span>4 min read · 1 of 6</span><b class="pill">Next up · Big-O notation →</b></div>
+              </div>
+              <div class="ln-face ln-video">
+                <span class="kick">Complexity Analysis · Module 1</span><span class="tag">Video</span>
+                <b>Time &amp; Space Complexity</b>
+                <div class="ln-body">
+                  <div class="player">
+                    <video class="ln-vid" src="assets/video/module-time-complexity.mp4" poster="assets/img/module-time-complexity.jpg" muted playsinline loop preload="auto"></video>
+                    <div class="ctl"><i class="pl"></i><span class="tm">0:00 / 4:12</span><div class="bar"><i></i></div><span class="sp">1.25×</span><span class="cc">CC</span></div>
+                  </div>
+                  <div class="ln-vmeta"><span class="ch">0:00 Why complexity</span><span class="ch">1:10 Big-O</span><span class="ch">2:40 Six growth classes</span><span class="ch">3:35 Space</span></div>
+                </div>
+                <div class="ln-foot"><span>4:12 · watched twice</span><b class="pill">Add a note</b></div>
+              </div>
+              <div class="ln-face ln-notes">
+                <span class="kick">Complexity Analysis · Module 1</span><span class="tag">Notes</span>
+                <b>My notes</b>
+                <div class="ln-body">
+                  <ul class="note-lines">
+                    <li><span>Big-O describes <strong>growth</strong>, not seconds.</span></li>
+                    <li><span>Drop constants and lower-order terms.</span></li>
+                    <li><span>Nested loops over n → <strong>O(n²)</strong>.</span></li>
+                    <li><span>Space counts <strong>extra</strong> memory, not the input.</span></li>
+                    <li><span>Trade-off: hash map = O(1) time, O(n) space.</span></li>
+                  </ul>
+                </div>
+                <div class="ln-foot"><span>Auto-saved · 5 notes in this module</span><b class="pill">Export</b></div>
+              </div>
+            </div>
+            <div class="ln-side">
+              <span class="ln-kicker">This module</span>
+              <ul class="ln-list">
+                <li><i></i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h6M9 16h6"/></svg><span>What is complexity?</span><em>4 min</em></li>
+                <li><i></i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4zM18 10l3-2v8l-3-2"/></svg><span>Big-O notation</span><em>6:12</em></li>
+                <li><i></i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h6M9 16h6"/></svg><span>Counting time</span><em>5 min</em></li>
+                <li><i></i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h6M9 16h6"/></svg><span>Counting space</span><em>4 min</em></li>
+                <li><i></i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4zM18 10l3-2v8l-3-2"/></svg><span>Growth classes</span><em>7:48</em></li>
+                <li><i></i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l2 2 4-4M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z"/></svg><span>Practice set</span><em>5 problems</em></li>
+              </ul>
+              <div class="ring"><svg viewBox="0 0 64 64"><circle class="t" cx="32" cy="32" r="27"/><circle class="p" cx="32" cy="32" r="27"/></svg>
+                <div><b>0%</b><span>module complete</span></div></div>
+            </div>
+          </div>
+          <svg class="owl mv-owl sm" viewBox="40 20 280 370" aria-hidden="true"></svg>
+        </section>
+
+        <!-- 2 · practise -->
+        <section class="sc sc2">
+          <div class="pr-wrap">
+            <div class="pr-editor">
+              <div class="ed-top"><i></i><i></i><i></i><span>sum_of_matrix.cpp</span><b class="run">▶ Run</b></div>
+              <pre class="ed-code"><span><span class="kw">int</span> sum = 0;</span><span><span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; n; i++)</span><span>  <span class="kw">for</span> (<span class="kw">int</span> j = 0; j &lt; m; j++)</span><span>    sum += a[i][j];</span><span><span class="kw">return</span> sum;</span></pre>
+            </div>
+            <div class="pr-side">
+              <ul class="pr-tests"><li><i></i>Test 1 · 2×2 matrix</li><li><i></i>Test 2 · 1×5 row</li><li><i></i>Test 3 · empty matrix</li></ul>
+              <div class="pr-mentor"><svg class="owl mv-owl xs" viewBox="40 20 280 370" aria-hidden="true"></svg><div><b>AI Mentor</b><span>What happens when n is 0? Check before you loop.</span></div></div>
+              <div class="pr-ok">Accepted ✓</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3 · compete -->
+        <section class="sc sc3">
+          <div class="ct-head"><div><b>Weekly Coding Contest #42</b><span class="ct-meta">6 problems · 1,248 participants</span></div>
+            <span class="ct-timer">01:59:58</span><span class="live">● LIVE</span></div>
+          <div class="lb">
+            <div class="lb-head"><span>#</span><span></span><span>Participant</span><span>Solved</span><span>Time</span><span>Score</span></div>
+            <ol class="lb-rows">
+              <li class="lb-row" style="--c:#3CB371"><i class="lb-rk"><b>1</b></i><span class="lb-av">AN</span><span class="lb-nm">Ananya</span><span class="lb-pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="lb-time">0:00</span><span class="lb-sc"><b>0</b><i class="lb-bar"><u></u></i></span><em class="lb-delta"></em></li>
+              <li class="lb-row" style="--c:#2F6FD6"><i class="lb-rk"><b>1</b></i><span class="lb-av">RK</span><span class="lb-nm">Rahul</span><span class="lb-pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="lb-time">0:00</span><span class="lb-sc"><b>0</b><i class="lb-bar"><u></u></i></span><em class="lb-delta"></em></li>
+              <li class="lb-row" style="--c:#7C5CFF"><i class="lb-rk"><b>1</b></i><span class="lb-av">ME</span><span class="lb-nm">Meera</span><span class="lb-pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="lb-time">0:00</span><span class="lb-sc"><b>0</b><i class="lb-bar"><u></u></i></span><em class="lb-delta"></em></li>
+              <li class="lb-row you" style="--c:#FFF3C4"><i class="lb-rk"><b>1</b></i><span class="lb-av"><svg class="owl mv-owl " viewBox="40 20 280 370" aria-hidden="true"></svg></span><span class="lb-nm">You <em>you</em></span><span class="lb-pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="lb-time">0:00</span><span class="lb-sc"><b>0</b><i class="lb-bar"><u></u></i></span><em class="lb-delta"></em></li>
+              <li class="lb-row" style="--c:#D64541"><i class="lb-rk"><b>1</b></i><span class="lb-av">DV</span><span class="lb-nm">Dev</span><span class="lb-pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="lb-time">0:00</span><span class="lb-sc"><b>0</b><i class="lb-bar"><u></u></i></span><em class="lb-delta"></em></li>
+            </ol>
+            <div class="lb-burst"></div>
+          </div>
+          <div class="ct-trophy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 3M17 6h3a3 3 0 0 1-3 3M12 13v4M8 21h8M10 17h4"/></svg></div>
+        </section>
+
+        <!-- 4 · track -->
+        <section class="sc sc4">
+          <div class="tk-wrap">
+            <div class="tk-iso"><div class="iso tk-grid"></div><span class="tk-lbl">Problems solved · last 12 weeks · all sources</span></div>
+            <div class="tk-side">
+              <div class="tk-stat"><b>0</b><span>day streak</span></div>
+              <div class="tk-chart"><svg viewBox="0 0 220 90"><path class="gl" d="M4 84h212M4 60h212M4 36h212M4 12h212"/><path class="ln" d="M4 80C40 70 60 76 90 50S150 40 216 12"/><circle class="dot" cx="4" cy="80" r="4"/></svg><span>Improvement tracker</span></div>
+              <div class="tk-ready"><div class="ring"><svg viewBox="0 0 64 64"><circle class="t" cx="32" cy="32" r="27"/><circle class="p" cx="32" cy="32" r="27"/></svg>
+                <div><b>0%</b><span>interview ready</span></div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="mv-dots"><i class="on"></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ══════════════ ACT I ══════════════ -->
+<article class="step act" data-act="I" data-actname="The Student">
+  <div class="wall">
+    <div class="wall-rig">
+      <div class="wall-bg"></div>
+      <span class="act-k">Act I</span>
+      <div class="ex ex-n" data-text="I"></div>
+      <div class="ex ex-h" data-text="The Student"></div>
+      <p class="act-p">Dashboard, courses, practice, the mentor, the reports.</p>
+    </div>
+  </div>
+</article>
+
+<!-- ══════════════ 02 · DASHBOARD ══════════════ -->
+<article class="step desk-step" data-sec="The Dashboard" data-label="The desk" data-subs="5" data-watch="p-low">
+  <div class="desk" id="desk">
+    <div class="desk-floor" aria-hidden="true"></div>
+    <div class="desk-glow" aria-hidden="true"></div>
+    <div class="desk-waves" aria-hidden="true"><i></i><i></i><i></i></div>
+
+    <div class="desk-stage" aria-hidden="true">
+      <div class="mac">
+        <div class="mac-lid">
+          <div class="mac-bezel"><i class="mac-notch"></i><div class="mac-scr">
+            <div class="mac-chrome"><i></i><i></i><i></i><span class="tab"><b></b>Owl Coder</span><span class="url">owlcoder.technicalhub.io/<em>coding-courses-dashboard</em></span></div>
+            <div class="mac-view"></div>
+            <span class="mac-glass"></span><span class="mac-off"></span>
+          </div></div>
+        </div>
+        <span class="mac-hinge"></span>
+        <span class="mac-base"><i class="mac-spk l"></i><i class="mac-spk r"></i><i class="mac-keys"></i><i class="mac-pad"></i></span>
+        <span class="mac-shadow"></span>
+      </div>
+
+      <div class="orbit">
+      <div class="fc-slot s-overview" data-z="0" data-ry="0" data-rx="0" data-s="0.52">
+        <div class="fc fc-overview">
+          <div class="face"><i class="shine"></i>
+            <div class="ch"><b>Total Problems Solved</b><span>All time</span></div>
+            <div class="ov-b">
+              <div class="ring2"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="t" cx="60" cy="60" r="48"/><circle class="a easy" cx="60" cy="60" r="48"/><circle class="a med" cx="60" cy="60" r="48"/></svg>
+                <div class="ring2-n"><b data-n="69">69</b><span>solved</span></div></div>
+              <ul class="ov-l">
+                <li style="--c:var(--green)"><span>Easy</span><b data-n="37">37</b></li>
+                <li style="--c:var(--gold)"><span>Medium</span><b data-n="31">31</b></li>
+                <li style="--c:var(--red)"><span>Hard</span><b data-n="0">0</b></li>
+                <li style="--c:var(--blue)"><span>Labs</span><b data-n="0">0</b></li>
+              </ul>
+            </div>
+          </div><span class="fc-tag"><i></i>CODING OVERVIEW</span><i class="fc-shadow"></i>
+        </div>
+      </div>
+      <div class="fc-slot s-profiles" data-z="0" data-ry="0" data-rx="0" data-s="0.52">
+        <div class="fc fc-profiles">
+          <div class="face"><i class="shine"></i>
+            <div class="ch"><b>Linked coding profiles</b><span>3 connected</span></div>
+            <ul class="pf">
+              <li style="--c:#E8862A"><i class="pf-m"><img src="assets/img/logos/lc.png" alt="LeetCode"></i><div class="pf-n"><b>LeetCode</b><span>Rank #0 · 0 day streak</span></div>
+                <div class="pf-s"><i>13<u>easy</u></i><i>12<u>med</u></i><i>0<u>hard</u></i><strong><em data-n="25">25</em><small>solved</small></strong></div></li>
+              <li style="--c:#5B4638"><i class="pf-m"><img src="assets/img/logos/cc.png" alt="CodeChef"></i><div class="pf-n"><b>CodeChef</b><span>☆☆☆☆☆ · 0 contests</span></div>
+                <div class="pf-s"><strong><em data-n="1">1</em><small>solved</small></strong></div></li>
+              <li style="--c:#1BA94C"><i class="pf-m"><img src="assets/img/logos/hr.png" alt="HackerRank"></i><div class="pf-n"><b>HackerRank</b><span>Skill badges</span></div>
+                <div class="pf-c"><s>C</s><s>C++</s><s>Python</s><s>Java</s><s>SQL</s></div></li>
+            </ul>
+          </div><span class="fc-tag"><i></i>LINKED PROFILES</span><i class="fc-shadow"></i>
+        </div>
+      </div>
+      <div class="fc-slot s-courses" data-z="0" data-ry="0" data-rx="0" data-s="0.52">
+        <div class="fc fc-courses">
+          <div class="face"><i class="shine"></i>
+            <div class="ch"><b>All Courses Combined</b><span>9 courses</span></div>
+            <ul class="cs-l">
+              <li><span>Articles</span><b><em data-n="65">65</em> / 381</b><i style="--p:17%;--c:var(--green)"><u></u></i></li>
+              <li><span>Videos</span><b><em data-n="5">5</em> / 239</b><i style="--p:2.1%;--c:var(--green)"><u></u></i></li>
+              <li><span>Labs</span><b><em data-n="0">0</em> / 29</b><i style="--p:0%;--c:var(--green)"><u></u></i></li>
+              <li><span>Easy solved</span><b><em data-n="24">24</em></b><i style="--p:58%;--c:var(--green)"><u></u></i></li>
+              <li><span>Medium solved</span><b><em data-n="19">19</em></b><i style="--p:44%;--c:var(--gold)"><u></u></i></li>
+              <li><span>Hard solved</span><b><em data-n="0">0</em></b><i style="--p:0%;--c:var(--red)"><u></u></i></li>
+            </ul>
+          </div><span class="fc-tag"><i></i>ALL COURSES</span><i class="fc-shadow"></i>
+        </div>
+      </div>
+      <div class="fc-slot s-heat" data-z="0" data-ry="0" data-rx="0" data-s="0.52">
+        <div class="fc fc-heat">
+          <div class="face"><i class="shine"></i>
+            <div class="ch"><b>Problems solved · last year</b><span class="hm-k">Less <i style="background:#E8EEEA"></i><i style="background:#BFE8CC"></i><i style="background:#7FD39B"></i><i style="background:#3CB371"></i><i style="background:#15893F"></i> More</span></div>
+            <div class="hm-m"><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="hm3"></div>
+            <div class="hm-f"><span>Last month <b data-n="6">6</b></span><span>Last week <b>0</b></span><span>Longest streak <b data-n="3">3</b> days</span></div>
+          </div><span class="fc-tag"><i></i>HEATMAP</span><i class="fc-shadow"></i>
+        </div>
+      </div>
+      <div class="fc-slot s-links" data-z="0" data-ry="0" data-rx="0" data-s="0.5">
+        <div class="fc fc-links">
+          <div class="face"><i class="shine"></i>
+            <div class="ch"><b>Connect</b><span>from your overview</span></div>
+            <div class="ln-t"><div class="tile3d gh"><span class="tf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span></div>
+              <div class="tile3d li"><span class="tf"><b>in</b></span></div></div>
+            <ul class="ln-l"><li><div><b>GitHub</b><span>Add your profile</span></div><i class="pen"></i></li><li><div><b>LinkedIn</b><span>Add your profile</span></div><i class="pen"></i></li></ul>
+          </div><span class="fc-tag"><i></i>CONNECT</span><i class="fc-shadow"></i>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="desk-veil"></div>
+    <div class="desk-pop"></div>
+    <div class="desk-text"><span class="kick"></span><h3></h3><p class="say"></p><ul><li></li><li></li><li></li></ul><p class="esc">Click outside or press <kbd>Esc</kbd> to close</p></div>
+    <div class="desk-hint">Press <kbd>→</kbd> to open each component</div>
+    <div class="desk-count"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+</article>
+
+<!-- ══════════════ 03 · COURSES ══════════════ -->
+<article class="step courses-step" data-sec="Courses" data-label="Courses" data-subs="5" data-watch="p-top">
+  <div class="crs" id="crs"></div>
+</article>
+
+<!-- ══════════════ 04 · PRACTISE ══════════════ -->
+<!-- one step, four cards: the deck of monitors (assets/js/practise.js) -->
+<article class="step practise-step" data-sec="Practise" data-label="The deck" data-subs="3" data-watch="p-left">
+  <div class="prac" id="prac"></div>
+</article>
+
+<!-- ══════════════ 05 · AI MENTOR ══════════════ -->
+<!-- ══════════════ 05 · AI MENTOR ══════════════ -->
+<!-- one step, three desks: before / while / after (assets/js/mentor.js) -->
+<article class="step mentor-step" data-sec="AI Mentor" data-label="The mentor" data-subs="2" data-watch="p-tr">
+  <div class="mentor" id="mentor"></div>
+</article>
+
+<!-- ══════════════ 06 · REPORTS ══════════════ -->
+<article class="step reports-step" data-sec="Reports" data-label="The folder" data-subs="3" data-watch="p-none">
+  <div class="reports" id="reports"></div>
+</article>
+
+<!-- ══════════════ ACT II ══════════════ -->
+<article class="step act" data-act="II" data-actname="The Arena">
+  <div class="wall">
+    <div class="wall-rig">
+      <div class="wall-bg"></div>
+      <span class="act-k">Act II</span>
+      <div class="ex ex-n" data-text="II"></div>
+      <div class="ex ex-h" data-text="The Arena"></div>
+      <p class="act-p">Live contests, a ticking clock, a leaderboard that moves.</p>
+    </div>
+  </div>
+</article>
+
+<!-- ══════════════ 07 · CODING CONTEST ══════════════ -->
+<!-- one step, five beats: the dark room, the sheet of glass, the break (assets/js/arena.js) -->
+<article class="step arena-step" data-sec="Coding Contest" data-label="The arena" data-subs="4" data-watch="p-none">
+  <div class="arena" id="arena"></div>
+</article>
+
+
+<!-- ══════════════ ACT III ══════════════ -->
+<article class="step act" data-act="III" data-actname="The Institution">
+  <div class="wall">
+    <div class="wall-rig">
+      <div class="wall-bg"></div>
+      <span class="act-k">Act III</span>
+      <div class="ex ex-n" data-text="III"></div>
+      <div class="ex ex-h" data-text="The Institution"></div>
+      <p class="act-p">Organisations, batches, trainers, company problems.</p>
+    </div>
+  </div>
+</article>
+
+<!-- ══════════════ 08 · ADMIN PANEL ══════════════ -->
+<article class="step" data-sec="Admin Panel" data-label="One panel, every organisation">
+  <div class="st-wrap split">
+    <div class="st-copy">
+      <span class="kick">08 · Admin Panel</span>
+      <h2 class="h2">One panel behind<br><em>every college.</em></h2>
+      <p class="say">A single admin surface manages all the data every organisation sees. Switch between them, and the content follows.</p>
+      <span class="await">Awaiting your recording · <b>08-admin-01-organisations</b></span>
+    </div>
+    <div class="st-art">
+      <div class="rig mon peek">
+        <div class="scr"><div class="ui">
+          <div class="nav dark"><span class="lg"><b>TH</b>OWL CODER ADMIN</span><span class="tabs"><a class="on">Organizations</a><a>Courses</a><a>Problems</a><a>Users</a></span><span class="me">Admin</span></div>
+          <div class="bd">
+            <div class="hd"><b>Organizations List</b><span class="chip">6 active</span></div>
+            <table class="perf">
+              <tr><th>#</th><th>Organisation</th><th>Batches</th><th>Students</th><th>Courses mapped</th><th>Status</th></tr>
+              <tr><td>1</td><td>Nagarjuna College of Engineering and Technology</td><td>8</td><td>1,240</td><td>6</td><td><i class="rt good">Active</i></td></tr>
+              <tr><td>2</td><td>Nagarjuna College of Management Studies</td><td>4</td><td>610</td><td>3</td><td><i class="rt good">Active</i></td></tr>
+              <tr><td>3</td><td>Geeta University</td><td>11</td><td>1,980</td><td>7</td><td><i class="rt good">Active</i></td></tr>
+              <tr><td>4</td><td>YCCE</td><td>6</td><td>880</td><td>5</td><td><i class="rt avg">Onboarding</i></td></tr>
+            </table>
+          </div></div><span class="glass"></span></div>
+        <span class="neck"></span><span class="foot"></span>
+        <svg class="owl peeker" viewBox="40 20 280 230" aria-hidden="true"></svg>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="step" data-sec="Admin Panel" data-label="Company problems">
+  <div class="st-wrap split">
+    <div class="st-copy">
+      <span class="kick">08 · Admin Panel</span>
+      <h2 class="h2">Where the company<br><em>questions come from.</em></h2>
+      <p class="say">Company-tagged problems are loaded here, then surface inside every module they belong to, for every organisation that has that course.</p>
+      <span class="await">Awaiting your recording · <b>08-admin-02-company-problems</b></span>
+    </div>
+    <div class="st-art">
+      <div class="rig mon">
+        <div class="scr"><div class="ui">
+          <div class="nav dark"><span class="lg"><b>TH</b>OWL CODER ADMIN</span><span class="tabs"><a>Organizations</a><a>Courses</a><a class="on">Problems</a><a>Users</a></span><span class="me">Admin</span></div>
+          <div class="bd">
+            <div class="hd"><b>Company questions</b><span class="chip">1,500+ · 100+ tags</span></div>
+            <div class="tags"><span class="tg on">Amazon<b>184</b></span><span class="tg">Microsoft<b>141</b></span><span class="tg">Google<b>132</b></span>
+              <span class="tg">TCS Digital<b>96</b></span><span class="tg">Infosys<b>88</b></span><span class="tg">Wipro<b>74</b></span>
+              <span class="tg">Accenture<b>69</b></span><span class="tg">Deloitte<b>52</b></span></div>
+            <table class="perf tight">
+              <tr><th>#</th><th>Problem</th><th>Topic</th><th>Difficulty</th><th>Tags</th></tr>
+              <tr><td>1</td><td>Two Sum</td><td>Hash Map</td><td><i class="rt good">Easy</i></td><td>Amazon, Microsoft</td></tr>
+              <tr><td>2</td><td>Rotate Matrix by 90°</td><td>2-D arrays</td><td><i class="rt avg">Medium</i></td><td>Google, Adobe</td></tr>
+              <tr><td>3</td><td>Median of Two Sorted Arrays</td><td>Binary Search</td><td><i class="rt poor">Hard</i></td><td>Amazon, Google</td></tr>
+            </table>
+          </div></div><span class="glass"></span></div>
+        <span class="neck"></span><span class="foot"></span>
+      </div>
+      <div class="pop pd-tagfan" data-z="130"><span class="tg on">Amazon</span><span class="tg">Google</span><span class="tg">Infosys</span></div>
+    </div>
+  </div>
+</article>
+
+<article class="step" data-sec="Admin Panel" data-label="DSA problems">
+  <div class="st-wrap split">
+    <div class="st-copy">
+      <span class="kick">08 · Admin Panel</span>
+      <h2 class="h2">Problems, with<br><em>their test cases.</em></h2>
+      <p class="say">A problem is authored once: statement, constraints, sample input and output, and the hidden cases the judge will run.</p>
+      <span class="await">Awaiting your recording · <b>08-admin-03-dsa-problems</b></span>
+    </div>
+    <div class="st-art">
+      <div class="rig mon">
+        <div class="scr"><div class="ui">
+          <div class="nav dark"><span class="lg"><b>TH</b>OWL CODER ADMIN</span><span class="tabs"><a>Organizations</a><a>Courses</a><a class="on">Problems</a><a>Users</a></span><span class="me">Admin</span></div>
+          <div class="bd">
+            <div class="hd"><b>Add problem</b><span class="chip">DSA · Vectors</span></div>
+            <div class="form">
+              <label><em>Title</em><span class="fi">Sum of all Boundary Values in a Matrix</span></label>
+              <label><em>Difficulty</em><span class="fi pick"><i class="d e on">Easy</i><i class="d m">Medium</i><i class="d h">Hard</i></span></label>
+              <label><em>Statement</em><span class="fi tall">Given a matrix of size N × M, find the sum of all boundary values in the matrix.</span></label>
+              <div class="cases2"><em>Test cases</em>
+                <span><b>Visible</b><i>3 3 · 1 2 3 … → 40</i></span>
+                <span><b>Hidden</b><i>2 2 · 1 2 … → 10</i></span>
+                <span><b>Hidden</b><i>4 4 · 5 1 … → 72</i></span></div>
+            </div>
+          </div></div><span class="glass"></span></div>
+        <span class="neck"></span><span class="foot"></span>
+      </div>
+      <div class="pop pd-hidden" data-z="130"><i class="tick"></i><b>3 hidden cases</b><em>run by the judge</em></div>
+    </div>
+  </div>
+</article>
+
+<article class="step" data-sec="Admin Panel" data-label="Contest management">
+  <div class="st-wrap split">
+    <div class="st-copy">
+      <span class="kick">08 · Admin Panel</span>
+      <h2 class="h2">Every contest,<br><em>run from here.</em></h2>
+      <p class="say">Contests are created, opened and closed for each organisation from one list — with its questions, its registered students and, when the clock stops, its final standings.</p>
+      <span class="await">Awaiting your recording · <b>08-admin-04-contests</b></span>
+    </div>
+    <div class="st-art">
+      <div class="rig mon">
+        <div class="scr"><div class="ui">
+          <div class="nav dark"><span class="lg"><b>TH</b>OWL CODER ADMIN</span><span class="tabs"><a>Organizations</a><a>Courses</a><a class="on">Contests</a><a>Users</a></span><span class="me">Admin</span></div>
+          <div class="bd">
+            <div class="hd"><b>Contests · 33</b><span class="chip">5 open</span></div>
+            <ul class="notes">
+              <li><span class="ni">C</span><div><b>YCCE Coding Contest 2028 — B1</b><em>YCCE · major · 22-08-2026 09:00</em></div><i class="ok">Open</i></li>
+              <li><span class="ni">C</span><div><b>NCET September Round-1</b><em>NCET · major · 27-09-2026 10:00</em></div><i>Closed</i></li>
+              <li><span class="ni">C</span><div><b>Coding Proficiency Assessment-1</b><em>NCET · major · 24-08-2026 13:00</em></div><i>Closed</i></li>
+              <li><span class="ni">C</span><div><b>SkillUpCoder Demo 2029</b><em>SRKR · major · 09-09-2026 09:00</em></div><i>Closed</i></li>
+            </ul>
+          </div></div><span class="glass"></span></div>
+        <span class="neck"></span><span class="foot"></span>
+      </div>
+      <div class="pop pd-live2" data-z="130"><i class="tick"></i><b>3 organisations</b><em>one list</em></div>
+    </div>
+  </div>
+</article>
+
+
+<article class="step" data-sec="Admin Panel" data-label="Articles and videos">
+  <div class="st-wrap split">
+    <div class="st-copy">
+      <span class="kick">08 · Admin Panel</span>
+      <h2 class="h2">The learning content,<br><em>loaded once.</em></h2>
+      <p class="say">Articles, videos and notes attach to a module here. Every organisation mapped to that course picks them up immediately.</p>
+      <span class="await">Awaiting your recording · <b>08-admin-04-content</b></span>
+    </div>
+    <div class="st-art">
+      <div class="rig mon">
+        <div class="scr"><div class="ui">
+          <div class="nav dark"><span class="lg"><b>TH</b>OWL CODER ADMIN</span><span class="tabs"><a>Organizations</a><a class="on">Courses</a><a>Problems</a><a>Users</a></span><span class="me">Admin</span></div>
+          <div class="bd">
+            <div class="hd"><b>DSA · Module 02 · Vectors</b><span class="chip">content</span></div>
+            <ul class="notes">
+              <li><span class="ni">A</span><div><b>Vectors in C++</b><em>Article · 6 sections · published</em></div><i class="ok">Live</i></li>
+              <li><span class="ni">A</span><div><b>Why vectors grow</b><em>Article · 4 sections · published</em></div><i class="ok">Live</i></li>
+              <li><span class="ni vid">V</span><div><b>linked_list_insert_at_tail</b><em>Video · 16:40 · published</em></div><i class="ok">Live</i></li>
+              <li><span class="ni vid">V</span><div><b>linked_list_traversal</b><em>Video · 11:02 · draft</em></div><i>Draft</i></li>
+              <li><span class="ni lab">N</span><div><b>Vectors — class notes</b><em>Note · batch 2026</em></div><i class="ok">Live</i></li>
+            </ul>
+          </div></div><span class="glass"></span></div>
+        <span class="neck"></span><span class="foot"></span>
+      </div>
+      <div class="pop pd-live2" data-z="130"><i class="tick"></i><b>Live</b><em>in every mapped college</em></div>
+    </div>
+  </div>
+</article>
+
+<!-- ══════════════ 09 · CLOSE ══════════════ -->
+<article class="step" data-sec="Close" data-label="Trusted by">
+  <div class="st-wrap mid">
+    <header class="sh ctr"><span class="kick">09 · Close</span>
+      <h2 class="h2">Colleges already<br><em>running on Owl Coder.</em></h2></header>
+    <div class="colleges">
+      <span class="col"><b>NCET</b>Nagarjuna College of Engineering &amp; Technology</span>
+      <span class="col"><b>NCMS</b>Nagarjuna College of Management Studies</span>
+      <span class="col mid"><b>GU</b>Geeta University</span>
+      <span class="col"><b>YCCE</b>Yeshwantrao Chavan College of Engineering</span>
+      <span class="col"><b>NDC</b>Nagarjuna Degree College</span>
+    </div>
+  </div>
+</article>
+
+<article class="step end" data-sec="Close" data-label="Any device, get started">
+  <div class="st-wrap cta-in">
+    <svg class="owl cta-owl" id="ctaOwl" viewBox="30 20 300 370" aria-hidden="true"></svg>
+    <span class="kick">Your coding journey starts here</span>
+    <h2 class="cta-h">Don’t just think.<br><em>Make it happen.</em></h2>
+    <p class="say ctr">In the browser, on a monitor, a laptop, or a tablet with a keyboard.</p>
+    <div class="cta-row">
+      <a class="btn big" href="https://owlcoder.technicalhub.io/coding-courses-dashboard" target="_blank" rel="noopener">Open Owl Coder</a>
+      <a class="btn ghost big" href="mailto:support@technicalhub.io">Talk to us</a>
+    </div>
+    <p class="cta-url">owlcoder.technicalhub.io</p>
+    <p class="cta-by">A product of <b>Technical Hub</b> · © 2026</p>
+  </div>
+</article>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="assets/js/assembly.js"></script>
+<script src="assets/js/moves.js"></script>
+<script src="assets/js/wall.js"></script>
+<script src="assets/js/recordly.js"></script>
+<script src="assets/js/desk.js"></script>
+<script src="assets/js/courses.js"></script>
+<script src="assets/js/practise.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+<script src="assets/js/mentor.js"></script>
+<script src="assets/js/reports.js"></script>
+<script src="assets/js/arena.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

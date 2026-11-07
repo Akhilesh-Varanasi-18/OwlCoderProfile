@@ -1,0 +1,21 @@
+{
+ "src": "courses-notes.mp4",
+ "w": 1600,
+ "h": 746,
+ "duration": 2.07,
+ "cues": [
+  {
+   "t": 1.5,
+   "x": 0.44,
+   "y": 0.28,
+   "z": 1.5,
+   "kind": "focus",
+   "hold": 0.2
+  },
+  {
+   "t": 1.75,
+   "kind": "nav"
+  }
+ ],
+ "analysed": "hand-authored 24 Oct 2026 — each clip starts ~1.5 s before the click that opens its view"
+}

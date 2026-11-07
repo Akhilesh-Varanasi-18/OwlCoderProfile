@@ -1,0 +1,341 @@
+/* ══════════════════════════════════════════════════════════════════
+   07 · CODING CONTEST — "the arena"
+
+   The only dark room in the deck. One sheet of glass hangs in it with
+   the product on it, electricity running round its edge, smaller panes
+   drifting in the depth behind. The arrow cracks the glass, the pieces
+   fly past the viewer, and the next sheet is already coming forward
+   through the gap.
+
+   Prefixes: cx- (the room and the glass), ca- (the contest screens
+   rebuilt inside it). See assets/js/arena.js.
+   ══════════════════════════════════════════════════════════════════ */
+
+.arena { position: absolute; inset: 0; overflow: hidden; --k: 1;
+  font-family: var(--sans); color: #EAF6EF;
+  background: #06110B; }
+
+/* ───────── the room ───────── */
+.cx-room { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.cx-sky { position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 62% 54% at 50% 42%, rgba(23,66,44,.95), rgba(8,20,13,0) 72%),
+    radial-gradient(ellipse 40% 34% at 88% 6%, rgba(60,179,113,.16), transparent 70%),
+    radial-gradient(ellipse 38% 30% at 8% 96%, rgba(247,181,0,.07), transparent 70%),
+    linear-gradient(180deg, #071209 0%, #08160E 46%, #050D08 100%); }
+/* the floor: a dark polished plane with one warm edge, as in the reference */
+.cx-floor { position: absolute; left: -10%; right: -10%; bottom: 0; height: 34%;
+  background:
+    linear-gradient(180deg, rgba(60,179,113,0) 0%, rgba(26,84,54,.34) 70%, rgba(12,38,24,.6) 100%);
+  mask-image: linear-gradient(180deg, transparent, #000 40%); }
+.cx-edge { position: absolute; left: 6%; right: 6%; bottom: 7%; height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, transparent, rgba(247,181,0,.5) 18%, rgba(255,214,112,.8) 50%, rgba(247,181,0,.5) 82%, transparent);
+  filter: blur(.6px); opacity: .5; }
+.cx-stars { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* ───────── the stage ───────── */
+.cx-world { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  perspective: 1500px; perspective-origin: 50% 46%; transform-style: preserve-3d; }
+
+/* every moving piece is two layers: the wrapper travels, the inner one holds
+   the pose. They never share a transform. */
+.cx-mv { position: absolute; will-change: transform, opacity; transform-style: preserve-3d; }
+
+/* ───────── the sheet of glass ─────────
+   What makes a pane read as glass is not transparency; it is thickness. So the
+   sheet has a visible edge with light running along its top and left, a frosted
+   margin between that edge and the picture, a shadow cast inward onto the
+   picture from the glass above it, and one long specular streak across the
+   whole face. The picture sits behind all of it. */
+.cx-pane { position: absolute; inset: 0; transform-style: preserve-3d; }
+.cx-plate { position: absolute; inset: 0; border-radius: .9em; overflow: hidden;
+  background:
+    linear-gradient(152deg, rgba(255,255,255,.26) 0%, rgba(214,255,232,.1) 22%,
+      rgba(60,179,113,.07) 54%, rgba(8,26,17,.16) 100%);
+  box-shadow:
+    0 0 0 1px rgba(176,255,214,.5),
+    inset 0 0 0 1px rgba(255,255,255,.4),
+    inset 0 2px 1px rgba(255,255,255,.55),
+    inset 2px 0 1px rgba(255,255,255,.3),
+    inset 0 -2px 1px rgba(150,240,195,.3),
+    inset -2px 0 1px rgba(150,240,195,.22); }
+/* the thickness of the glass, seen as a frosted margin round the picture */
+.cx-plate::before { content: ""; position: absolute; inset: 0; border-radius: .9em; pointer-events: none;
+  z-index: 2;
+  background:
+    radial-gradient(ellipse 36% 40% at 4% 2%, rgba(255,255,255,.4), transparent 70%),
+    radial-gradient(ellipse 30% 34% at 97% 98%, rgba(190,255,220,.22), transparent 70%); }
+.cx-aura { position: absolute; z-index: 1; pointer-events: none; border-radius: 1.6em;
+  background: radial-gradient(ellipse 62% 58% at 50% 54%, rgba(60,179,113,.2), rgba(26,84,54,.1) 54%, transparent 76%);
+  box-shadow: 0 2.2em 4.4em -1.4em rgba(0,0,0,.85); }
+/* the product screen itself, set back behind the glass */
+.cx-screen { position: absolute; inset: 1.05em; border-radius: .34em; overflow: hidden;
+  background: #F4F8F6;
+  box-shadow: 0 0 0 1px rgba(10,30,20,.55), 0 0 0 2px rgba(255,255,255,.14),
+    inset 0 .3em .5em -.4em rgba(10,30,20,.3); }
+.cx-screen .cx-rly { position: absolute; inset: 0; }
+/* the light the room lays on the picture — kept faint so nothing is greyed */
+.cx-sheen { position: absolute; inset: 0; pointer-events: none; z-index: 6; border-radius: .34em;
+  background:
+    linear-gradient(118deg, rgba(255,255,255,.2) 0%, rgba(255,255,255,.03) 14%, rgba(255,255,255,0) 30%),
+    linear-gradient(200deg, rgba(60,179,113,.04), rgba(10,30,20,.04) 70%); }
+/* one long specular streak across the whole sheet: the single strongest cue
+   that there is a solid pane of glass in front of the picture */
+.cx-spec { position: absolute; left: -40%; top: -60%; width: 46%; height: 220%;
+  pointer-events: none; z-index: 7; transform: rotate(18deg); transform-origin: 50% 50%;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.1) 38%,
+    rgba(255,255,255,.14) 50%, rgba(255,255,255,.06) 62%, rgba(255,255,255,0) 100%); }
+/* the bright machined rim, over everything the plate holds */
+.cx-rim { position: absolute; inset: 0; pointer-events: none; z-index: 8; border-radius: .9em;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.75), inset 0 -1px 0 rgba(255,255,255,.2),
+    inset 1px 0 0 rgba(255,255,255,.4), inset -1px 0 0 rgba(255,255,255,.28); }
+
+/* the electricity runs on its own canvas, outside the plate's clip */
+.cx-bolt { position: absolute; pointer-events: none; z-index: 8; }
+
+/* the pad it stands on: a lit ring with a beam, as in the reference */
+.cx-pad { position: absolute; pointer-events: none; z-index: 1; }
+.cx-pad i { position: absolute; left: 50%; top: 50%; translate: -50% -50%; border-radius: 50%; }
+.cx-ring1 { width: 100%; height: 100%; border: 2px solid rgba(111,227,155,.5);
+  box-shadow: 0 0 2.4em rgba(60,179,113,.55), inset 0 0 2em rgba(60,179,113,.3); }
+.cx-ring2 { width: 62%; height: 62%; border: 1px solid rgba(207,251,226,.6);
+  box-shadow: 0 0 1.6em rgba(111,227,155,.5); }
+.cx-core { width: 26%; height: 26%;
+  background: radial-gradient(circle, rgba(226,255,238,.95), rgba(60,179,113,.5) 42%, transparent 70%);
+  filter: blur(2px); }
+.cx-beam { position: absolute; left: 50%; bottom: 46%; width: 24%; height: 420%; translate: -50% 0;
+  background: linear-gradient(0deg, rgba(111,227,155,.42), rgba(111,227,155,.06) 62%, transparent);
+  filter: blur(7px); clip-path: polygon(38% 100%, 62% 100%, 86% 0%, 14% 0%); }
+
+/* ───────── the panes drifting in the depth ───────── */
+.cx-chip { position: absolute; inset: 0; border-radius: .5em; overflow: hidden;
+  background: linear-gradient(158deg, rgba(255,255,255,.07), rgba(60,179,113,.05) 60%, rgba(8,26,17,.1));
+  box-shadow: 0 0 0 1px rgba(150,240,195,.18), inset 0 1px 0 rgba(255,255,255,.2),
+    0 1.6em 3em -1.4em rgba(0,0,0,.8); }
+.cx-chip b, .cx-chip i, .cx-chip u { display: block; position: absolute; border-radius: 2px;
+  background: rgba(190,245,215,.3); text-decoration: none; }
+.cx-chip b { left: 8%; top: 12%; width: 34%; height: 7%; background: rgba(190,245,215,.45); }
+.cx-chip i { left: 8%; top: 28%; right: 8%; height: 5%; }
+.cx-chip i + i { top: 40%; right: 26%; }
+.cx-chip u { left: 8%; bottom: 12%; width: 24%; height: 16%; border-radius: .3em;
+  background: linear-gradient(140deg, rgba(111,227,155,.4), rgba(60,179,113,.14)); }
+
+/* ───────── the screen boiling away ─────────
+   The balls live on their own canvas over the room, so they are never inside
+   anything that is being rotated or faded. */
+.cx-boil { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+/* the picture going out as the sheet gives way */
+.cx-dead { position: absolute; inset: 0; z-index: 7; pointer-events: none; opacity: 0; border-radius: .34em;
+  background: radial-gradient(ellipse 70% 60% at 50% 46%, rgba(6,18,11,.72), rgba(3,10,6,.9) 70%); }
+
+/* ───────── the words ─────────
+   A band across the top rather than a column down the side: the sheet of
+   glass is the slide, and it is entitled to the rest of the room. */
+.cx-copy { position: absolute; z-index: 4; display: grid; align-items: end; gap: 2.6em;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  font-size: calc(16px * var(--k)); pointer-events: auto; }
+.cx-kick { display: flex; align-items: center; gap: .7em; font: 600 .66em var(--mono); letter-spacing: .2em;
+  text-transform: uppercase; color: rgba(190,235,210,.6); }
+.cx-kick b { color: #7FE3A8; font-weight: 700; }
+.cx-kick s { flex: 1; height: 1px; max-width: 5em; background: rgba(127,227,168,.3); text-decoration: none; }
+.cx-h { margin: .34em 0 0; font-size: 2.72em; line-height: 1.04; letter-spacing: -.045em; font-weight: 800;
+  color: #F2FBF6; text-shadow: 0 .06em .5em rgba(0,0,0,.6); }
+.cx-h em { font-style: normal;
+  background: linear-gradient(96deg, #9BF0C2, #3CB371 58%, #F7B500);
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cx-say { margin: 0 0 .3em; font-size: .92em; line-height: 1.62; color: rgba(214,238,225,.74);
+  max-width: 40em; }
+
+.cx-nav { position: absolute; z-index: 4; display: flex; align-items: center; gap: .55em; }
+.cx-dot { width: 2em; height: .3em; border-radius: 999px; background: rgba(190,235,210,.22); cursor: pointer;
+  transition: background .3s, width .3s; }
+.cx-dot:hover { background: rgba(127,227,168,.5); }
+.cx-dot.on { background: linear-gradient(90deg, #7FE3A8, #3CB371); width: 3.4em; }
+.cx-nav em { margin-left: .5em; font: 600 .7em var(--mono); color: rgba(190,235,210,.5); letter-spacing: .14em;
+  font-style: normal; }
+
+/* this section keeps the watcher out of the room */
+.watch.p-none { opacity: 0; }
+
+/* ══════════════════════════════════════════════════════════════════
+   The contest screens, rebuilt. Two of the five beats had no recording,
+   so they are built here from the product's own screenshots: the
+   countdown page and the coding arena. Everything is in em against the
+   screen's own type so one scale factor sizes the lot.
+   ══════════════════════════════════════════════════════════════════ */
+.ca-pg { position: absolute; inset: 0; background: #FFFFFF; color: #121A15; overflow: hidden;
+  font-size: var(--ca, 13px); }
+.ca-scroll { position: absolute; inset: 0; will-change: transform; }
+
+/* the product's own chrome */
+.ca-nav { display: flex; align-items: center; gap: 2.6em; padding: .9em 1.6em; background: #fff;
+  box-shadow: 0 1px 0 rgba(13,46,27,.08); position: relative; z-index: 3; }
+.ca-logo { display: flex; align-items: center; gap: .5em; font: 800 .82em var(--sans); letter-spacing: .06em; color: #15893F; }
+.ca-logo i { width: 1.7em; height: 1.7em; border-radius: .25em; display: grid; place-items: center;
+  background: linear-gradient(150deg, #15893F, #0B5D2C); color: #fff; font: 800 .8em var(--sans); font-style: normal; }
+.ca-nav a { font-size: .82em; font-weight: 700; color: #26312B; }
+.ca-nav .ca-me { margin-left: auto; background: #15893F; color: #fff; border-radius: .4em;
+  padding: .55em 1.1em; font-size: .78em; font-weight: 700; }
+
+.ca-hero { position: relative; padding: 2.2em 1.6em; background: #F2F8F5; overflow: hidden; }
+.ca-hero h1 { margin: 0 auto; max-width: 18em; text-align: center; font-size: 2.1em; font-weight: 800;
+  letter-spacing: -.03em; color: #121A15; }
+.ca-hero .ca-when { margin-top: .7em; display: flex; justify-content: center; gap: 1.4em;
+  font-size: .8em; color: #5B665F; font-weight: 600; }
+.ca-dotfield { position: absolute; left: 4%; top: 18%; width: 11em; height: 5em; opacity: .55;
+  background-image: radial-gradient(circle, #3CB371 1.1px, transparent 1.2px);
+  background-size: .7em .7em; }
+.ca-wave { position: absolute; right: 6%; top: 24%; width: 6em; height: 2.4em; opacity: .5;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 .55em, #2BB673 .55em .66em);
+  clip-path: polygon(0 40%, 12% 10%, 25% 40%, 37% 10%, 50% 40%, 62% 10%, 75% 40%, 87% 10%, 100% 40%, 100% 100%, 0 100%); }
+
+.ca-body { display: flex; gap: 2.4em; padding: 1.8em 2.4em; align-items: flex-start;
+  max-width: 62em; margin: 0 auto; }
+.ca-main { flex: 1; min-width: 0; }
+.ca-side { width: 18.5em; flex: none; }
+
+.ca-h2 { margin: 0 0 .7em; font-size: 1.32em; font-weight: 800; letter-spacing: -.02em; }
+.ca-ul { margin: 0 0 1.6em; padding: 0; list-style: none; display: grid; gap: .5em; }
+.ca-ul li { position: relative; padding-left: 1.1em; font-size: .86em; line-height: 1.5; color: #26312B; }
+.ca-ul li::before { content: ""; position: absolute; left: 0; top: .55em; width: .36em; height: .36em;
+  border-radius: 50%; background: #15893F; }
+.ca-ul b { font-weight: 800; }
+.ca-sub { font-size: .78em; color: #5B665F; margin: 0 0 .5em; }
+
+.ca-table { width: 100%; border-collapse: collapse; font-size: .82em; margin-bottom: 1.2em;
+  box-shadow: 0 0 0 1px rgba(13,46,27,.14); }
+.ca-table th, .ca-table td { padding: .5em .8em; text-align: left; border-bottom: 1px solid rgba(13,46,27,.1); }
+.ca-table th { font-weight: 800; background: #fff; }
+.ca-table td { color: #26312B; }
+
+/* the contest info card — the subject of the countdown beat */
+.ca-card { border-radius: .5em; background: #fff; padding: 1.2em;
+  box-shadow: 0 0 0 1px rgba(13,46,27,.08), 0 1.4em 2.6em -1.4em rgba(13,46,27,.3); }
+.ca-badge { height: 6.4em; border-radius: .4em; display: grid; place-items: center;
+  background: linear-gradient(130deg, #DFE6E2, #B9CFC2 60%, #8FBBA2); position: relative; overflow: hidden; }
+.ca-badge b { font: 800 1.2em var(--sans); color: #1B5E36; letter-spacing: -.02em; }
+.ca-badge b s { text-decoration: none; color: #F7B500; }
+.ca-badge::after { content: "</>"; position: absolute; right: .8em; bottom: .5em;
+  font: 800 1.1em var(--mono); color: rgba(247,181,0,.9); }
+.ca-card h3 { margin: 1em 0 .8em; font-size: 1.05em; font-weight: 800; }
+.ca-lb { display: block; width: fit-content; margin: 0 auto .9em; background: #15893F; color: #fff;
+  border-radius: .35em; padding: .5em 1em; font-size: .78em; font-weight: 700; }
+.ca-row { display: flex; align-items: center; gap: .6em; padding: .62em 0; font-size: .82em;
+  border-top: 1px solid rgba(13,46,27,.08); }
+.ca-row em { font-style: normal; color: #3F4C45; }
+.ca-row b { margin-left: auto; font-weight: 700; font-family: var(--mono); font-size: .92em; }
+.ca-row i { width: 1.1em; height: 1.1em; flex: none; border-radius: 50%; background: #E9F6EC; }
+.ca-note { margin: .8em 0 .2em; font-size: .78em; font-weight: 700; color: #15893F; white-space: nowrap; }
+.ca-note.ca-warn { color: #D06A00; }
+
+/* the countdown pills */
+.ca-clock { display: flex; gap: .55em; margin-top: .7em; }
+.ca-clock span { flex: 1; text-align: center; }
+.ca-clock i { display: grid; place-items: center; width: 2.9em; height: 2.9em; margin: 0 auto;
+  border-radius: 50%; font: 700 .8em var(--mono); font-style: normal; }
+.ca-clock u { display: block; margin-top: .3em; font-size: .62em; color: #7A857E; text-decoration: none; }
+.ca-clock span:nth-child(1) i { background: #E6F6EC; color: #15893F; }
+.ca-clock span:nth-child(2) i { background: #FDE9E9; color: #D04545; }
+.ca-clock span:nth-child(3) i { background: #EFEAFB; color: #6B4FD0; }
+.ca-clock span:nth-child(4) i { background: #FFF2DC; color: #C48A00; }
+.ca-attempt { display: block; width: 100%; text-align: center; background: #15893F; color: #fff;
+  border-radius: .4em; padding: .7em 1em; font-size: .86em; font-weight: 800; margin-top: .2em;
+  box-shadow: 0 .6em 1.2em -.6em rgba(21,137,63,.7); }
+
+/* ───────── the coding arena ───────── */
+.ca-ar { position: absolute; inset: 0; display: grid; grid-template-columns: 8.6em 1fr;
+  background: #F7FAF8; }
+.ca-qs { background: #fff; box-shadow: 1px 0 0 rgba(13,46,27,.08); padding: .9em .7em; }
+.ca-qs h4 { margin: 0 0 .7em; font-size: .8em; font-weight: 800; }
+.ca-qs a { display: block; padding: .5em .7em; border-radius: .3em; font-size: .78em; font-weight: 600; color: #3F4C45; }
+.ca-qs a.on { background: #15893F; color: #fff; font-weight: 700; }
+.ca-arm { display: flex; flex-direction: column; min-width: 0; }
+.ca-bar { display: flex; align-items: center; gap: 1em; padding: .55em .9em; background: #fff;
+  box-shadow: 0 1px 0 rgba(13,46,27,.08); }
+.ca-bar .ca-lb2 { background: #15893F; color: #fff; border-radius: .3em; padding: .3em .7em;
+  font-size: .68em; font-weight: 700; }
+.ca-crumb { font-size: .74em; color: #7A857E; }
+.ca-crumb b { color: #26312B; font-weight: 700; }
+.ca-crumb s { color: #15893F; text-decoration: none; }
+.ca-pts { font-size: .74em; font-weight: 700; color: #3F4C45; }
+.ca-timer { margin-left: auto; font: 800 1.15em var(--mono); color: #15893F; letter-spacing: .02em; }
+.ca-lang { font-size: .72em; font-weight: 700; color: #15893F; font-family: var(--mono); }
+.ca-split { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: .8em; padding: .8em; min-height: 0; }
+.ca-prob { background: #fff; border-radius: .4em; padding: .8em; overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(13,46,27,.08); display: grid; gap: .6em; align-content: start; }
+.ca-blk { background: #F1F8F4; border-radius: .35em; padding: .6em .7em; }
+.ca-blk h5 { margin: 0 0 .35em; font-size: .8em; font-weight: 800; color: #15893F; }
+.ca-blk p { margin: 0; font-size: .74em; line-height: 1.5; color: #3F4C45; }
+.ca-blk p b { color: #121A15; font-weight: 700; }
+.ca-right { display: grid; grid-template-rows: 1fr auto auto; gap: .6em; min-height: 0; }
+.ca-ed { position: relative; background: #11181C; border-radius: .4em; overflow: hidden; padding: .6em 0; }
+.ca-ed pre { margin: 0; font: 400 .72em/1.45 var(--mono); color: #D5E8DC; white-space: pre;
+  padding: 0 .8em 0 2.6em; }
+.ca-ed .ca-l { display: block; min-height: 1.45em; }
+.ca-ed .ca-i { display: inline-block; white-space: pre; }
+.ca-ed .ca-ln { position: absolute; left: 0; top: .6em; width: 2.2em; text-align: right;
+  font: 400 .72em/1.45 var(--mono); color: #4A5D53; }
+.ca-ed .ck-kw { color: #7FB7FF; } .ca-ed .ck-ty { color: #63D29B; } .ca-ed .ck-st { color: #F7B500; }
+.ca-ed .ck-nu { color: #E59BE0; } .ca-ed .ck-cm { color: #5C7266; }
+.ca-ed .ca-caret { display: inline-block; width: .5em; height: 1em; vertical-align: -.15em;
+  background: #7FE3A8; opacity: 0; }
+.ca-run { display: flex; gap: .5em; align-items: center; }
+.ca-run span { border-radius: .3em; padding: .42em .8em; font-size: .72em; font-weight: 700; color: #fff; }
+.ca-run .r { background: #15893F; } .ca-run .s { background: #2563C9; }
+.ca-out { background: #fff; border-radius: .4em; padding: .6em .7em; box-shadow: 0 0 0 1px rgba(13,46,27,.08); }
+.ca-out h5 { margin: 0 0 .4em; font-size: .74em; font-weight: 800; }
+.ca-out table { width: 100%; border-collapse: collapse; font-size: .66em; }
+.ca-out th { text-align: left; font-weight: 800; padding: .3em .4em; border-bottom: 1px solid rgba(13,46,27,.12); }
+.ca-out td { padding: .3em .4em; color: #3F4C45; border-bottom: 1px solid rgba(13,46,27,.06); font-family: var(--mono); }
+.ca-out .pass { color: #15893F; font-weight: 700; }
+.ca-ok { margin-top: .4em; font-size: .68em; font-weight: 700; color: #15893F; opacity: 0; }
+
+/* the pointer, for the two screens that are played rather than recorded */
+.ca-cur { position: absolute; left: 0; top: 0; width: 1.3em; height: 1.3em; z-index: 9; opacity: 0;
+  pointer-events: none; margin: -.2em 0 0 -.2em;
+  background: no-repeat center/contain
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 2l14 10-6 1 3.5 6.5-3 1.6L10 14.6 5 18z' fill='%23fff' stroke='%23121A15' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E");
+  filter: drop-shadow(0 .12em .2em rgba(13,46,27,.45)); }
+
+/* ───────── narrow screens ───────── */
+.arena.narrow .cx-copy { grid-template-columns: 1fr; gap: .8em; }
+.arena.narrow .cx-h { font-size: 1.9em; }
+.arena.narrow .cx-say { display: none; }
+
+/* ══════════ the countdown, taking the screen ══════════
+   The beat is about the wait, so the clock is not a widget in the corner of a
+   page — it comes forward and owns the glass while the seconds run out. */
+.ca-pg { perspective: 1100px; }
+.ca-scroll, .ca-ar { transform-style: preserve-3d; }
+.ca-card, .ca-prob, .ca-right { transform-style: preserve-3d; will-change: transform; }
+
+.ca-hc { position: absolute; inset: 0; z-index: 8; opacity: 0; pointer-events: none; }
+.ca-hc-veil { position: absolute; inset: 0; opacity: 0;
+  background: radial-gradient(ellipse 72% 70% at 50% 46%, rgba(246,251,248,.96), rgba(226,242,233,.98) 72%); }
+.ca-hc-in { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center;
+  gap: 1.4em; text-align: center; }
+/* the dials and what replaces them share one place on the glass */
+.ca-hc-stack { display: grid; }
+.ca-hc-stack > * { grid-area: 1 / 1; justify-self: center; align-self: center; }
+.ca-hc-col { display: grid; justify-items: center; gap: 1em; }
+.ca-hc-kick { font: 700 .82em var(--mono); letter-spacing: .26em; text-transform: uppercase; color: #15893F; }
+.ca-hc-lab { font-size: 1.9em; font-weight: 800; letter-spacing: -.03em; color: #121A15; }
+.ca-hc-dials { display: flex; gap: 1.6em; margin-bottom: 1.6em; }
+.ca-d { position: relative; width: 7.4em; height: 7.4em; display: grid; place-items: center; }
+.ca-d svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.ca-d-bg { fill: #fff; stroke: rgba(13,46,27,.1); stroke-width: 5; }
+.ca-d-fg { fill: none; stroke: #15893F; stroke-width: 5; stroke-linecap: round; }
+/* the dial's face is an absolutely positioned svg, so the number has to be
+   lifted out of the flow to sit on top of it */
+.ca-d b { position: relative; z-index: 1; font: 800 2.9em/1 var(--mono); color: #121A15;
+  letter-spacing: -.03em; }
+.ca-d u { position: absolute; bottom: -1.7em; font: 700 .72em var(--mono); letter-spacing: .2em;
+  text-transform: uppercase; color: #7A857E; text-decoration: none; }
+.ca-d:nth-child(4) .ca-d-fg { stroke: #F7B500; }
+.ca-d:nth-child(4) b { color: #15893F; }
+.ca-hc-go { display: grid; justify-items: center; gap: 1.1em; opacity: 0; }
+.ca-hc-go b { font-size: 2.1em; font-weight: 800; letter-spacing: -.03em; color: #15893F; }
+.ca-hc-btn { background: #15893F; color: #fff; border-radius: .45em; padding: .7em 2.4em;
+  font-size: 1.05em; font-weight: 800;
+  box-shadow: 0 1em 1.8em -.8em rgba(21,137,63,.8); }

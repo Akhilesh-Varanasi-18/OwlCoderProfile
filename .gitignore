@@ -1,0 +1,21 @@
+# Raw material, not the site.
+#
+# owlcoder_data/     the client's screenshots, brochure and logo pack
+# screen_recordings/ the original screen captures every clip was cut from
+#
+# Together they are over a gigabyte and nothing in the deck loads them: what
+# the site serves is in assets/. Keep your own copy of both — they are the
+# only originals — and if they ever need to be versioned, use Git LFS rather
+# than putting them in the tree.
+owlcoder_data/
+screen_recordings/
+
+# OS and editor litter
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.idea/
+.vscode/
+
+node_modules/

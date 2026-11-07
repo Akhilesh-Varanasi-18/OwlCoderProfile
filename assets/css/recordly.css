@@ -1,0 +1,32 @@
+/* recordly.css — the window the recording plays in.
+   Measured off the reference: a cool grey-blue gradient behind a rounded
+   window with a soft dark shadow, the recording fitted to it, small
+   padding. The gradient is a token so the deck can swap in its own. */
+.rly {
+  --rly-bg-a: #B4C2CD;
+  --rly-bg-b: #9EA9B0;
+  --rly-shadow: 0 14px 34px rgba(18, 28, 36, .42), 0 2px 6px rgba(18, 28, 36, .22);
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--rly-bg-a), var(--rly-bg-b));
+}
+.rly-win {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--rly-shadow);
+  contain: strict;
+}
+.rly-v {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: fill;
+  transform-origin: 0 0;
+  will-change: transform, filter;
+  backface-visibility: hidden;
+}

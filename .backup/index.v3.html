@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Owl Coder — Code Smarter. Practice Better. Get Future-Ready.</title>
+<meta name="description" content="Your complete coding and placement-preparation ecosystem. 3,389+ practice questions, 1,500+ company questions across 100+ company tags, structured courses, live contests, progress tracking and an AI coding tutor. A product of Technical Hub.">
+<meta name="theme-color" content="#F6FAF7">
+<meta property="og:title" content="Owl Coder — Code Smarter. Practice Better. Get Future-Ready.">
+<meta property="og:description" content="Learn, practise, compete and track your coding journey on one platform.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315893F'/%3E%3Ccircle cx='12' cy='15' r='6' fill='%23fff'/%3E%3Ccircle cx='21' cy='15' r='6' fill='%23fff'/%3E%3Ccircle cx='12' cy='15' r='3' fill='%231F2D24'/%3E%3Ccircle cx='21' cy='15' r='3' fill='%231F2D24'/%3E%3Cpath d='M16.5 19.5 14.5 23h4Z' fill='%23F7B500'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<!-- ═══════════════ the owl, defined once and cloned ═══════════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="gBody" x1=".25" y1="0" x2=".7" y2="1">
+    <stop offset="0" stop-color="#FFCE52"/><stop offset=".55" stop-color="#F7B500"/><stop offset="1" stop-color="#E08D05"/></linearGradient>
+  <linearGradient id="gBelly" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#FFE1A0"/><stop offset="1" stop-color="#FFC94F"/></linearGradient>
+  <linearGradient id="gWing" x1="0" y1="0" x2=".8" y2="1">
+    <stop offset="0" stop-color="#9068F0"/><stop offset=".55" stop-color="#5E8FE0"/><stop offset="1" stop-color="#2FA4DC"/></linearGradient>
+  <linearGradient id="gTail" x1="0" y1="0" x2="1" y2=".6">
+    <stop offset="0" stop-color="#56BDEE"/><stop offset="1" stop-color="#1A8CCE"/></linearGradient>
+  <linearGradient id="gBeak" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#FFB93F"/><stop offset="1" stop-color="#DE7D04"/></linearGradient>
+  <radialGradient id="gEyeGlow"><stop offset="0" stop-color="#F7B500" stop-opacity=".55"/><stop offset="1" stop-color="#F7B500" stop-opacity="0"/></radialGradient>
+</defs></svg>
+
+<template id="owl-tpl"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 390">
+  <g class="o-bird">
+    <ellipse class="o-shadow" cx="180" cy="370" rx="92" ry="13"/>
+    <path class="o-tuft" d="M106 94c-10-22-12-42-4-53 12 15 29 34 40 47-13 2-26 4-36 6Z"/>
+    <path class="o-tuft" d="M254 94c10-22 12-42 4-53-12 15-29 34-40 47 13 2 26 4 36 6Z"/>
+    <path class="o-tail" d="M258 298c32 11 64 25 79 46-27 7-58 1-83-16-7-10-5-24 4-30Z"/>
+    <path class="o-body" d="M180 46c67 0 119 53 123 126 4 73-15 136-54 164-21 15-44 22-69 22s-48-7-69-22c-39-28-58-91-54-164C61 99 113 46 180 46Z"/>
+    <path class="o-belly" d="M180 228c40 0 69 32 69 71 0 33-31 55-69 55s-69-22-69-55c0-39 29-71 69-71Z"/>
+    <path class="o-wing" d="M74 204c-15 45-7 99 24 130 21-15 33-46 33-81 0-33-12-58-31-65-15-6-23 0-26 16Z"/>
+    <ellipse class="o-foot" cx="152" cy="358" rx="21" ry="9"/>
+    <ellipse class="o-foot" cx="208" cy="358" rx="21" ry="9"/>
+    <circle class="o-glow" cx="140" cy="168" r="70" fill="url(#gEyeGlow)"/>
+    <circle class="o-glow" cx="220" cy="168" r="70" fill="url(#gEyeGlow)"/>
+    <circle class="o-disc" cx="140" cy="168" r="56"/>
+    <circle class="o-disc" cx="220" cy="168" r="56"/>
+    <g class="o-eye">
+      <circle class="o-ball" cx="140" cy="168" r="29"/>
+      <circle class="o-spark" cx="128" cy="155" r="10.5"/>
+      <circle class="o-spark sm" cx="150" cy="182" r="5"/>
+    </g>
+    <g class="o-eye">
+      <circle class="o-ball" cx="220" cy="168" r="29"/>
+      <circle class="o-spark" cx="208" cy="155" r="10.5"/>
+      <circle class="o-spark sm" cx="230" cy="182" r="5"/>
+    </g>
+    <path class="o-beak" d="M166 198c9-7 19-7 28 0-3 20-9 29-14 32-5-3-11-12-14-32Z"/>
+  </g>
+</svg></template>
+
+<!-- ═══════════════════════ boot ═══════════════════════ -->
+<div class="boot" id="boot">
+  <svg class="owl boot-owl" id="bootOwl" viewBox="40 20 280 370" aria-hidden="true"></svg>
+  <p class="boot-word">OWL<span>CODER</span></p>
+  <div class="boot-bar"><i id="bootFill"></i></div>
+</div>
+
+<!-- ═══════════════════════ background ═══════════════════════ -->
+<div class="bg" aria-hidden="true">
+  <div class="bg-row" style="--sp:76s"><span>LEARN · PRACTISE · COMPETE · TRACK · IMPROVE ·&nbsp;</span><span>LEARN · PRACTISE · COMPETE · TRACK · IMPROVE ·&nbsp;</span></div>
+  <div class="bg-row rev" style="--sp:98s"><span>3,389 PROBLEMS · 100+ COMPANIES · 4 LANGUAGES ·&nbsp;</span><span>3,389 PROBLEMS · 100+ COMPANIES · 4 LANGUAGES ·&nbsp;</span></div>
+  <div class="bg-grid"></div>
+  <div class="bg-wash"></div>
+</div>
+
+<!-- ═══════════════════════ rail ═══════════════════════ -->
+<aside class="rail" id="rail">
+  <a class="rail-brand" href="#top">
+    <svg class="owl rail-owl" viewBox="40 20 280 360" aria-hidden="true"></svg>
+    <span class="rail-word">Owl<b>Coder</b></span>
+  </a>
+  <button class="rail-toggle" id="railToggle" aria-label="Collapse menu"><i></i></button>
+  <nav class="rail-nav" id="railNav" aria-label="Slides">
+    <a href="#top"       ><span class="ic">◉</span><span class="lb">Overview</span><span class="nm">01</span></a>
+    <a href="#problem"   ><span class="ic">⌁</span><span class="lb">The problem</span><span class="nm">02</span></a>
+    <a href="#journey"   ><span class="ic">⤳</span><span class="lb">The journey</span><span class="nm">03</span></a>
+    <a href="#learn"     ><span class="ic">▤</span><span class="lb">Learn</span><span class="nm">04</span></a>
+    <a href="#practice"  ><span class="ic">⌨</span><span class="lb">Practise</span><span class="nm">05</span></a>
+    <a href="#compete"   ><span class="ic">▲</span><span class="lb">Compete</span><span class="nm">06</span></a>
+    <a href="#track"     ><span class="ic">▦</span><span class="lb">Track</span><span class="nm">07</span></a>
+    <a href="#improve"   ><span class="ic">✦</span><span class="lb">Improve</span><span class="nm">08</span></a>
+    <a href="#ecosystem" ><span class="ic">◍</span><span class="lb">Ecosystem</span><span class="nm">09</span></a>
+    <a href="#numbers"   ><span class="ic">∑</span><span class="lb">By the numbers</span><span class="nm">10</span></a>
+    <a href="#cta"       ><span class="ic">→</span><span class="lb">Get started</span><span class="nm">11</span></a>
+  </nav>
+  <div class="rail-foot"><span class="rf-k">A product of</span><span class="rf-v">Technical Hub</span></div>
+</aside>
+
+<!-- ═══════════════════════ deck ═══════════════════════ -->
+<div class="deck" id="deck">
+  <button class="dk-b" id="dkPrev" aria-label="Previous slide"><svg viewBox="0 0 16 16"><path d="M3 10l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <span class="dk-n"><b id="dkNow">01</b><i>/</i><span id="dkAll">11</span></span>
+  <button class="dk-b" id="dkNext" aria-label="Next slide"><svg viewBox="0 0 16 16"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <span class="dk-sep"></span>
+  <button class="dk-b" id="dkFull" aria-label="Toggle fullscreen"><svg viewBox="0 0 16 16"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button class="dk-go" id="dkPresent"><i></i><span>Present</span></button>
+</div>
+<div class="dk-bar" aria-hidden="true"><i id="dkBar"></i></div>
+
+<main class="stage" id="stage">
+
+<!-- ═══════════════════ 01 · OVERVIEW ═══════════════════ -->
+<section id="top" class="slide hero" data-name="Overview">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="badge rise">A product of <b>Technical&nbsp;Hub</b></span>
+      <h1 class="hero-h1">
+        <span class="ln"><span class="rise">Code Smarter.</span></span>
+        <span class="ln"><span class="rise">Practice Better.</span></span>
+        <span class="ln"><span class="rise grn">Get Future-Ready.</span></span>
+      </h1>
+      <p class="hero-sub rise">One platform to <mark>learn</mark>, <mark>practise</mark>,
+        <mark>compete</mark> and <mark>track</mark> — instead of five.</p>
+      <div class="cta-row rise">
+        <a class="btn" href="https://owlcoder.technicalhub.io/coding-courses-dashboard" target="_blank" rel="noopener">Open the platform</a>
+        <a class="btn ghost" href="#journey">Take the tour</a>
+      </div>
+      <ul class="stats rise">
+        <li><b>3,389<sup>+</sup></b><span>Practice<br>questions</span></li>
+        <li><b>1,500<sup>+</sup></b><span>Company<br>questions</span></li>
+        <li><b>100<sup>+</sup></b><span>Company<br>tags</span></li>
+        <li><b>4</b><span>Languages<br>supported</span></li>
+      </ul>
+    </div>
+
+    <div class="hero-art">
+      <svg class="owl hero-owl" id="heroOwl" viewBox="30 20 300 370" aria-hidden="true"></svg>
+
+      <div class="scene3" id="heroScene">
+        <div class="dev tilt-a">
+          <div class="dev-win">
+            <div class="dev-bar"><i></i><i></i><i></i><em>owlcoder.technicalhub.io</em></div>
+            <div class="dev-scr">
+              <!-- ░░ dashboard ░░ -->
+              <div class="ui">
+                <div class="ui-nav"><span class="ui-logo"><b>TH</b>TECHNICAL HUB</span>
+                  <span class="ui-tabs"><a class="on">Owl Dashboard</a><a>Coding Contest</a></span>
+                  <span class="ui-me">K. Prasanth</span></div>
+                <div class="ui-bd">
+                  <div class="ui-h"><b>Your Coding Overview</b><span class="chip g">43 solved all-time</span></div>
+                  <div class="g4">
+                    <div class="c"><span class="k">Total solved</span>
+                      <div class="dn" style="--e:56;--m:44"><b>43</b><i>solved</i></div></div>
+                    <div class="c"><span class="k">LeetCode</span><b class="big">21</b>
+                      <div class="spark"><i style="--h:70%"></i><i style="--h:48%"></i><i style="--h:86%"></i><i style="--h:34%"></i><i style="--h:62%"></i></div></div>
+                    <div class="c"><span class="k">CodeChef</span><b class="big">4★</b><span class="sub">rating</span></div>
+                    <div class="c"><span class="k">HackerRank</span><b class="big">5</b><span class="sub">skill badges</span></div>
+                  </div>
+                  <div class="g2">
+                    <div class="c"><span class="k">All courses combined</span>
+                      <div class="pb"><em>Articles</em><b>65/381</b><i style="--w:17%"></i></div>
+                      <div class="pb"><em>Videos</em><b>5/239</b><i style="--w:6%"></i></div>
+                      <div class="pb"><em>Problems</em><b>40/83</b><i style="--w:48%"></i></div>
+                    </div>
+                    <div class="c"><span class="k">Progress heatmap<em>last year</em></span><div class="hm" id="hmHero"></div></div>
+                  </div>
+                </div>
+              </div>
+              <span class="glass"></span>
+            </div>
+          </div>
+          <div class="dev-base"></div>
+
+          <!-- ░░ lifting out of the glass ░░ -->
+          <div class="pop pop-donut" data-z="110">
+            <div class="dn big" style="--e:56;--m:44"><b>43</b><i>solved</i></div>
+            <span class="pop-k">Easy 24 · Med 19</span>
+          </div>
+          <div class="pop pop-streak" data-z="150"><i class="fire">▲</i><b>12</b><span>day streak</span></div>
+          <div class="pop pop-pass" data-z="90"><i class="tick"></i><span>All testcases passed</span></div>
+        </div>
+        <span class="glowpad"></span>
+      </div>
+    </div>
+  </div>
+  <span class="cue">Scroll to begin</span>
+</section>
+
+<!-- ═══════════════════ 02 · THE PROBLEM ═══════════════════ -->
+<section id="problem" class="slide" data-name="The problem">
+  <div class="wrap">
+    <header class="sh"><span class="kick">02 — The problem</span>
+      <h2 class="h2">Five tabs. <em>One</em> journey.</h2></header>
+    <div class="tangle" id="tangle">
+      <svg class="tg-wire" id="tgWire" viewBox="0 0 1000 440" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <span class="tg-chip" style="--x:5%;--y:14%">Course PDFs</span>
+      <span class="tg-chip" style="--x:76%;--y:9%">LeetCode</span>
+      <span class="tg-chip" style="--x:16%;--y:76%">YouTube</span>
+      <span class="tg-chip" style="--x:64%;--y:82%">Excel trackers</span>
+      <span class="tg-chip" style="--x:1%;--y:46%">WhatsApp</span>
+      <span class="tg-chip" style="--x:85%;--y:50%">HackerRank</span>
+      <span class="tg-chip" style="--x:38%;--y:3%">CodeChef</span>
+      <span class="tg-chip" style="--x:32%;--y:90%">Google Forms</span>
+      <div class="tg-core"><span class="tg-dot"></span><b>Owl<i>Coder</i></b></div>
+    </div>
+    <p class="note">Nothing talks to anything. Progress lives nowhere.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ 03 · THE JOURNEY ═══════════════════ -->
+<section id="journey" class="slide" data-name="The journey">
+  <div class="wrap">
+    <header class="sh"><span class="kick">03 — The journey</span>
+      <h2 class="h2">One road. <em>Five</em> stops.</h2></header>
+    <div class="road" id="road">
+      <svg class="road-svg" viewBox="0 0 1200 380" preserveAspectRatio="none" aria-hidden="true">
+        <path class="road-bed" d="M30 300C170 300 190 86 330 86S530 300 670 300 870 66 1000 66s130 64 170 96"/>
+        <path class="road-ink" id="roadInk" d="M30 300C170 300 190 86 330 86S530 300 670 300 870 66 1000 66s130 64 170 96"/>
+      </svg>
+      <ol class="stops">
+        <li class="stop" style="--x:3%;--y:74%;--c:var(--green)"><i>01</i><b>Learn</b><em>Courses, articles, videos</em></li>
+        <li class="stop" style="--x:25%;--y:17%;--c:var(--gold-d)"><i>02</i><b>Practise</b><em>3,389+ problems</em></li>
+        <li class="stop" style="--x:53%;--y:74%;--c:var(--blue)"><i>03</i><b>Compete</b><em>Live contests</em></li>
+        <li class="stop" style="--x:79%;--y:11%;--c:var(--violet)"><i>04</i><b>Track</b><em>Heatmaps &amp; reports</em></li>
+        <li class="stop" style="--x:96%;--y:46%;--c:var(--red)"><i>05</i><b>Improve</b><em>AI coding tutor</em></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 04 · LEARN ═══════════════════ -->
+<section id="learn" class="slide" data-name="Learn">
+  <div class="wrap split">
+    <header class="sh left"><span class="kick">04 — Learn</span>
+      <h2 class="h2">Pick a track.<br><em>Climb the ladder.</em></h2>
+      <p class="lede">Six courses. Every module carries articles, videos, notes and problems.</p>
+      <ul class="ladder" id="ladder">
+        <li class="rung done"><i>✓</i><b>Complexity Analysis</b><em>Done</em></li>
+        <li class="rung on"><i>2</i><b>Vectors</b><em>50% · continue here</em></li>
+        <li class="rung"><i>3</i><b>Two Pointers</b><em>43%</em></li>
+        <li class="rung"><i>4</i><b>Sliding Window</b><em>Locked</em></li>
+      </ul>
+    </header>
+
+    <div class="scene3" id="learnScene">
+      <div class="dev tilt-b">
+        <div class="dev-win">
+          <div class="dev-bar"><i></i><i></i><i></i><em>owlcoder.technicalhub.io/courses</em></div>
+          <div class="dev-scr">
+            <!-- ░░ my courses ░░ -->
+            <div class="ui">
+              <div class="ui-nav"><span class="ui-logo"><b>TH</b>TECHNICAL HUB</span>
+                <span class="ui-tabs"><a class="on">Owl Dashboard</a><a>Coding Contest</a></span>
+                <span class="ui-me">K. Prasanth</span></div>
+              <div class="ui-bd">
+                <div class="ui-h"><b>My Courses</b><span class="seg"><a class="on">List</a><a>Grid</a></span></div>
+                <ul class="crs">
+                  <li><span class="ring" style="--p:32"><b>32%</b></span><div class="cn">DSA<em>43 / 135 items</em></div>
+                    <div class="cm"><span>Articles<b>6/17</b></span><span>Videos<b>1/33</b></span><span>Problems<b>36/83</b></span></div><span class="gbtn">Course View</span></li>
+                  <li><span class="ring" style="--p:16"><b>16%</b></span><div class="cn">Advanced Data Structures<em>45 / 281 items</em></div>
+                    <div class="cm"><span>Articles<b>39/42</b></span><span>Videos<b>3/39</b></span><span>Problems<b>3/200</b></span></div><span class="gbtn">Course View</span></li>
+                  <li><span class="ring" style="--p:8"><b>8%</b></span><div class="cn">Python Programming<em>0 / 521 items</em></div>
+                    <div class="cm"><span>Articles<b>0/43</b></span><span>Videos<b>0/42</b></span><span>Problems<b>0/421</b></span></div><span class="gbtn">Course View</span></li>
+                  <li><span class="ring" style="--p:4"><b>1%</b></span><div class="cn">SQL<em>5 / 413 items</em></div>
+                    <div class="cm"><span>Articles<b>5/20</b></span><span>Videos<b>0/0</b></span><span>Problems<b>0/393</b></span></div><span class="gbtn">Course View</span></li>
+                </ul>
+              </div>
+            </div>
+            <span class="glass"></span>
+          </div>
+        </div>
+        <div class="dev-base"></div>
+
+        <!-- ░░ course cards lift out ░░ -->
+        <div class="pop card3 c1" data-z="70"><span class="r" style="--p:32"><b>32%</b></span><h4>DSA</h4><em>43 / 135</em></div>
+        <div class="pop card3 c2" data-z="130"><span class="r" style="--p:16"><b>16%</b></span><h4>Advanced DS</h4><em>45 / 281</em></div>
+        <div class="pop card3 c3" data-z="190"><span class="r" style="--p:8"><b>8%</b></span><h4>Python</h4><em>0 / 521</em></div>
+      </div>
+      <span class="glowpad"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 05 · PRACTISE ═══════════════════ -->
+<section id="practice" class="slide" data-name="Practise">
+  <div class="wrap">
+    <header class="sh"><span class="kick">05 — Practise</span>
+      <h2 class="h2">Write it. Run it. <em>Pass it.</em></h2></header>
+
+    <div class="scene3 wide" id="codeScene">
+      <div class="dev tilt-c">
+        <div class="dev-win">
+          <div class="dev-bar"><i></i><i></i><i></i><em>owlcoder.technicalhub.io/owlground</em></div>
+          <div class="dev-scr">
+            <!-- ░░ owl ground ░░ -->
+            <div class="ui">
+              <div class="ed-top"><span class="crumb">Home / Owl ground</span><span class="crumb">Points: 20</span>
+                <span class="lang">C++ — GCC 11.1.0</span></div>
+              <div class="ed">
+                <div class="ed-desc">
+                  <h5>Sum of all Boundary Values in a Matrix</h5>
+                  <em>Program description</em>
+                  <p>Given a matrix of size N × M, find the sum of all boundary values in the matrix.</p>
+                  <em>Input format</em>
+                  <p>First line has N and M. The next N lines contain M integers each.</p>
+                  <div class="io"><span>Input</span><code>3 3<br>1 2 3<br>4 5 6<br>7 8 9</code></div>
+                  <div class="io"><span>Output</span><code>40</code></div>
+                </div>
+                <div class="ed-code">
+                  <div class="ed-tabs"><i></i><i></i><i></i><span>main.cpp</span></div>
+                  <pre class="code" id="code"></pre>
+                  <div class="ed-act"><span class="run">▶ Run Code</span><span class="sub" id="subBtn">Submit</span></div>
+                </div>
+              </div>
+            </div>
+            <span class="glass"></span>
+          </div>
+        </div>
+        <div class="dev-base"></div>
+
+        <!-- ░░ results pop out ░░ -->
+        <div class="pop case ca" data-z="90"><i></i><b>Case 1</b><em>40 = 40</em></div>
+        <div class="pop case cb" data-z="130"><i></i><b>Case 2</b><em>10 = 10</em></div>
+        <div class="pop case cc" data-z="170"><i></i><b>Case 3</b><em>72 = 72</em></div>
+        <div class="pop verdict" data-z="210"><i class="tick"></i><b>All hidden testcases passed</b></div>
+      </div>
+      <span class="glowpad"></span>
+    </div>
+
+    <ul class="facts">
+      <li><b>3,389<sup>+</sup></b>problems</li><li><b>1,500<sup>+</sup></b>company questions</li>
+      <li><b>100<sup>+</sup></b>company tags</li><li><b>4</b>languages</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════ 06 · COMPETE ═══════════════════ -->
+<section id="compete" class="slide" data-name="Compete">
+  <div class="wrap split">
+    <header class="sh left"><span class="kick">06 — Compete</span>
+      <h2 class="h2">Compete. Climb.<br><em>Conquer.</em></h2>
+      <div class="clock"><em>Contest starts in</em>
+        <b><span id="cdH">18</span><i>:</i><span id="cdM">42</span><i>:</i><span id="cdS">03</span></b>
+        <span class="cmeta">259 registered · 4 questions · 1h 30m</span></div>
+      <p class="lede">Ranked by problems solved, then points, then penalty. Easy 20 · Medium 40 · Hard 60.</p>
+    </header>
+
+    <div class="scene3" id="boardScene">
+      <div class="dev tilt-b">
+        <div class="dev-win">
+          <div class="dev-bar"><i></i><i></i><i></i><em>owlcoder.technicalhub.io/coding-contest</em></div>
+          <div class="dev-scr">
+            <!-- ░░ leaderboard ░░ -->
+            <div class="ui">
+              <div class="ui-nav"><span class="ui-logo"><b>TH</b>TECHNICAL HUB</span>
+                <span class="ui-tabs"><a>Owl Dashboard</a><a class="on">Coding Contest</a></span>
+                <span class="ui-me">K. Prasanth</span></div>
+              <div class="ui-bd">
+                <div class="ui-h"><b>Coding Contest Leader Board</b><span class="chip g">Final</span></div>
+                <table class="bd">
+                  <tr><th>Rank</th><th>Roll no</th><th>Name</th><th>Branch</th><th>Score</th><th>Penalty</th></tr>
+                  <tr class="r1"><td>1</td><td>25B91A05D9</td><td>Lakshmi Ganesh Katta</td><td>CSE</td><td>72</td><td>89</td></tr>
+                  <tr class="r2"><td>2</td><td>25B91A05E7</td><td>Konatala S S V Saipavan</td><td>CSE</td><td>71</td><td>86</td></tr>
+                  <tr class="r3"><td>3</td><td>25B91A07A4</td><td>Shaik Dada Khalander</td><td>CSIT</td><td>63</td><td>46</td></tr>
+                  <tr><td>4</td><td>25B91A61P8</td><td>Vanka Lohith Sai Vikas</td><td>AIML</td><td>60</td><td>112</td></tr>
+                  <tr><td>5</td><td>25B91A04C2</td><td>Pallapu Hemanth Kumar</td><td>ECE</td><td>58</td><td>97</td></tr>
+                  <tr><td>6</td><td>25B91A12F6</td><td>Gudivada Sravani</td><td>CSE</td><td>54</td><td>103</td></tr>
+                </table>
+              </div>
+            </div>
+            <span class="glass"></span>
+          </div>
+        </div>
+        <div class="dev-base"></div>
+
+        <!-- ░░ podium rises out ░░ -->
+        <div class="pop podium" data-z="150">
+          <div class="pd p2"><em>2</em><b>71</b></div>
+          <div class="pd p1"><em>1</em><b>72</b></div>
+          <div class="pd p3"><em>3</em><b>63</b></div>
+        </div>
+      </div>
+      <span class="glowpad"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 07 · TRACK ═══════════════════ -->
+<section id="track" class="slide" data-name="Track">
+  <div class="wrap split flip">
+    <header class="sh left"><span class="kick">07 — Track</span>
+      <h2 class="h2">A year of work,<br><em>standing up.</em></h2>
+      <p class="lede">The heatmap lifts straight off the dashboard. Every solved day, extruded to its value.</p>
+      <ul class="mini">
+        <li><em>Easy avg</em><b>1m</b><i>target 10m</i></li>
+        <li><em>Medium avg</em><b>2m</b><i>target 25m</i></li>
+        <li><em>Hard avg</em><b>9m</b><i>target 35m</i></li>
+      </ul>
+    </header>
+
+    <div class="scene3" id="trackScene">
+      <div class="dev tilt-d">
+        <div class="dev-win">
+          <div class="dev-bar"><i></i><i></i><i></i><em>owlcoder.technicalhub.io/report</em></div>
+          <div class="dev-scr">
+            <div class="ui">
+              <div class="ui-nav"><span class="ui-logo"><b>TH</b>TECHNICAL HUB</span>
+                <span class="ui-tabs"><a class="on">Owl Dashboard</a><a>Coding Contest</a></span>
+                <span class="ui-me">K. Prasanth</span></div>
+              <div class="ui-bd">
+                <div class="ui-h"><b>Report View — Course Overview</b><span class="chip g">On track</span></div>
+                <div class="g4">
+                  <div class="c"><span class="k">Total content</span><b class="big">7/52</b><span class="sub">13% complete</span></div>
+                  <div class="c"><span class="k">Videos</span><b class="big">1/35</b><span class="sub">3% watched</span></div>
+                  <div class="c"><span class="k">Problems</span><b class="big">40/83</b><span class="sub">48% solved</span></div>
+                  <div class="c"><span class="k">Time on problems</span><b class="big">1h 7m</b><span class="sub">total</span></div>
+                </div>
+                <div class="c flat"><span class="k">Progress heatmap<em>last year</em></span><div class="hm" id="hmTrack"></div></div>
+              </div>
+            </div>
+            <span class="glass"></span>
+          </div>
+        </div>
+        <div class="dev-base"></div>
+
+        <!-- ░░ the heatmap peels off and extrudes ░░ -->
+        <div class="pop isowrap" data-z="60"><div class="iso" id="iso"></div></div>
+      </div>
+      <span class="glowpad"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 08 · IMPROVE ═══════════════════ -->
+<section id="improve" class="slide" data-name="Improve">
+  <div class="wrap split">
+    <header class="sh left"><span class="kick">08 — Improve</span>
+      <h2 class="h2">A tutor that knows<br><em>where you are.</em></h2>
+      <div class="mstage">
+        <button class="mtab on" data-st="0">Before start</button>
+        <button class="mtab" data-st="1">After start</button>
+        <button class="mtab" data-st="2">Submitted</button>
+      </div>
+      <p class="lede" id="mSay">Understand the problem first. Ask for an approach, a hint to begin, or a walk
+        through the sample input and output.</p>
+    </header>
+
+    <div class="scene3" id="aiScene">
+      <svg class="owl ai-owl" id="aiOwl" viewBox="40 20 280 360" aria-hidden="true"></svg>
+      <div class="dev tilt-a">
+        <div class="dev-win">
+          <div class="dev-bar"><i></i><i></i><i></i><em>owlcoder.technicalhub.io/owlground</em></div>
+          <div class="dev-scr">
+            <div class="ui">
+              <div class="ai-head"><b>AI Mentor</b><span class="x">Close</span></div>
+              <div class="ai-tabs"><a class="on">Before Start</a><a>After Start</a><a>Submitted</a></div>
+              <div class="ai-body">
+                <pre class="code sm"><span class="ck">bool</span> <span class="cf">hasPair</span>(vector&lt;<span class="ck">int</span>&gt;&amp; a, <span class="ck">int</span> k) {
+  <span class="ck">for</span> (<span class="ck">int</span> i = <span class="cn">0</span>; i &lt; n; i++)
+    <span class="ck">for</span> (<span class="ck">int</span> j = i + <span class="cn">1</span>; j &lt; n; j++)
+      <span class="ck">if</span> (a[i] + a[j] == k) <span class="ck">return</span> <span class="ck">true</span>;
+}</pre>
+                <div class="ai-note"><i></i><p>Nested loops make this O(n²). Store seen values in a hash set and
+                  check for <code>k - a[i]</code> as you go.</p></div>
+              </div>
+            </div>
+            <span class="glass"></span>
+          </div>
+        </div>
+        <div class="dev-base"></div>
+
+        <!-- ░░ prompts float out ░░ -->
+        <div class="pop ask a1" data-z="80">What approach should I consider?</div>
+        <div class="pop ask a2" data-z="130">Give me a hint to start</div>
+        <div class="pop ask a3" data-z="180">Walk me through the sample I/O</div>
+      </div>
+      <span class="glowpad"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 09 · ECOSYSTEM ═══════════════════ -->
+<section id="ecosystem" class="slide" data-name="Ecosystem">
+  <div class="wrap">
+    <header class="sh"><span class="kick">09 — Ecosystem</span>
+      <h2 class="h2">Students, trainers, <em>institutions.</em></h2></header>
+    <div class="eco3">
+      <article class="eco" style="--c:var(--green)">
+        <div class="eco-scr"><div class="es-top"><b>Student</b><span>DSA · 43/135</span></div>
+          <div class="es-ring" style="--p:32"><b>32%</b></div>
+          <div class="es-rows"><i style="--w:72%"></i><i style="--w:48%"></i><i style="--w:86%"></i></div></div>
+        <h3>Students</h3>
+        <ul><li>Courses &amp; learning paths</li><li>3,389+ problems</li><li>Contests &amp; leaderboards</li>
+          <li>Reports &amp; heatmaps</li><li>Linked coding profiles</li></ul>
+      </article>
+      <article class="eco" style="--c:var(--gold-d)">
+        <div class="eco-scr"><div class="es-top"><b>Trainer</b><span>Batch 2026 · 44</span></div>
+          <div class="es-list"><span>Sum of Matrix Elements<i class="lk"></i></span><span>Even Digit Numbers<i class="lk"></i></span><span>Concatenation of Array<i></i></span></div></div>
+        <h3>Trainers</h3>
+        <ul><li>Create courses &amp; content</li><li>Assign and lock per batch</li><li>Assessments &amp; contests</li>
+          <li>Trainee progress</li><li>Module-wise reports</li></ul>
+      </article>
+      <article class="eco" style="--c:var(--blue)">
+        <div class="eco-scr"><div class="es-top"><b>Institution</b><span>4 branches</span></div>
+          <div class="es-bars"><span>CSE<i style="--w:78%"></i><b>78%</b></span><span>AIML<i style="--w:71%"></i><b>71%</b></span>
+            <span>CSIT<i style="--w:64%"></i><b>64%</b></span><span>ECE<i style="--w:52%"></i><b>52%</b></span></div></div>
+        <h3>Institutions</h3>
+        <ul><li>Admin panel &amp; batches</li><li>Course mapping</li><li>Branch-level insight</li>
+          <li>Organisation reports</li><li>Placement readiness</li></ul>
+      </article>
+    </div>
+    <div class="flow" aria-hidden="true">
+      <span>Learning</span><i></i><span>Practice</span><i></i><span>Assessment</span><i></i>
+      <span>Performance</span><i></i><span>Insights</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 10 · NUMBERS ═══════════════════ -->
+<section id="numbers" class="slide" data-name="By the numbers">
+  <div class="wrap">
+    <header class="sh"><span class="kick">10 — By the numbers</span>
+      <h2 class="h2">What it adds <em>up to.</em></h2></header>
+    <ul class="bignum">
+      <li><b class="count" data-to="3389" data-sfx="+">0</b><span>Practice questions</span></li>
+      <li><b class="count" data-to="1500" data-sfx="+">0</b><span>Company questions</span></li>
+      <li><b class="count" data-to="100" data-sfx="+">0</b><span>Company tags</span></li>
+      <li><b class="count" data-to="4">0</b><span>Languages</span></li>
+      <li><b class="count" data-to="5">0</b><span>Profiles linked</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════ 11 · CTA ═══════════════════ -->
+<section id="cta" class="slide end" data-name="Get started">
+  <div class="wrap cta-in">
+    <svg class="owl cta-owl" id="ctaOwl" viewBox="30 20 300 370" aria-hidden="true"></svg>
+    <span class="kick">Your coding journey starts here</span>
+    <h2 class="cta-h">Don’t just think.<br><em>Make it happen.</em></h2>
+    <div class="cta-row">
+      <a class="btn big" href="https://owlcoder.technicalhub.io/coding-courses-dashboard" target="_blank" rel="noopener">Open Owl Coder</a>
+      <a class="btn ghost big" href="mailto:support@technicalhub.io">Talk to us</a>
+    </div>
+    <p class="cta-url">owlcoder.technicalhub.io</p>
+    <p class="cta-by">A product of <b>Technical Hub</b> · © 2026</p>
+  </div>
+</section>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

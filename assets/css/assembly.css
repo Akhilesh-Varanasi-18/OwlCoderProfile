@@ -1,0 +1,146 @@
+/* assembly.css — the opening scene. See assets/js/assembly.js. */
+
+.step.hero .asm { position: absolute; inset: 0; perspective: 1500px; perspective-origin: 50% 42%; overflow: hidden;
+  --mw: 900px; --s: 7px; --bz: calc(var(--mw) * .0135); --dp: 20px;
+  --rad: calc(var(--mw) * .0155);            /* the case corner */
+  --srad: calc(var(--rad) - var(--bz) + 2px); /* concentric with it, so the glass corner reads true */
+  --chin: calc(var(--mw) * .075);
+  --sw: calc(var(--mw) - var(--bz) * 2);
+  --sh: calc(var(--sw) / 2.1622);
+  --ph: calc(var(--sh) + var(--bz) * 2 + var(--chin));
+  --nw: calc(var(--mw) * .17); --nh: calc(var(--mw) * .12);
+  --fw: calc(var(--mw) * .30); --fd: calc(var(--mw) * .19); }
+
+/* floor */
+.asm-floor { position: absolute; left: 50%; top: 60%; width: 170%; height: 70%;
+  transform: translateX(-50%) rotateX(80deg); transform-origin: top;
+  background-image:
+    linear-gradient(90deg, rgba(21,137,63,.11) 0 1px, transparent 1px),
+    linear-gradient(180deg, rgba(21,137,63,.11) 0 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 48% 60% at 50% 20%, #000 20%, transparent 100%);
+          mask-image: radial-gradient(ellipse 48% 60% at 50% 20%, #000 20%, transparent 100%);
+  pointer-events: none; }
+
+/* the rig: the display's box; the stand hangs off it */
+.asm-rig { position: absolute; left: 50%; top: 46.5%; width: var(--mw); height: var(--ph); transform-style: preserve-3d; }
+.mon-hero, .skel { position: absolute; inset: 0; transform-style: preserve-3d; }
+
+/* ── the desktop ── */
+.mon-hero .panel { position: absolute; inset: 0; transform-style: preserve-3d; }
+.mon-hero .pf { position: absolute; inset: 0; border-radius: var(--rad); backface-visibility: hidden;
+  background: linear-gradient(180deg,
+    #1B211E 0, #111614 calc(100% - var(--chin) - 2px),
+    #0E1311 calc(100% - var(--chin)),
+    #EDF2EF calc(100% - var(--chin) + 1px), #E2EAE5 calc(100% - var(--chin) * .45), #C3D0C8 100%);
+  box-shadow: 0 0 0 1px rgba(10,16,13,.5), inset 0 1px 0 rgba(255,255,255,.14), inset 0 0 0 1px rgba(255,255,255,.05),
+    0 54px 96px -38px rgba(18,26,21,.55); }
+/* the rim: a thin bright edge on the case, the way light catches an extruded shell */
+.mon-hero .pf::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(170deg, rgba(255,255,255,.16), rgba(255,255,255,0) 22%, rgba(255,255,255,0) 82%, rgba(255,255,255,.07));
+  -webkit-mask-image: linear-gradient(#000, #000); }
+.mon-hero .scr { position: absolute; left: var(--bz); right: var(--bz); top: var(--bz); bottom: calc(var(--bz) + var(--chin));
+  border-radius: var(--srad); overflow: hidden; background: #0C1711;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.55), 0 2px 10px rgba(0,0,0,.35) inset; }
+.mon-hero .land { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.mon-hero .scr-glow { position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 70% 60% at 50% 42%, rgba(60,179,113,.38), transparent 70%); }
+.mon-hero .scan-veil { position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    repeating-linear-gradient(0deg,  rgba(110,225,160,.22) 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(90deg, rgba(110,225,160,.22) 0 1px, transparent 1px 22px); }
+.mon-hero .scan-bar { position: absolute; left: 0; right: 0; height: 3px; border-radius: 2px; background: #B6F7D0;
+  box-shadow: 0 0 16px 4px rgba(140,245,180,.85), 0 0 70px 22px rgba(60,179,113,.38), 0 30px 60px 10px rgba(60,179,113,.22);
+  pointer-events: none; }
+.mon-hero .scr .glass { z-index: 5; }
+/* thickness: four sides and a plain silver back */
+.mon-hero .ps { position: absolute; background: #AEBCB4; }
+.mon-hero .ps.t { left: var(--rad); right: var(--rad); top: 0;    height: var(--dp); transform-origin: top;  transform: rotateX(-90deg); background: linear-gradient(180deg, #D8E2DB, #BDCAC3); }
+.mon-hero .ps.b { left: var(--rad); right: var(--rad); top: 100%; height: var(--dp); transform-origin: top;  transform: rotateX(-90deg); background: linear-gradient(180deg, #8D9C94, #74827B); }
+.mon-hero .ps.l { top: var(--rad); bottom: var(--rad); left: 0;    width: var(--dp); transform-origin: left; transform: rotateY(90deg); background: linear-gradient(90deg, #96A59D, #AFBDB5); }
+.mon-hero .ps.r { top: var(--rad); bottom: var(--rad); left: 100%; width: var(--dp); transform-origin: left; transform: rotateY(90deg); background: linear-gradient(90deg, #C3D0C9, #A6B4AC); }
+.mon-hero .pb { position: absolute; inset: 0; border-radius: var(--rad); display: grid; place-items: center;
+  background: linear-gradient(160deg, #DCE4DF, #B3C1B9 48%, #93A39A);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.35);
+  transform: translateZ(calc(var(--dp) * -1)) rotateY(180deg); backface-visibility: hidden; }
+/* the classic stand: a plate leaning back, a foot sweeping forward */
+.mon-hero .neck { position: absolute; left: 50%; top: calc(100% - 2px); width: var(--nw); height: var(--nh); margin-left: calc(var(--nw) / -2);
+  background: linear-gradient(90deg, #98A89F, #DCE4DF 46%, #A3B2AA);
+  clip-path: polygon(13% 0, 87% 0, 100% 100%, 0 100%);
+  transform: translateZ(calc(var(--dp) / -2)) rotateX(-8deg); transform-origin: top; }
+.mon-hero .foot { position: absolute; left: 50%; top: calc(100% + var(--nh) - 2px); width: var(--fw); height: var(--fd); margin-left: calc(var(--fw) / -2);
+  border-radius: 10px 10px 30% 30% / 10px 10px 42% 42%;
+  background: linear-gradient(180deg, #B6C4BC, #DEE6E1 42%, #ADBCB4);
+  box-shadow: 0 26px 44px -18px rgba(18,26,21,.48), inset 0 -2px 0 rgba(0,0,0,.08);
+  transform: translateZ(calc(var(--dp) / -2 - var(--nh) * .14)) rotateX(80deg); transform-origin: top; }
+
+/* ── the skeleton: the same geometry as a glowing grid ── */
+.skel .sk { position: absolute; transform-style: preserve-3d; pointer-events: none; }
+.skel .sk-panel { inset: 0; }
+.skel .sk-neck  { left: 50%; top: calc(100% - 2px); width: var(--nw); height: var(--nh); margin-left: calc(var(--nw) / -2);
+  transform: translateZ(calc(var(--dp) / -2)) rotateX(-8deg); transform-origin: top; }
+.skel .sk-foot  { left: 50%; top: calc(100% + var(--nh) - 2px); width: var(--fw); height: var(--fd); margin-left: calc(var(--fw) / -2);
+  transform: translateZ(calc(var(--dp) / -2 - var(--nh) * .14)) rotateX(80deg); transform-origin: top; }
+.skel .gl-set, .skel .pt-set { position: absolute; inset: 0; }
+.skel .pt-set { transform-style: preserve-3d; }
+.skel .sk-panel .gl-set { background: rgba(60,179,113,.045); box-shadow: inset 0 0 60px rgba(60,179,113,.08); }
+/* the display's depth: a back frame and four connectors */
+.skel .sk-back { inset: 0; transform: translateZ(calc(var(--dp) * -1)); }
+.skel .sk-depth { inset: 0; }
+.skel .sk-depth .gl.d { position: absolute; width: var(--dp); height: 2px; margin-top: -1px; transform-origin: left; transform: rotateY(90deg); }
+.skel .sk-depth .gl.d.tl { left: 0;    top: 0; }
+.skel .sk-depth .gl.d.tr { left: 100%; top: 0; }
+.skel .sk-depth .gl.d.bl { left: 0;    top: 100%; }
+.skel .sk-depth .gl.d.br { left: 100%; top: 100%; }
+
+.gl { position: absolute; background: rgba(60,179,113,.5); box-shadow: 0 0 5px rgba(60,179,113,.45); }
+.gl.v { top: 0; bottom: 0; width: 1px; margin-left: -.5px; }
+.gl.h { left: 0; right: 0; height: 1px; margin-top: -.5px; }
+.gl.f { background: #4CC481; box-shadow: 0 0 8px 1px rgba(90,215,145,.75); }
+.gl.v.f { width: 2px; margin-left: -1px; }
+.gl.h.f { height: 2px; margin-top: -1px; }
+.sk-back .gl.f { background: rgba(76,196,129,.6); box-shadow: 0 0 6px rgba(90,215,145,.5); }
+
+.pt { position: absolute; width: var(--s); height: var(--s); transform-style: preserve-3d; will-change: transform, opacity; }
+.pt.edge { --s: 8px; }
+.pt > i, .pt::before, .pt::after { content: ""; position: absolute; inset: 0; border-radius: 1px; }
+.pt > i      { background: linear-gradient(135deg, #8BE8B0, #3CB371); transform: translateZ(calc(var(--s) / 2));
+               box-shadow: 0 0 8px 1px rgba(90,215,145,.6); }
+.pt::before  { background: #D6F7E2; transform: rotateX(90deg) translateZ(calc(var(--s) / 2)); }
+.pt::after   { background: #1F9A50; transform: rotateY(90deg) translateZ(calc(var(--s) / 2)); }
+.pt.edge > i { background: linear-gradient(135deg, #A6F0C4, #4CC481); box-shadow: 0 0 10px 2px rgba(110,230,160,.7); }
+.pt.on > i   { animation: ptLand .5s ease-out; }
+@keyframes ptLand {
+  0%   { transform: translateZ(calc(var(--s) / 2)) scale(1);   box-shadow: 0 0 8px 1px rgba(90,215,145,.6); }
+  30%  { transform: translateZ(calc(var(--s) / 2)) scale(1.9); box-shadow: 0 0 18px 6px rgba(160,255,200,.95); }
+  100% { transform: translateZ(calc(var(--s) / 2)) scale(1);   box-shadow: 0 0 8px 1px rgba(90,215,145,.6); }
+}
+
+/* flash and ring from the screen */
+.asm-flash { position: absolute; left: -30%; top: -60%; width: 160%; height: 220%; pointer-events: none;
+  background: radial-gradient(ellipse 40% 40% at 50% 50%, #fff 0%, rgba(255,255,255,.85) 30%, rgba(200,245,215,.35) 55%, transparent 72%);
+  transform: translateZ(40px); }
+.asm-ring { position: absolute; left: 50%; top: 50%; width: 50%; aspect-ratio: 1; border-radius: 50%; pointer-events: none;
+  border: 2px solid rgba(60,179,113,.9); box-shadow: 0 0 24px rgba(60,179,113,.5), inset 0 0 24px rgba(60,179,113,.35);
+  transform: translateZ(40px); }
+
+/* the mark, top right */
+.asm-logo { position: absolute; top: 26px; right: 42px; width: clamp(150px, 13%, 210px); height: auto; display: block; z-index: 4;
+  filter: drop-shadow(0 14px 20px rgba(18,26,21,.22)); pointer-events: none; }
+
+/* the words: a left column, after everything */
+.asm-copy { position: absolute; left: 4.5%; top: 50%; transform: translateY(-50%); max-width: 400px; z-index: 3; }
+.asm-copy .h1 { font-size: clamp(30px, 2.9vw, 46px); margin: 18px 0 0; }
+.asm-copy .say { font-size: clamp(14px, 1.1vw, 16px); margin-top: 14px; max-width: 38ch; }
+.asm-copy .stats { flex-wrap: wrap; margin-top: 24px; padding-top: 18px; gap: 14px 26px; }
+.asm-copy .stats b { font-size: clamp(18px, 1.8vw, 26px); }
+
+/* the watcher is kept out of the way until the landing */
+.watch.asm-hide { opacity: 0 !important; }
+
+@media (max-width: 1080px) {
+  .step.hero .asm { --mw: 480px; }
+  .asm-rig { top: 40%; }
+  .asm-logo { top: 16px; right: 16px; width: 120px; }
+  .asm-copy { left: 16px; right: 16px; top: auto; bottom: 16px; transform: none; max-width: none; }
+}

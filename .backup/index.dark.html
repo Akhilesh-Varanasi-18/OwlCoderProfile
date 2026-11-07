@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Owl Coder — Code Smarter. Practice Better. Get Future-Ready.</title>
+<meta name="description" content="Your complete coding and placement-preparation ecosystem. 3,389+ practice questions, 1,500+ company questions across 100+ company tags, structured courses, live contests, progress tracking and an AI coding tutor. A product of Technical Hub.">
+<meta name="theme-color" content="#050806">
+<meta property="og:title" content="Owl Coder — Code Smarter. Practice Better. Get Future-Ready.">
+<meta property="og:description" content="Learn, practise, compete and track your coding journey on one platform. A product of Technical Hub.">
+<meta property="og:type" content="website">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23050806%27/%3E%3Cg fill=%27none%27 stroke=%27%232fd16c%27 stroke-width=%272%27%3E%3Ccircle cx=%2711.6%27 cy=%2714%27 r=%274.4%27/%3E%3Ccircle cx=%2720.4%27 cy=%2714%27 r=%274.4%27/%3E%3C/g%3E%3Cg fill=%27%232fd16c%27%3E%3Ccircle cx=%2711.6%27 cy=%2714%27 r=%271.9%27/%3E%3Ccircle cx=%2720.4%27 cy=%2714%27 r=%271.9%27/%3E%3C/g%3E%3Cpath d=%27M16 17.4 14.2 20.4h3.6Z%27 fill=%27%23f7b500%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<!-- ═════════════════════════ boot ═════════════════════════ -->
+<div class="boot" id="boot">
+  <div class="boot-in">
+    <div class="boot-eye" aria-hidden="true"><i></i><i></i></div>
+    <p class="boot-name">OWL<span>CODER</span></p>
+    <div class="boot-bar"><i id="boot-fill"></i></div>
+  </div>
+</div>
+
+<!-- ═════════════════════════ 3D owl ═════════════════════════ -->
+<div class="owl-layer" aria-hidden="true"><canvas id="owl-canvas"></canvas></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ═════════════════════════ chrome ═════════════════════════ -->
+<header class="topbar" id="topbar">
+  <a class="brand" href="#top">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="24" height="24">
+        <circle cx="11.4" cy="13" r="4.4" fill="none" stroke="currentColor" stroke-width="1.7"/>
+        <circle cx="20.6" cy="13" r="4.4" fill="none" stroke="currentColor" stroke-width="1.7"/>
+        <circle cx="11.4" cy="13" r="1.8" fill="currentColor"/>
+        <circle cx="20.6" cy="13" r="1.8" fill="currentColor"/>
+        <path d="M16 16.2 14.2 19h3.6L16 16.2Z" fill="currentColor"/>
+        <path d="M6.6 8.2 9.4 5.6M25.4 8.2 22.6 5.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+    </span>
+    <span class="brand-text">Owl<b>Coder</b></span>
+  </a>
+  <div class="topbar-right">
+    <span class="topbar-by">a product of <b>Technical&nbsp;Hub</b></span>
+    <a class="btn btn-sm" href="https://owlcoder.technicalhub.io/coding-courses-dashboard" target="_blank" rel="noopener">Open the platform</a>
+  </div>
+</header>
+
+<nav class="rail" id="rail" aria-label="Sections">
+  <ol class="rail-list">
+    <li><a href="#top" data-rail="top"><i></i><span>Start</span></a></li>
+    <li><a href="#problem" data-rail="problem"><i></i><span>The problem</span></a></li>
+    <li><a href="#journey" data-rail="journey"><i></i><span>The journey</span></a></li>
+    <li><a href="#learn" data-rail="learn"><i></i><span>Learn</span></a></li>
+    <li><a href="#practice" data-rail="practice"><i></i><span>Practice</span></a></li>
+    <li><a href="#compete" data-rail="compete"><i></i><span>Compete</span></a></li>
+    <li><a href="#track" data-rail="track"><i></i><span>Track</span></a></li>
+    <li><a href="#ai" data-rail="ai"><i></i><span>Improve</span></a></li>
+    <li><a href="#ecosystem" data-rail="ecosystem"><i></i><span>Ecosystem</span></a></li>
+    <li><a href="#cta" data-rail="cta"><i></i><span>Begin</span></a></li>
+  </ol>
+  <div class="rail-prog"><i id="rail-fill"></i></div>
+</nav>
+
+<!-- ═════════════════════════ the travelling laptop ═════════════════════════
+     One device for the whole page. It opens in the hero, then flies from
+     section to section, matching an invisible slot in each. Everything on
+     its screen is live DOM, not an image.
+     ══════════════════════════════════════════════════════════════════════ -->
+<div class="rig" id="rig" aria-hidden="true">
+  <div class="laptop" id="laptop">
+    <div class="lid">
+      <div class="bezel">
+        <span class="cam"></span>
+        <div class="screen" id="screen">
+
+          <!-- ───── app chrome shared by every screen ───── -->
+          <div class="ui">
+            <div class="ui-nav">
+              <span class="ui-logo"><b>TH</b>TECHNICAL HUB</span>
+              <span class="ui-tabs"><a class="on">Owl Dashboard</a><a>Coding Contest</a></span>
+              <span class="ui-user">K. Prasanth</span>
+            </div>
+            <div class="ui-body">
+
+              <!-- ═══ DASHBOARD ═══ -->
+              <section class="app" data-app="dashboard">
+                <div class="app-head">
+                  <div><h4>Your Coding Overview</h4><p>A snapshot of everything you've solved, learned, and are working toward.</p></div>
+                  <span class="pill pill-g"><i></i>43 solved all-time</span>
+                </div>
+                <div class="row4">
+                  <div class="card">
+                    <div class="card-t">Total Problems Solved<span>All time</span></div>
+                    <div class="donut-wrap">
+                      <div class="donut" style="--e:56;--m:44"><b>43</b><span>solved</span></div>
+                      <ul class="legend">
+                        <li><i style="--c:var(--ui-green)"></i>Easy<b>24</b></li>
+                        <li><i style="--c:var(--ui-gold)"></i>Medium<b>19</b></li>
+                        <li><i style="--c:var(--ui-red)"></i>Hard<b>0</b></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-t">LeetCode<span>Rank #0</span></div>
+                    <div class="plat"><span class="plat-ic lc">LC</span><b>21</b><em>solved</em></div>
+                    <div class="minibars"><i style="--h:70%;--c:var(--ui-green)"></i><i style="--h:45%;--c:var(--ui-gold)"></i><i style="--h:18%;--c:var(--ui-red)"></i></div>
+                    <span class="streak">21 solved · rank tracked</span>
+                  </div>
+                  <div class="card">
+                    <div class="card-t">CodeChef<span>Rating</span></div>
+                    <div class="plat"><span class="plat-ic cc">CC</span><b>4★</b><em>rating</em></div>
+                    <div class="chips2"><span>Streak</span><span>Contests</span></div>
+                    <span class="streak">day streak tracked</span>
+                  </div>
+                  <div class="card">
+                    <div class="card-t">HackerRank<span>Badges</span></div>
+                    <div class="plat"><span class="plat-ic hr">HR</span><b>5</b><em>badges</em></div>
+                    <div class="chips2 wrap"><span>C</span><span>C++</span><span>Python</span><span>Java</span><span>SQL</span></div>
+                  </div>
+                </div>
+                <div class="row2">
+                  <div class="card">
+                    <div class="card-t">All Courses Combined</div>
+                    <div class="bars">
+                      <div class="bar"><span>Articles</span><b>65 / 381</b><i style="--w:17%"></i></div>
+                      <div class="bar"><span>Videos</span><b>5 / 239</b><i style="--w:3%"></i></div>
+                      <div class="bar"><span>Easy solved</span><b>24</b><i style="--w:55%"></i></div>
+                      <div class="bar"><span>Medium solved</span><b>19</b><i style="--w:42%"></i></div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-t">Progress Heatmap<span>Last year</span></div>
+                    <div class="heat" id="heat"></div>
+                    <div class="heat-k"><span>Less</span><i></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i><span>More</span></div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- ═══ COURSES ═══ -->
+              <section class="app" data-app="courses">
+                <div class="app-head"><div><h4>My Courses</h4><p>Six tracks running. Every item counted.</p></div>
+                  <span class="seg"><a class="on">List</a><a>Grid</a></span></div>
+                <ul class="clist">
+                  <li><span class="ring" style="--p:32"><b>32%</b></span><div class="cl-n">DSA<em>43/135 items</em></div>
+                    <div class="cl-m"><span>Articles<b>6/17</b></span><span>Videos<b>1/33</b></span><span>Trainer<b>11/44</b></span><span>Trainee<b>25/39</b></span></div>
+                    <span class="btn-g">Course View</span></li>
+                  <li><span class="ring" style="--p:16"><b>16%</b></span><div class="cl-n">Advanced Data Structures<em>45/281 items</em></div>
+                    <div class="cl-m"><span>Articles<b>39/42</b></span><span>Videos<b>3/39</b></span><span>Trainer<b>3/84</b></span><span>Trainee<b>0/116</b></span></div>
+                    <span class="btn-g">Course View</span></li>
+                  <li><span class="ring" style="--p:8"><b>8%</b></span><div class="cl-n">Python Programming<em>0/521 items</em></div>
+                    <div class="cl-m"><span>Articles<b>0/43</b></span><span>Videos<b>0/42</b></span><span>Trainer<b>0/51</b></span><span>Trainee<b>0/370</b></span></div>
+                    <span class="btn-g">Course View</span></li>
+                  <li><span class="ring" style="--p:4"><b>1%</b></span><div class="cl-n">SQL<em>5/413 items</em></div>
+                    <div class="cl-m"><span>Articles<b>5/20</b></span><span>Videos<b>0/0</b></span><span>Trainer<b>0/106</b></span><span>Trainee<b>0/287</b></span></div>
+                    <span class="btn-g">Course View</span></li>
+                  <li><span class="ring" style="--p:4"><b>1%</b></span><div class="cl-n">Java Programming<em>0/355 items</em></div>
+                    <div class="cl-m"><span>Articles<b>0/75</b></span><span>Videos<b>0/0</b></span><span>Trainer<b>0/21</b></span><span>Trainee<b>0/236</b></span></div>
+                    <span class="btn-g">Course View</span></li>
+                </ul>
+              </section>
+
+              <!-- ═══ LEARNING PATH ═══ -->
+              <section class="app" data-app="path">
+                <div class="app-head"><div><h4>Learning Path</h4><p>NAGPUR FDP 2026 · DSA</p></div>
+                  <span class="muted">1 of 15 modules completed</span></div>
+                <div class="path">
+                  <aside class="path-side">
+                    <div class="av">KP</div><b>K. Prasanth</b><em>3838</em>
+                    <span class="ring big" style="--p:32"><b>32%</b></span>
+                    <p class="muted">43 / 135 complete<br>Keep going — you're on track</p>
+                  </aside>
+                  <ol class="mods">
+                    <li class="on"><span class="mn">1</span><div><em>MODULE 01 · IN PROGRESS</em><h5>Complexity Analysis</h5>
+                      <span class="tags"><i>Videos 0/1</i><i>Articles 1/1</i></span></div><span class="pc">50%</span><i class="pb" style="--w:50%"></i></li>
+                    <li class="done"><span class="mn">✓</span><div><em>MODULE 02 · COMPLETED</em><h5>Vectors</h5>
+                      <span class="tags"><i>Articles 3/3</i><i>Problems 7/8</i></span></div><span class="pc">100%</span><i class="pb" style="--w:100%"></i></li>
+                    <li><span class="mn">3</span><div><em>MODULE 03 · IN PROGRESS</em><h5>Two Pointers</h5>
+                      <span class="tags"><i>Articles 2/4</i><i>Problems 3/9</i></span></div><span class="pc">43%</span><i class="pb" style="--w:43%"></i></li>
+                    <li><span class="mn">4</span><div><em>MODULE 04 · LOCKED</em><h5>Sliding Window</h5>
+                      <span class="tags"><i>Articles 0/3</i><i>Problems 0/8</i></span></div><span class="pc">0%</span><i class="pb" style="--w:0%"></i></li>
+                  </ol>
+                </div>
+              </section>
+
+              <!-- ═══ ARTICLE ═══ -->
+              <section class="app" data-app="article">
+                <div class="app-head"><div><h4>Vectors in C++</h4><p>DSA · Module 02 · Article 1 of 3</p></div>
+                  <span class="pill pill-g"><i></i>Marked as read</span></div>
+                <div class="art">
+                  <div class="art-body">
+                    <h5>What is a Vector?</h5>
+                    <p>A vector is a <b>dynamic array</b> from the C++ Standard Template Library. It stores elements in
+                      <b>contiguous memory</b> like a normal array, but it can <b>grow and shrink automatically</b> at
+                      runtime. You never declare its size up front.</p>
+                    <pre class="code-sm"><span class="c-k">#include</span> <span class="c-s">&lt;vector&gt;</span>
+<span class="c-k">using namespace</span> std;
+
+vector&lt;<span class="c-k">int</span>&gt; v;              <span class="c-c">// empty</span>
+vector&lt;<span class="c-k">int</span>&gt; a = {<span class="c-n">1</span>, <span class="c-n">2</span>, <span class="c-n">3</span>};   <span class="c-c">// initialised</span>
+vector&lt;<span class="c-k">int</span>&gt; b(<span class="c-n">5</span>, <span class="c-n">0</span>);       <span class="c-c">// five zeros</span></pre>
+                    <p class="note"><b>Real life:</b> a wedding guest list where you don't know the final headcount. You
+                      keep adding chairs as more people confirm, instead of booking a hall for an exact fixed number.</p>
+                  </div>
+                  <aside class="art-toc">
+                    <em>Contents</em>
+                    <a class="on">What is a Vector?</a><a>Why use vectors?</a><a>How it works internally</a>
+                    <a>Important operations</a><a>Time complexity</a><a>Coding examples</a><a>2-D vectors</a>
+                  </aside>
+                </div>
+              </section>
+
+              <!-- ═══ EDITOR / OWL GROUND ═══ -->
+              <section class="app" data-app="editor">
+                <div class="ed-top"><span class="crumb">Home / Owl ground</span>
+                  <span class="crumb">Points: 20</span><span class="crumb">Submissions: 6</span>
+                  <span class="lang" id="lang-pill">C++ — GCC 11.1.0</span></div>
+                <div class="ed">
+                  <div class="ed-desc">
+                    <h5>Sum of all Boundary Values in a Matrix</h5>
+                    <em>Program Description</em>
+                    <p>Given a matrix of size N x M, find the sum of all boundary values in the matrix.</p>
+                    <em>Input Format</em>
+                    <p>The first line contains two space-separated integers N and M, the row and column size.
+                      The next N lines contain M integers each.</p>
+                    <div class="io"><span>Input</span><code>3 3<br>1 2 3<br>4 5 6<br>7 8 9</code></div>
+                    <div class="io"><span>Output</span><code>40</code></div>
+                  </div>
+                  <div class="ed-code">
+                    <div class="ed-bar"><i></i><i></i><i></i><span>main.cpp</span></div>
+                    <pre class="code" id="code"></pre>
+                    <div class="ed-actions"><span class="btn-run">&#9654; Run Code</span><span class="btn-sub" id="btn-sub">Submit</span></div>
+                    <div class="ed-out">
+                      <em>Compiler Response</em>
+                      <table class="cases">
+                        <tr><th>#</th><th>Input</th><th>Expected</th><th>Output</th><th>Result</th></tr>
+                        <tr data-case="0"><td>1</td><td>3 3 · 1 2 3 …</td><td>40</td><td class="got">40</td><td class="res">pass</td></tr>
+                        <tr data-case="1"><td>2</td><td>2 2 · 1 2 …</td><td>10</td><td class="got">10</td><td class="res">pass</td></tr>
+                        <tr data-case="2"><td>3</td><td>4 4 · 5 1 …</td><td>72</td><td class="got">72</td><td class="res">pass</td></tr>
+                      </table>
+                      <span class="allpass" id="allpass">All hidden testcases passed</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- ═══ COMPANY ═══ -->
+              <section class="app" data-app="company">
+                <div class="app-head"><div><h4>Prepare for the companies you want</h4>
+                  <p>1,500+ real questions across 100+ company tags.</p></div>
+                  <span class="pill pill-a">100+ tags</span></div>
+                <div class="tagcloud">
+                  <span class="tg on">Amazon<b>184</b></span><span class="tg">Microsoft<b>141</b></span>
+                  <span class="tg">Google<b>132</b></span><span class="tg">TCS Digital<b>96</b></span>
+                  <span class="tg">Infosys<b>88</b></span><span class="tg">Wipro<b>74</b></span>
+                  <span class="tg">Accenture<b>69</b></span><span class="tg">Cognizant<b>61</b></span>
+                  <span class="tg">Deloitte<b>52</b></span><span class="tg">Capgemini<b>47</b></span>
+                  <span class="tg">Oracle<b>44</b></span><span class="tg">Adobe<b>38</b></span>
+                </div>
+                <ul class="qlist">
+                  <li><span class="d easy">Easy</span>Two Sum<em>Arrays · Hash Map</em><span class="ok">Solved</span></li>
+                  <li><span class="d med">Medium</span>Rotate Matrix by 90°<em>Matrix · In-place</em><span class="ok">Solved</span></li>
+                  <li><span class="d med">Medium</span>Longest Substring Without Repeat<em>Sliding Window</em><span class="todo">Attempt</span></li>
+                  <li><span class="d hard">Hard</span>Median of Two Sorted Arrays<em>Binary Search</em><span class="todo">Attempt</span></li>
+                </ul>
+              </section>
+
+              <!-- ═══ LEETCODE ═══ -->
+              <section class="app" data-app="leetcode">
+                <div class="app-head"><div><h4>LeetCode Integration</h4>
+                  <p>Find the problem. Practice it. Keep your coding journey connected.</p></div>
+                  <span class="pill pill-a">Linked</span></div>
+                <div class="lcwrap">
+                  <div class="lccard">
+                    <span class="plat-ic lc big">LC</span>
+                    <h5>1295. Find Numbers with Even Number of Digits</h5>
+                    <p>This problem is hosted on LeetCode. Click below to open and solve it on LeetCode — the result
+                      comes straight back to your Owl Coder dashboard.</p>
+                    <span class="btn-amber">Open on LeetCode ↗</span>
+                  </div>
+                  <div class="lcstats">
+                    <div class="lcs"><b>21</b><span>Solved</span></div>
+                    <div class="lcs"><b>12</b><span>Easy</span></div>
+                    <div class="lcs"><b>7</b><span>Medium</span></div>
+                    <div class="lcs"><b>2</b><span>Hard</span></div>
+                  </div>
+                </div>
+                <div class="card lc-recent">
+                  <div class="card-t">Recent on LeetCode<span>synced to your dashboard</span></div>
+                  <ul class="qlist tight">
+                    <li><span class="d easy">Easy</span>1295. Find Numbers with Even Number of Digits<em>Arrays</em><span class="ok">Accepted</span></li>
+                    <li><span class="d easy">Easy</span>1929. Concatenation of Array<em>Arrays · Simulation</em><span class="ok">Accepted</span></li>
+                    <li><span class="d med">Medium</span>33. Search in Rotated Sorted Array<em>Binary Search</em><span class="ok">Accepted</span></li>
+                    <li><span class="d med">Medium</span>1011. Capacity To Ship Packages<em>Binary Search</em><span class="todo">Attempted</span></li>
+                  </ul>
+                </div>
+              </section>
+
+              <!-- ═══ CONTEST ═══ -->
+              <section class="app" data-app="contest">
+                <div class="app-head"><div><h4>SkillUp Coder — Round 2</h4><p>In-campus · Batch 4 · 22-08-2026 · 09:00</p></div>
+                  <span class="pill pill-r"><i></i>Registered</span></div>
+                <div class="ct">
+                  <div class="ct-count">
+                    <em>Contest starts in</em>
+                    <div class="cd"><span><b id="cd-h">18</b>h</span><span><b id="cd-m">42</b>m</span><span><b id="cd-s">03</b>s</span></div>
+                    <div class="ct-meta"><span>Registered<b>259</b></span><span>Duration<b>1h 30m</b></span><span>Questions<b>4</b></span></div>
+                  </div>
+                  <div class="ct-q">
+                    <div class="qtabs"><a class="on">Q1</a><a>Q2</a><a>Q3</a><a>Q4</a><span class="timer">1:10:57</span></div>
+                    <h5>First Occurrence in a Sorted Array</h5>
+                    <p class="muted">Find and print the index of the first occurrence of X. Your solution should run
+                      efficiently using Binary Search.</p>
+                    <div class="qstat"><i class="ok"></i>All test cases passed<span class="btn-g sm">Submit</span></div>
+                    <div class="judge"><em>Judging</em><span>Easy · 20</span><span>Medium · 40</span><span>Hard · 60</span></div>
+                    <ol class="rules">
+                      <li>Switch between questions freely while the clock runs.</li>
+                      <li>Submit each question once its test cases pass.</li>
+                      <li>Click <b>Final Submit</b> to close your attempt.</li>
+                    </ol>
+                  </div>
+                </div>
+              </section>
+
+              <!-- ═══ LEADERBOARD ═══ -->
+              <section class="app" data-app="board">
+                <div class="app-head"><div><h4>Coding Contest Leader Board</h4><p>Contest is closed · Final statistics</p></div>
+                  <span class="pill pill-g"><i></i>Final</span></div>
+                <div class="bd">
+                  <div class="pod-wrap">
+                    <div class="pod pod-2"><em>2</em><span>25B91A05E7</span><b>71</b></div>
+                    <div class="pod pod-1"><em>1</em><span>25B91A05D9</span><b>72</b></div>
+                    <div class="pod pod-3"><em>3</em><span>25B91A07A4</span><b>63</b></div>
+                  </div>
+                  <table class="bdt">
+                    <tr><th>Rank</th><th>Roll No</th><th>Name</th><th>Branch</th><th>Score</th><th>Penalty</th></tr>
+                    <tr class="r1"><td>1</td><td>25B91A05D9</td><td>Lakshmi Ganesh Katta</td><td>CSE</td><td>72</td><td>89</td></tr>
+                    <tr class="r2"><td>2</td><td>25B91A05E7</td><td>Konatala S S V Saipavan</td><td>CSE</td><td>71</td><td>86</td></tr>
+                    <tr class="r3"><td>3</td><td>25B91A07A4</td><td>Shaik Dada Khalander</td><td>CSIT</td><td>63</td><td>46</td></tr>
+                    <tr><td>4</td><td>25B91A61P8</td><td>Vanka Lohith Sai Vikas</td><td>AIML</td><td>60</td><td>112</td></tr>
+                    <tr><td>5</td><td>25B91A04C2</td><td>Pallapu Hemanth Kumar</td><td>ECE</td><td>58</td><td>97</td></tr>
+                    <tr><td>6</td><td>25B91A12F6</td><td>Gudivada Sravani</td><td>CSE</td><td>54</td><td>103</td></tr>
+                    <tr><td>7</td><td>25B91A09K1</td><td>Matta Chaitanya Varma</td><td>CSIT</td><td>51</td><td>88</td></tr>
+                    <tr><td>8</td><td>25B91A33B7</td><td>Yerramsetti Divya Sri</td><td>AIML</td><td>47</td><td>121</td></tr>
+                    <tr><td>9</td><td>25B91A07D4</td><td>Bandaru Nikhil Teja</td><td>ECE</td><td>44</td><td>95</td></tr>
+                  </table>
+                  <div class="bd-foot"><span><em>Ranked by</em> problems solved, then points, then penalty time</span>
+                    <span><em>Registered</em> 259</span><span><em>Submitted</em> 214</span></div>
+                </div>
+              </section>
+
+              <!-- ═══ REPORT ═══ -->
+              <section class="app" data-app="report">
+                <div class="app-head"><div><h4>Report View — Course Overview</h4><p>K. Prasanth · DSA · NAGPUR_FDP_2026</p></div>
+                  <span class="seg"><a class="on">Course</a><a>Module</a><a>Tracker</a></span></div>
+                <div class="row4 tight">
+                  <div class="kpi"><em>Total content</em><b>7/52</b><span>13% completed</span></div>
+                  <div class="kpi"><em>Total videos</em><b>1/35</b><span>3% watched</span></div>
+                  <div class="kpi"><em>Problems solved</em><b>40/83</b><span>48% solved</span></div>
+                  <div class="kpi"><em>Time on problems</em><b>1h 7m</b><span>total time</span></div>
+                </div>
+                <table class="perf">
+                  <tr><th>Module</th><th>Articles</th><th>Easy</th><th>Med</th><th>Hard</th><th>Avg time</th><th>Solved</th><th>Rating</th></tr>
+                  <tr><td>Binary Search</td><td>0/1</td><td>6/4</td><td>0/2</td><td>—</td><td>6m</td><td>49%</td><td><i class="rt good">Good</i></td></tr>
+                  <tr><td>Binary Tree</td><td>0/2</td><td>4/2</td><td>3/3</td><td>2/2</td><td>6m</td><td>41%</td><td><i class="rt good">Good</i></td></tr>
+                  <tr><td>Dynamic Programming</td><td>0/1</td><td>4/2</td><td>3/3</td><td>—</td><td>8m</td><td>43%</td><td><i class="rt avg">Average</i></td></tr>
+                  <tr><td>Graphs</td><td>0/1</td><td>0/5</td><td>1/3</td><td>—</td><td>—</td><td>8%</td><td><i class="rt poor">Poor</i></td></tr>
+                  <tr><td>Sliding Window</td><td>0/1</td><td>6/4</td><td>0/3</td><td>—</td><td>4m</td><td>52%</td><td><i class="rt good">Good</i></td></tr>
+                </table>
+              </section>
+
+              <!-- ═══ TRACKER ═══ -->
+              <section class="app" data-app="tracker">
+                <div class="app-head"><div><h4>Journey to Interview Readiness</h4><p>Average solve time, week on week</p></div>
+                  <span class="pill pill-g"><i></i>On track</span></div>
+                <div class="row4 tight">
+                  <div class="kpi"><em>Easy avg</em><b>1m</b><span>target 10m · on track</span></div>
+                  <div class="kpi"><em>Medium avg</em><b>2m</b><span>target 25m · on track</span></div>
+                  <div class="kpi"><em>Hard avg</em><b>9m</b><span>target 35m · on track</span></div>
+                  <div class="kpi"><em>Solved this week</em><b>12</b><span>+4 on last week</span></div>
+                </div>
+                <div class="trk">
+                  <div class="trk-row"><span class="trk-l">Easy Speed<em>Target 10m</em></span>
+                    <div class="wk"><i style="--w:0"></i><i style="--w:62%" data-v="1m"></i><i style="--w:78%" data-v="3m"></i><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i></div></div>
+                  <div class="trk-row gold"><span class="trk-l">Med Speed<em>Target 25m</em></span>
+                    <div class="wk"><i style="--w:54%" data-v="2m"></i><i style="--w:0"></i><i style="--w:70%" data-v="3m"></i><i style="--w:58%" data-v="2m"></i><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i></div></div>
+                  <div class="trk-row red"><span class="trk-l">Hard Speed<em>Target 35m</em></span>
+                    <div class="wk"><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i><i style="--w:0"></i></div></div>
+                  <div class="wklabels"><span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span>W7</span><span>W8</span><span>W9</span></div>
+                </div>
+              </section>
+
+              <!-- ═══ AI MENTOR ═══ -->
+              <section class="app" data-app="mentor">
+                <div class="ai">
+                  <aside class="ai-panel">
+                    <div class="ai-top"><b>AI Mentor</b><span class="ai-x">Close</span></div>
+                    <div class="ai-tabs"><a data-t="0" class="on">Before Start</a><a data-t="1">After Start</a><a data-t="2">Submitted</a></div>
+                    <div class="ai-sets">
+                      <ul class="ai-set on" data-set="0">
+                        <li>What approach should I consider?</li><li>Give me a hint to start coding</li>
+                        <li>Explain this problem in simple terms</li><li>Walk me through the sample I/O</li>
+                        <li>Explain with 3 additional test cases</li>
+                      </ul>
+                      <ul class="ai-set" data-set="1">
+                        <li>Hidden test cases are failing</li><li>My code is too slow (TLE)</li>
+                        <li>My code gives wrong output</li><li>I'm stuck, give me the next step</li>
+                        <li>Explain this error</li>
+                      </ul>
+                      <ul class="ai-set" data-set="2">
+                        <li>Review my code quality</li><li>What is the time &amp; space complexity?</li>
+                        <li>How would I explain this in an interview?</li><li>Show me a cleaner solution</li>
+                      </ul>
+                    </div>
+                  </aside>
+                  <div class="ai-conv">
+                    <div class="ai-code">
+                      <pre class="code sm"><span class="c-n">1</span> <span class="c-k">bool</span> <span class="c-f">hasPair</span>(vector&lt;<span class="c-k">int</span>&gt;&amp; a, <span class="c-k">int</span> k) {
+<span class="c-n">2</span>   <span class="c-k">for</span> (<span class="c-k">int</span> i = <span class="c-n">0</span>; i &lt; n; i++)
+<span class="c-n">3</span>     <span class="c-k">for</span> (<span class="c-k">int</span> j = i + <span class="c-n">1</span>; j &lt; n; j++)
+<span class="c-n">4</span>       <span class="c-k">if</span> (a[i] + a[j] == k) <span class="c-k">return</span> <span class="c-k">true</span>;
+<span class="c-n">5</span> }</pre>
+                    </div>
+                    <div class="ai-msg">
+                      <span class="ai-who"><i></i>AI Mentor <em>Lines 2–3</em></span>
+                      <p id="ai-text">Nested loops make this O(n²). Store seen values in a hash set and check for
+                        <b>k - a[i]</b> as you go — that brings it to O(n) time with O(n) extra space.</p>
+                      <span class="ai-acts"><b>Hint</b><b>Debug</b><b>Optimise</b></span>
+                    </div>
+                    <div class="ai-cx">
+                      <span><em>Time</em><b>O(n)</b></span>
+                      <span><em>Space</em><b>O(n)</b></span>
+                      <span><em>Was</em><b class="old">O(n²)</b></span>
+                      <span class="ai-cx-n">Hash set lookup replaces the inner loop</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+            </div>
+          </div>
+          <div class="glare"></div>
+        </div>
+      </div>
+    </div>
+    <div class="base"><span class="notch"></span><span class="pad"></span></div>
+    <div class="shadow"></div>
+  </div>
+</div>
+
+<main>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section id="top" class="hero">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow rise" data-d="0">Your complete coding &amp; placement-preparation ecosystem</p>
+      <h1 class="hero-h1">
+        <span class="line"><span class="rise" data-d="1">Code Smarter.</span></span>
+        <span class="line"><span class="rise" data-d="2">Practice Better.</span></span>
+        <span class="line accent"><span class="rise" data-d="3">Get Future-Ready.</span></span>
+      </h1>
+      <p class="hero-sub rise" data-d="4">Stop switching between platforms to learn, practise, compete and track.
+        One dashboard carries the whole journey.</p>
+      <div class="hero-cta rise" data-d="5">
+        <a class="btn btn-lg" href="https://owlcoder.technicalhub.io/coding-courses-dashboard" target="_blank" rel="noopener">Explore the platform</a>
+        <a class="btn btn-ghost btn-lg" href="#journey">See how it works</a>
+      </div>
+      <ul class="hero-chips rise" data-d="6">
+        <li><b>3,389+</b> practice questions</li>
+        <li><b>1,500+</b> company questions</li>
+        <li><b>100+</b> company tags</li>
+      </ul>
+    </div>
+    <div class="hero-slot"><div class="slot" data-app="dashboard" data-tilt="-8" data-yaw="9"></div></div>
+  </div>
+  <a class="scrollcue" href="#problem"><span>Scroll</span><i></i></a>
+</section>
+
+<!-- ═══════════════════════ PROBLEM ═══════════════════════ -->
+<section id="problem" class="band problem">
+  <div class="wrap">
+    <div class="slot" data-park="1" data-app="dashboard"></div>
+    <p class="eyebrow reveal">The problem</p>
+    <h2 class="h2 reveal">Five tabs open.<br><em>One</em> coding journey.</h2>
+    <p class="lede reveal">Courses live in one place, practice in another, contests somewhere else, and progress
+      nowhere at all. Owl Coder folds all of it into a single platform.</p>
+    <div class="scatter" id="scatter">
+      <span class="sc" style="--i:0">Course PDFs</span><span class="sc" style="--i:1">LeetCode</span>
+      <span class="sc" style="--i:2">YouTube playlists</span><span class="sc" style="--i:3">WhatsApp groups</span>
+      <span class="sc" style="--i:4">Excel trackers</span><span class="sc" style="--i:5">HackerRank</span>
+      <span class="sc" style="--i:6">CodeChef</span><span class="sc" style="--i:7">Google Forms</span>
+      <span class="sc" style="--i:8">GitHub</span><span class="sc" style="--i:9">Question banks</span>
+      <div class="sc-core"><span>Owl<b>Coder</b></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ JOURNEY ═══════════════════════ -->
+<section id="journey" class="band journey">
+  <div class="wrap">
+    <div class="slot" data-park="1" data-app="courses"></div>
+    <p class="eyebrow reveal">Your coding journey</p>
+    <h2 class="h2 reveal">One dashboard. <em>Five</em> moves.</h2>
+    <p class="lede reveal">Every student walks the same loop. Owl Coder is built around that loop rather than around
+      a feature list.</p>
+    <ol class="pillars">
+      <li class="pil reveal" style="--c:#2fd16c"><span class="pil-n">01</span><h3>Learn</h3>
+        <p>Structured courses, articles, videos and notes, module by module.</p></li>
+      <li class="pil reveal" style="--c:#f7b500"><span class="pil-n">02</span><h3>Practice</h3>
+        <p>3,389+ questions by topic, difficulty, learning path and company tag.</p></li>
+      <li class="pil reveal" style="--c:#7c5cff"><span class="pil-n">03</span><h3>Compete</h3>
+        <p>Live contests with real leaderboards in C, C++, Python and Java.</p></li>
+      <li class="pil reveal" style="--c:#38bdf8"><span class="pil-n">04</span><h3>Track</h3>
+        <p>Heatmaps, course reports and statistics that show exactly where you stand.</p></li>
+      <li class="pil reveal" style="--c:#fb7185"><span class="pil-n">05</span><h3>Improve</h3>
+        <p>An AI coding tutor that reads your code and tells you the next step.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═══════════════════════ LEARN ═══════════════════════ -->
+<section id="learn" class="scene" data-beats="4">
+  <div class="scene-pin">
+    <div class="scene-grid">
+      <div class="scene-copy">
+        <div class="scene-head"><p class="eyebrow">01 — Learn</p>
+        <h2 class="h2">Learn the concept.<br>Practice the problem.<br><em>Master the skill.</em></h2></div>
+        <div class="beatstack">
+          <article class="beat" data-app="courses"><h3>Pick a course</h3>
+            <p>DSA, Advanced Data Structures, Python, Java and SQL. Each track shows articles, videos, trainer
+              problems, trainee problems, labs and notes at a glance.</p></article>
+          <article class="beat" data-app="path"><h3>Follow the learning path</h3>
+            <p>Modules run in sequence with a live completion percentage, and the platform always marks the one
+              module you should continue from.</p></article>
+          <article class="beat" data-app="article"><h3>Read it, then watch it</h3>
+            <p>Every module carries written articles with a contents rail, worked code samples and real-world
+              analogies, alongside recorded video on the same topic.</p></article>
+          <article class="beat" data-app="editor"><h3>Code it in the browser</h3>
+            <p>Trainer-curated problems sit inside the module. Write, run and submit without ever leaving the
+              lesson you are in.</p></article>
+        </div>
+        <ul class="ticks" aria-hidden="true"><i></i><i></i><i></i><i></i></ul>
+      </div>
+      <div class="scene-stage"><div class="slot" data-tilt="-6" data-yaw="-9"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ PRACTICE ═══════════════════════ -->
+<section id="practice" class="scene" data-beats="4">
+  <div class="scene-pin">
+    <div class="scene-grid flip">
+      <div class="scene-copy">
+        <div class="scene-head"><p class="eyebrow">02 — Practice</p>
+        <h2 class="h2">From <em>“what should I<br>practise?”</em> to “I know<br>what comes next.”</h2></div>
+        <div class="beatstack">
+          <article class="beat" data-app="editor"><h3>3,389+ questions, by topic</h3>
+            <p>Description, input and output format, constraints and hidden test cases in one pane. Run and submit
+              in C, C++, Python or Java with instant feedback.</p></article>
+          <article class="beat" data-app="company"><h3>Prepare for the company you want</h3>
+            <p>1,500+ real questions asked by top companies across 100+ company tags. Select a company, explore its
+              questions, practise, improve.</p></article>
+          <article class="beat" data-app="leetcode"><h3>Your LeetCode stays connected</h3>
+            <p>Problems hosted on LeetCode open in place and report back, so external solving counts toward the same
+              dashboard instead of disappearing.</p></article>
+          <article class="beat" data-app="editor"><h3>Four languages, one editor</h3>
+            <p>C and C++ on GCC 11.1, Python 3.9.9 and Java JDK 17. Compiler response, memory, CPU time and
+              per-case results come straight back.</p></article>
+        </div>
+        <ul class="ticks" aria-hidden="true"><i></i><i></i><i></i><i></i></ul>
+      </div>
+      <div class="scene-stage"><div class="slot" data-tilt="-6" data-yaw="9"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ COMPETE ═══════════════════════ -->
+<section id="compete" class="scene" data-beats="3">
+  <div class="scene-pin">
+    <div class="scene-grid">
+      <div class="scene-copy">
+        <div class="scene-head"><p class="eyebrow">03 — Compete</p>
+        <h2 class="h2">Compete. Climb.<br><em>Conquer.</em></h2></div>
+        <div class="beatstack">
+          <article class="beat" data-app="contest"><h3>Register, then wait for the gun</h3>
+            <p>Scheduled contests with a live countdown, a registered-student count and a fixed duration. Everyone
+              starts on the same second.</p></article>
+          <article class="beat" data-app="contest"><h3>Four questions. One sitting.</h3>
+            <p>Switch between questions freely, submit each one as its test cases pass, then make a final
+              submission. The timer never stops.</p></article>
+          <article class="beat" data-app="board"><h3>The board decides</h3>
+            <p>Ranked by problems solved, then points, then penalty time. Easy carries twenty points, medium forty
+              and hard sixty.</p></article>
+        </div>
+        <ul class="ticks" aria-hidden="true"><i></i><i></i><i></i></ul>
+      </div>
+      <div class="scene-stage"><div class="slot" data-tilt="-5" data-yaw="-7"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ TRACK ═══════════════════════ -->
+<section id="track" class="scene" data-beats="3">
+  <div class="scene-pin">
+    <div class="scene-grid flip">
+      <div class="scene-copy">
+        <div class="scene-head"><p class="eyebrow">04 — Track</p>
+        <h2 class="h2">One click.<br><em>Complete visibility.</em></h2></div>
+        <div class="beatstack">
+          <article class="beat" data-app="dashboard"><h3>A year of work, in one grid</h3>
+            <p>The progress heatmap shows every solved day across the last year, alongside totals by difficulty and
+              your linked LeetCode, CodeChef, HackerRank and GitHub profiles.</p></article>
+          <article class="beat" data-app="report"><h3>Reports down to the module</h3>
+            <p>Course overview, module view and per-module performance with solve counts, attempts, average time
+              and a rating against the threshold for each difficulty.</p></article>
+          <article class="beat" data-app="tracker"><h3>Journey to interview readiness</h3>
+            <p>Average solve time week on week against a target. Ten minutes for easy, twenty-five for medium,
+              thirty-five for hard. Speed is what interviews actually test.</p></article>
+        </div>
+        <ul class="ticks" aria-hidden="true"><i></i><i></i><i></i></ul>
+      </div>
+      <div class="scene-stage"><div class="slot" data-tilt="-6" data-yaw="8"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ AI ═══════════════════════ -->
+<section id="ai" class="scene" data-beats="3">
+  <div class="scene-pin">
+    <div class="scene-grid">
+      <div class="scene-copy">
+        <div class="scene-head"><p class="eyebrow">05 — Improve</p>
+        <h2 class="h2">An AI tutor that knows<br><em>where you are</em><br>in the problem.</h2></div>
+        <div class="beatstack">
+          <article class="beat" data-app="mentor" data-set="0"><h3>Before you start</h3>
+            <p>Understand the problem first. Ask for an approach, a hint to begin, a plain-language explanation, or
+              a walk through the sample input and output.</p></article>
+          <article class="beat" data-app="mentor" data-set="1"><h3>After you start</h3>
+            <p>Stuck is a state the tutor recognises. Hidden cases failing, a time limit exceeded, wrong output, or
+              simply no idea what comes next.</p></article>
+          <article class="beat" data-app="mentor" data-set="2"><h3>Once you have submitted</h3>
+            <p>Accepted is not the end. Review code quality, get the time and space complexity, and rehearse how you
+              would explain the solution in an interview.</p></article>
+        </div>
+        <ul class="ticks" aria-hidden="true"><i></i><i></i><i></i></ul>
+      </div>
+      <div class="scene-stage"><div class="slot" data-tilt="-6" data-yaw="-8"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ ECOSYSTEM ═══════════════════════ -->
+<section id="ecosystem" class="band eco">
+  <div class="wrap">
+    <div class="slot" data-park="1"></div>
+    <p class="eyebrow reveal">The Owl Coder ecosystem</p>
+    <h2 class="h2 reveal">Built for students.<br><em>Powered</em> for institutions.</h2>
+    <div class="eco-grid">
+      <article class="eco-card reveal"><header><span class="eco-k">For students</span><h3>Everything in one login</h3></header>
+        <ul><li>Structured courses and learning paths</li><li>3,389+ practice questions</li>
+          <li>Contests and live leaderboards</li><li>Progress, reports and heatmaps</li>
+          <li>Linked coding profiles</li><li>Company-specific preparation</li>
+          <li>Assessments and skill evaluations</li></ul></article>
+      <article class="eco-card reveal"><header><span class="eco-k">For trainers</span><h3>Teach, assign, review</h3></header>
+        <ul><li>Create courses and learning content</li><li>Assign and lock problems per batch</li>
+          <li>Build assessments and contests</li><li>Trainee progress at a glance</li>
+          <li>Module-wise performance reports</li><li>Curriculum and lab programs</li>
+          <li>Trainer and trainee problem sets</li></ul></article>
+      <article class="eco-card reveal"><header><span class="eco-k">For institutions</span><h3>The whole campus, measured</h3></header>
+        <ul><li>Admin panel and batch creation</li><li>Course mapping across branches</li>
+          <li>Branch-level performance insight</li><li>Contests across batches</li>
+          <li>Organisation-wide reports</li><li>Curriculum integration</li>
+          <li>Placement-readiness tracking</li></ul></article>
+    </div>
+    <div class="flow reveal" aria-hidden="true">
+      <span>Student</span><i></i><span>Learning</span><i></i><span>Practice</span><i></i>
+      <span>Assessment</span><i></i><span>Performance</span><i></i><span>Insights</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ NUMBERS ═══════════════════════ -->
+<section id="numbers" class="band numbers">
+  <div class="wrap">
+    <div class="slot" data-park="1"></div>
+    <ul class="num-grid">
+      <li class="reveal"><b class="count" data-to="3389" data-suffix="+">0</b><span>Practice questions</span></li>
+      <li class="reveal"><b class="count" data-to="1500" data-suffix="+">0</b><span>Company questions</span></li>
+      <li class="reveal"><b class="count" data-to="100" data-suffix="+">0</b><span>Company tags</span></li>
+      <li class="reveal"><b class="count" data-to="4">0</b><span>Languages</span></li>
+      <li class="reveal"><b class="count" data-to="5">0</b><span>Profiles linked</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CTA ═══════════════════════ -->
+<section id="cta" class="band cta">
+  <div class="wrap cta-in">
+    <div class="slot" data-park="1"></div>
+    <p class="eyebrow reveal">Your coding journey starts here</p>
+    <h2 class="cta-h reveal">Don’t just think.<br><em>Make it happen.</em></h2>
+    <p class="flowline reveal">Learn <i>→</i> Practise <i>→</i> Compete <i>→</i> Track <i>→</i> Improve <i>→</i> Get ready</p>
+    <div class="hero-cta reveal">
+      <a class="btn btn-lg" href="https://owlcoder.technicalhub.io/coding-courses-dashboard" target="_blank" rel="noopener">Open Owl Coder</a>
+      <a class="btn btn-ghost btn-lg" href="mailto:support@technicalhub.io">Talk to us</a>
+    </div>
+    <p class="cta-url reveal">owlcoder.technicalhub.io</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div class="foot-brand"><span class="brand-text">Owl<b>Coder</b></span>
+      <p>Practise coding, track your progress and grow your skills across every course and platform, all in one
+        place.</p></div>
+    <div class="foot-col"><h4>Platform</h4><a href="#learn">Learn</a><a href="#practice">Practise</a>
+      <a href="#compete">Compete</a><a href="#track">Track</a><a href="#ai">Improve</a></div>
+    <div class="foot-col"><h4>Contact</h4><a href="mailto:support@technicalhub.io">support@technicalhub.io</a>
+      <a href="https://owlcoder.technicalhub.io" target="_blank" rel="noopener">owlcoder.technicalhub.io</a></div>
+  </div>
+  <div class="wrap foot-bar"><span>© 2026 Technical Hub. All rights reserved.</span><span>A product of Technical Hub</span></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }
+</script>
+<script type="module" src="assets/js/owl3d.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

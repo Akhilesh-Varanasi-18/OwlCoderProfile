@@ -1,0 +1,324 @@
+/* ══════════════════════════════════════════════════════════════════
+   06 · REPORTS — "the folder and the screen"
+   Four beats on one step. First a glass folder stands in the middle of
+   the room with its report papers floating around it. Then it shrinks
+   into the corner, one of those papers flies out and becomes a pull-down
+   presentation screen, a projector rises under it, and the recording of
+   that report is thrown onto the sheet. Three reports, three sheets.
+   Prefixes: rp- (the scene), rf- (the folder), rs- (the screen).
+   ══════════════════════════════════════════════════════════════════ */
+
+.reports { position: absolute; inset: 0; overflow: hidden; --k: 1;
+  font-family: var(--sans); color: var(--ink); }
+
+/* ───────── the room ───────── */
+.rp-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.rp-sky { position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 62% at 56% 38%, rgba(234,247,238,.95), rgba(246,250,247,0) 72%),
+    radial-gradient(ellipse 44% 38% at 92% 8%, rgba(60,179,113,.13), transparent 72%),
+    radial-gradient(ellipse 42% 36% at 6% 92%, rgba(247,181,0,.08), transparent 72%); }
+/* a soft horizon rather than lines: the floor of the room, not a drawing of it */
+.rp-floor { position: absolute; left: 0; right: 0; bottom: 0; height: 46%;
+  background: linear-gradient(180deg, rgba(60,179,113,0) 0%, rgba(60,179,113,.05) 46%, rgba(21,137,63,.09) 100%); }
+
+/* the watermark: one report sheet, far larger than the folder, at a whisper */
+.rp-mark { position: absolute; left: 50%; bottom: 26%; translate: -50% 0;
+  height: 56%; width: auto; aspect-ratio: 2 / 1; }
+.rp-mark-in { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.rp-mark-b rect { fill: rgba(21,137,63,.05); stroke: rgba(21,137,63,.13); stroke-width: 3; }
+.rp-mark-t { stroke: rgba(247,181,0,.3); stroke-width: 5; }
+.rp-mark-x { stroke: rgba(21,137,63,.14); stroke-width: 3; }
+
+/* ───────── the stage everything stands on ───────── */
+.rp-world { position: absolute; inset: 0; z-index: 2; perspective: 1700px; perspective-origin: 50% 46%;
+  transform-style: preserve-3d; pointer-events: none; }
+
+/* ══════════ the glass folder ══════════
+   A real folder is two panels with a gap: a tall back with a tab, and a
+   shorter front. The front is the glass — frosted, so the papers behind it
+   go soft, with a bright machined edge all the way round and a thick top
+   lip you can see the depth of. */
+.rf { position: absolute; transform-style: preserve-3d; will-change: transform; }
+.rf-in { position: absolute; inset: 0; transform-style: preserve-3d; }
+
+/* the pool of colour it stands in. Glass is only visible against something,
+   and on a near-white stage there is nothing for it to refract — so the folder
+   brings its own ground with it. */
+.rf-halo { position: absolute; left: -34%; right: -34%; top: -16%; bottom: -30%;
+  background: radial-gradient(ellipse 50% 46% at 50% 56%, rgba(60,179,113,.28), rgba(60,179,113,.1) 52%, transparent 74%);
+  filter: blur(6px); transform: translateZ(-80px); }
+/* the shadow it casts on the floor of the room */
+.rf-cast { position: absolute; left: 2%; right: 2%; bottom: -6%; height: 14%;
+  background: radial-gradient(ellipse at 50% 50%, rgba(10,58,32,.4), transparent 68%);
+  filter: blur(10px); transform: translateZ(-70px); }
+
+/* the back panel: taller, with the tab. Deeper and more saturated than the
+   front, because you are looking at it through the front. */
+.rf-back { position: absolute; left: 0; right: 0; bottom: 0; height: 90%;
+  border-radius: 6px 6px 7px 7px;
+  background: linear-gradient(164deg, rgba(62,178,114,.74), rgba(22,124,70,.8) 52%, rgba(10,84,46,.86));
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.8), inset 1.5px 0 0 rgba(255,255,255,.42),
+    inset -1.5px 0 0 rgba(255,255,255,.4), 0 0 0 1px rgba(10,70,40,.22);
+  transform: translateZ(-32px); }
+.rf-tab { position: absolute; left: 1.5%; bottom: 89.4%; width: 38%; height: 9%;
+  border-radius: 5px 9px 0 0;
+  background: linear-gradient(160deg, rgba(88,194,134,.6), rgba(30,136,80,.68));
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.8), inset 1.5px 0 0 rgba(255,255,255,.45),
+    0 0 0 1px rgba(10,70,40,.2);
+  transform: translateZ(-32px); }
+
+/* the papers standing in the folder — a soft white mass once the glass is
+   over them, which is exactly what the reference shows */
+.rf-stack { position: absolute; left: 7%; right: 7%; bottom: 5%; height: 88%; transform: translateZ(-16px); }
+.rf-sheet { position: absolute; left: 0; right: 0; bottom: 0; height: 100%; border-radius: 3px;
+  background: linear-gradient(180deg, #fff, #F1F8F4);
+  box-shadow: 0 6px 16px -8px rgba(10,58,32,.45); transform-origin: 50% 100%; }
+.rf-sheet:nth-child(1) { transform: rotate(-1.8deg) translateY(-3.5%) scale(.965); }
+.rf-sheet:nth-child(2) { transform: rotate(1.3deg) translateY(-1.6%) scale(.982); }
+
+/* ── the front panel: this is the glass ──
+   No backdrop-filter. Over a near-white stage it only smears the panel behind
+   into a halo and costs a composite layer for the privilege. The frosting is
+   painted instead: a soft white mass inside the panel standing in for the
+   papers seen through it, under a pale tinted fill, inside a hard green
+   hairline with a bright machined rim just within it. */
+.rf-front { position: absolute; left: -1.5%; right: -1.5%; bottom: -1.5%; height: 63%;
+  border-radius: 5px 5px 9px 9px; overflow: hidden;
+  background: linear-gradient(154deg, rgba(255,255,255,.58) 0%, rgba(218,245,231,.4) 38%, rgba(96,196,146,.54) 100%);
+  box-shadow:
+    0 0 0 1px rgba(11,78,44,.38),
+    inset 0 0 0 1.5px rgba(255,255,255,.92),
+    inset 0 3px 0 rgba(255,255,255,.98),
+    inset 0 -3px 0 rgba(255,255,255,.55),
+    0 26px 36px -24px rgba(10,58,32,.55);
+  transform: translateZ(32px); }
+/* the papers, as the glass shows them: soft, bright, shapeless */
+.rf-fog { position: absolute; left: 7%; right: 7%; top: -36%; bottom: 9%; border-radius: 6px;
+  background: linear-gradient(180deg, #fff, rgba(255,255,255,.82));
+  filter: blur(9px); opacity: .62; }
+/* the lip — the thickness of the glass seen along the top edge. It is the
+   brightest thing on the folder and it casts onto the face below it. */
+.rf-lip { position: absolute; left: -1.5%; right: -1.5%; bottom: 62.4%; height: 2.6%;
+  border-radius: 3px 3px 1px 1px;
+  background: linear-gradient(180deg, #FFFFFF, #ECFAF2 42%, #A2D9BD);
+  box-shadow: 0 4px 7px rgba(10,58,32,.32), 0 0 0 1px rgba(11,78,44,.34), inset 0 1px 0 #fff;
+  transform: translateZ(32px); }
+/* one specular streak, which is what makes glass read as glass */
+.rf-spec { position: absolute; left: 2.5%; bottom: 1%; width: 40%; height: 58%;
+  border-radius: 4px; transform: translateZ(33px) rotate(-7deg);
+  background: linear-gradient(116deg, rgba(255,255,255,.92) 0%, rgba(255,255,255,.2) 26%, transparent 46%);
+  pointer-events: none; }
+/* and a tighter highlight running down the right edge */
+.rf-edge { position: absolute; right: .4%; bottom: 4%; width: 3px; height: 52%;
+  border-radius: 3px; transform: translateZ(33px);
+  background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.06));
+  pointer-events: none; }
+
+/* ══════════ the papers in the air ══════════ */
+.rp-paper { position: absolute; border-radius: .55em; background: #fff; overflow: hidden;
+  box-shadow: 0 1.5em 2.6em -1.2em rgba(13,46,27,.4), 0 0 0 1px rgba(13,46,27,.05);
+  transform-style: preserve-3d; will-change: transform; }
+.rp-paper::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(142deg, rgba(255,255,255,.75), rgba(255,255,255,0) 40%); }
+/* the dog-ear, as in the reference */
+.rp-curl { position: absolute; right: 0; bottom: 0; width: 22%; aspect-ratio: 1;
+  background: linear-gradient(315deg, #D8E9DF 46%, rgba(255,255,255,0) 47%);
+  border-bottom-right-radius: .55em; }
+.rp-ph { padding: 11% 11% 0; }
+.rp-ph b { display: block; font-size: 1.02em; font-weight: 800; letter-spacing: -.02em; color: var(--green-d); line-height: 1; }
+.rp-ph s { display: block; text-decoration: none; margin-top: .3em; font: 700 .62em var(--mono);
+  letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
+.rp-pb { display: flex; gap: 6%; padding: 9% 11% 0; }
+.rp-pic { width: 22%; aspect-ratio: .86; border-radius: .2em; background: var(--mint);
+  box-shadow: inset 0 0 0 1px rgba(21,137,63,.2); flex: none; }
+.rp-lines { flex: 1; display: grid; gap: .34em; align-content: start; padding-top: 4%; }
+.rp-lines i { display: block; height: .3em; border-radius: 1em; background: var(--line-2); }
+.rp-lines i:nth-child(2) { width: 82%; }
+.rp-lines i:nth-child(3) { width: 64%; background: rgba(60,179,113,.42); }
+.rp-rows { display: grid; gap: .4em; padding: 9% 11% 11%; }
+.rp-rows i { display: block; height: .3em; border-radius: 1em; background: var(--line-2); }
+.rp-rows i:nth-child(even) { width: 76%; }
+
+/* the little glass cubes drifting with them */
+.rp-cube { position: absolute; border-radius: .22em;
+  background: linear-gradient(150deg, rgba(255,255,255,.82), rgba(158,219,185,.6));
+  box-shadow: 0 0 0 1px rgba(11,78,44,.18), inset 0 1.2px 0 rgba(255,255,255,.98),
+    0 .7em 1.2em -.6em rgba(13,46,27,.34);
+  will-change: transform; }
+
+/* ══════════ the pull-down screen ══════════ */
+.rps { position: absolute; transform-style: preserve-3d; will-change: transform; }
+/* the sheet hangs from the roller and is revealed by scaling down from its top */
+.rs-sheet { position: absolute; left: 2.6%; right: 2.6%; top: 100%; height: 0; overflow: hidden;
+  background: linear-gradient(176deg, #FDFEFD, #F2F7F4);
+  box-shadow: 0 2.4em 3.4em -2em rgba(13,46,27,.42), inset 0 0 0 1px rgba(13,46,27,.05); }
+/* The canvas is pinned to the sheet's full height, not to the sheet's current
+   height. The sheet is what rolls; the picture behind it is simply uncovered.
+   Letting it share the animated height squashed the recording into a smear
+   every time the screen moved. */
+.rs-canvas { position: absolute; left: 0; right: 0; top: 0; height: var(--sheetH, 100%);
+  overflow: hidden; background: #F6F8F7; }
+.rs-canvas .rp-rly { position: absolute; inset: 0; }
+/* the sheet is cloth, not glass: a faint weave and a soft sheen */
+.rs-sheen { position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(104deg, rgba(255,255,255,.34) 0%, rgba(255,255,255,0) 26%, rgba(255,255,255,0) 72%, rgba(13,46,27,.05)); }
+/* the light the projector actually lays on it */
+.rs-lit { position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: radial-gradient(ellipse 72% 64% at 50% 52%, rgba(255,255,255,.4), rgba(214,240,224,.12) 58%, rgba(13,46,27,.1)); }
+
+/* the top roller: a cylinder with dark caps, exactly as the reference */
+.rs-roll { position: absolute; left: 0; right: 0; top: 0; height: 100%; border-radius: 999px;
+  background: linear-gradient(180deg, #FBFDFC 4%, #FFFFFF 26%, #E4EDE8 62%, #C9DAD1 88%, #DCE8E2);
+  box-shadow: 0 .7em 1.3em -.7em rgba(13,46,27,.45), inset 0 1px 0 rgba(255,255,255,.95); }
+.rs-cap { position: absolute; top: 50%; width: 5.4%; height: 150%; translate: 0 -50%; border-radius: 999px;
+  background: linear-gradient(180deg, #41544B, #22312A 54%, #35463D);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 .4em .8em -.4em rgba(13,46,27,.6); }
+.rs-cap.l { left: -2.1%; } .rs-cap.r { right: -2.1%; }
+
+/* the weighted bar at the bottom of the sheet, with the pull ring */
+.rs-bar { position: absolute; left: 0; right: 0; top: 0; height: 100%; border-radius: 999px;
+  background: linear-gradient(180deg, #FFFFFF 6%, #EDF4F0 46%, #CFDED6 88%, #E6EFEA);
+  box-shadow: 0 .8em 1.4em -.6em rgba(13,46,27,.46), inset 0 1px 0 rgba(255,255,255,.95); }
+.rs-ring { position: absolute; left: 50%; top: 100%; translate: -50% 0; }
+.rs-ring i { display: block; width: .3em; height: 1.5em; margin: 0 auto;
+  background: linear-gradient(180deg, #35463D, #22312A); border-radius: 0 0 .1em .1em; }
+.rs-ring u { display: block; width: 1.5em; height: 1.5em; border-radius: 50%;
+  border: .34em solid #2B3A32; text-decoration: none;
+  box-shadow: 0 .3em .6em -.3em rgba(13,46,27,.6); }
+
+/* ══════════ the projector ══════════
+   A real one is a dark machine with a glass eye, not a white toy: a graphite
+   shell with a lighter deck plate, a recessed barrel with a hood around the
+   lens, a fine vent stack and a status light. */
+.rj { position: absolute; transform-style: preserve-3d; will-change: transform; }
+.rj-body { position: absolute; inset: 0; border-radius: .62em;
+  background: linear-gradient(176deg, #44564C 0%, #2E3E36 26%, #1E2A24 72%, #26332C 100%);
+  box-shadow: 0 1.5em 2.4em -1em rgba(10,30,20,.62),
+    inset 0 1px 0 rgba(255,255,255,.26), inset 0 -2px 0 rgba(0,0,0,.4); }
+/* the deck plate across the top, catching the room light */
+.rj-top { position: absolute; left: 4%; right: 4%; top: 0; height: 26%; border-radius: .62em .62em .2em .2em;
+  background: linear-gradient(180deg, rgba(255,255,255,.2), rgba(255,255,255,.03) 60%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
+/* the barrel: a hood, then the glass set back inside it */
+.rj-lens { position: absolute; left: 4.5%; top: 50%; width: 27%; aspect-ratio: 1; translate: 0 -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 42% 36%, #1C2621 0%, #121A16 58%, #0A0F0C 100%);
+  box-shadow: 0 0 0 .22em #38463E, 0 0 0 .34em #202C26, 0 0 0 .4em rgba(0,0,0,.34),
+    inset 0 0 .5em rgba(0,0,0,.8); }
+/* the glass itself, lit from within */
+.rj-lens::before { content: ""; position: absolute; inset: 20%; border-radius: 50%;
+  background: radial-gradient(circle at 40% 34%, #BFF4D6 0%, #6FE39B 34%, #15893F 68%, #0B3F20 100%);
+  box-shadow: 0 0 .9em rgba(111,227,155,.75), inset 0 0 .3em rgba(255,255,255,.5); }
+/* and the pinpoint reflection that says it is glass */
+.rj-lens::after { content: ""; position: absolute; left: 26%; top: 24%; width: 18%; height: 13%;
+  border-radius: 50%; background: rgba(255,255,255,.85); filter: blur(.5px); }
+/* the vent stack */
+.rj-vent { position: absolute; right: 7%; top: 24%; bottom: 24%; width: 24%; border-radius: .18em;
+  background: repeating-linear-gradient(180deg,
+    rgba(0,0,0,.42) 0 2px, rgba(255,255,255,.07) 2px 3px, transparent 3px 6px);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.3); }
+/* the status light */
+.rj-led { position: absolute; right: 36%; top: 19%; width: .34em; height: .34em; border-radius: 50%;
+  background: var(--gold); box-shadow: 0 0 .5em rgba(247,181,0,.9); }
+.rj-foot { position: absolute; bottom: -7%; width: 11%; height: 8%; border-radius: 0 0 .18em .18em;
+  background: linear-gradient(180deg, #1A241F, #0E1512); }
+.rj-foot.l { left: 17%; } .rj-foot.r { right: 17%; }
+/* the beam, drawn as a flat quad between the lens and the sheet */
+.rj-cone { position: absolute; transform-origin: 0% 50%; pointer-events: none; opacity: 0;
+  background: linear-gradient(90deg, rgba(167,235,196,.55), rgba(197,243,216,.24) 42%, rgba(233,250,240,.07));
+  filter: blur(7px);
+  clip-path: polygon(0% 44%, 100% 0%, 100% 100%, 0% 56%); }
+.rj-glow { position: absolute; left: 4%; top: 50%; width: 4.4em; height: 4.4em; translate: -50% -50%;
+  border-radius: 50%; background: radial-gradient(circle, rgba(140,232,180,.8), transparent 64%);
+  filter: blur(5px); opacity: 0; }
+
+/* ══════════ the words ══════════ */
+.rp-copy { position: absolute; width: var(--cw, 360px); font-size: calc(16px * var(--k)); pointer-events: auto; }
+.rp-kick { display: flex; align-items: center; gap: .7em; font: 600 .66em var(--mono); letter-spacing: .2em;
+  text-transform: uppercase; color: var(--ink-3); }
+.rp-kick b { color: var(--green-d); font-weight: 700; }
+.rp-kick s { flex: 1; height: 1px; background: var(--line-2); text-decoration: none; }
+.rp-h { margin: .85em 0 0; font-size: 2.6em; line-height: 1.04; letter-spacing: -.04em; font-weight: 800; }
+.rp-h em { font-style: normal; display: block; color: var(--green-d); }
+.rp-say { margin: .95em 0 0; font-size: 1em; line-height: 1.62; color: var(--ink-2); }
+.rp-list { margin: 1.35em 0 0; display: grid; gap: .5em; padding-top: 1.1em; border-top: 1px solid var(--line); }
+.rp-list span { display: flex; align-items: flex-start; gap: .65em; font-size: .9em; font-weight: 600; color: var(--ink-2); line-height: 1.4; }
+.rp-list i { width: 1.4em; height: 1.4em; margin-top: .05em; border-radius: 50%; display: grid; place-items: center; flex: none;
+  background: var(--mint); color: var(--green-d); }
+.rp-list i svg { width: .82em; height: .82em; }
+.rp-dots { margin-top: 1.5em; display: flex; align-items: center; gap: .55em; }
+.rp-dot { width: 2em; height: .3em; border-radius: 999px; background: var(--line-2); cursor: pointer;
+  transition: background .3s, width .3s; }
+.rp-dot:hover { background: var(--green-l); }
+.rp-dot.on { background: var(--green); width: 3.4em; }
+.rp-dots em { margin-left: .5em; font: 600 .7em var(--mono); color: var(--ink-3); letter-spacing: .14em; }
+
+/* ══════════ the opening title, while the folder is centre stage ══════════ */
+.rp-hero { position: absolute; left: 0; right: 0; text-align: center; pointer-events: none;
+  font-size: calc(16px * var(--k)); }
+.rp-hero .rp-kick { justify-content: center; }
+.rp-hero .rp-kick s { display: none; }
+.rp-hero h3 { margin: .62em 0 0; font-size: 3.1em; line-height: 1.04; letter-spacing: -.045em; font-weight: 800; }
+.rp-hero h3 em { display: inline; }
+.rp-hero h3 em { font-style: normal; color: var(--green-d); }
+.rp-hero p { margin: .85em auto 0; max-width: 30em; font-size: 1.04em; line-height: 1.6; color: var(--ink-2); }
+
+/* this section keeps the watcher out of the room entirely */
+.watch.p-none { opacity: 0; }
+
+/* ───────── narrow screens ───────── */
+.reports.narrow .rp-h { font-size: 1.9em; }
+.reports.narrow .rp-list { display: none; }
+
+/* Every moving piece is two layers: this wrapper carries the entrance, the
+   drift and the flight, and the element inside it carries the 3D pose. They
+   never share a transform, so a tween can never take the pose with it — which
+   is what used to snap each paper out of place the moment the drift began. */
+.rp-mv { position: absolute; will-change: transform, opacity; }
+.rp-mv > .rf, .rp-mv > .rp-paper, .rp-mv > .rp-cube { position: absolute; inset: 0; width: auto; height: auto; }
+
+/* the crushed sheet that carries a report to the projector */
+.rp-wad { position: absolute; opacity: 0; pointer-events: none; will-change: transform, opacity;
+  filter: drop-shadow(0 .5em .8em rgba(10,58,32,.4)); }
+.rp-wad svg { width: 100%; height: 100%; display: block; }
+.rp-wad .rw-o { fill: #FBFEFC; stroke: rgba(11,78,44,.26); stroke-width: 2.4; stroke-linejoin: round; }
+.rp-wad .rw-c { fill: none; stroke: rgba(11,78,44,.18); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.rp-wad .rw-h { fill: rgba(21,137,63,.07); stroke: none; }
+
+/* ══════════ the word on the folder ══════════
+   The first beat has to say "reports" without anyone reading a line of copy, so
+   the name is raised off the folder's own glass, built the way the act dividers
+   build their titles: one span per layer stepped along z, the front one wearing
+   a gradient clipped to the letters under a hairline rim. It sits inside the
+   folder's 3D space just in front of the face, so it is turned exactly as the
+   folder is turned and travels and scales with it. Everything here is sized in
+   em against the folder's own type, so it is the same label at every size the
+   folder takes. */
+.rpw { position: absolute; left: 8%; right: 8%; top: 43%; height: 30%;
+  display: grid; place-items: center; transform-style: preserve-3d;
+  transform: translateZ(34px); pointer-events: none; }
+.rpw-pl { position: relative; transform-style: preserve-3d; line-height: 1; font-size: 5.1em; }
+.rpw-ly { position: absolute; left: 0; top: 0; display: block; white-space: nowrap;
+  font-family: var(--sans); font-weight: 900; font-size: 1em; line-height: 1;
+  letter-spacing: .055em; color: rgba(60,179,113,.07);
+  backface-visibility: hidden; will-change: transform, opacity; }
+.rpw-ly.rpw-base { position: relative; }        /* this one holds the box open */
+/* the face: glass, not paint */
+.rpw-face { color: transparent; -webkit-text-stroke: .014em rgba(11,78,44,.46);
+  background-image: linear-gradient(178deg, #FFFFFF 0%, #EDFAF2 18%, #AFE2C8 40%, #4FB880 64%, #1D9449 86%, #15893F 100%);
+  -webkit-background-clip: text; background-clip: text; }
+/* the light that runs across the face once it is out */
+.rpw-sheen { color: transparent; -webkit-text-stroke: 0;
+  background-image: linear-gradient(104deg, transparent 38%, rgba(255,255,255,.95) 50%, transparent 62%);
+  background-size: 300% 100%; background-position: 150% 0; background-repeat: no-repeat;
+  -webkit-background-clip: text; background-clip: text; opacity: 0; }
+/* and the shadow it drops onto the glass under it */
+.rpw-shade { color: rgba(13,46,27,.3); filter: blur(.1em);
+  transform: translate(.035em, .05em); opacity: 0; }
+
+/* the lamp. Between two reports it goes out and comes back as the next report
+   reaches the glass — a projector with its picture gone is not still lit. */
+.rj-lens::before, .rj-led { transition: opacity .3s ease, box-shadow .3s ease; }
+.rj.rj-off .rj-lens::before { opacity: .12; box-shadow: none; }
+.rj.rj-off .rj-led { opacity: .3; box-shadow: none; }

@@ -1,0 +1,12 @@
+{
+ "src": "assets/video/desk-dashboard.mp4",
+ "w": 1280, "h": 596, "duration": 11.45,
+ "note": "Hand-authored tour: the cursor only hovers in this stretch, so these are leans, not clicks. hold = seconds to linger after t.",
+ "cues": [
+  { "t": 2.0, "x": 0.20, "y": 0.50, "z": 1.28, "hold": 2.0, "kind": "focus" },
+  { "t": 5.0, "x": 0.44, "y": 0.45, "z": 1.28, "hold": 1.6, "kind": "focus" },
+  { "t": 7.2, "x": 0.62, "y": 0.80, "z": 1.28, "hold": 1.0, "kind": "focus" },
+  { "t": 8.5, "z": 1, "kind": "nav" },
+  { "t": 10.1, "z": 1, "kind": "nav" }
+ ]
+}

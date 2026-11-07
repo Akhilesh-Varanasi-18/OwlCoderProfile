@@ -1,0 +1,44 @@
+/* wall.css — the act dividers. A wall in perspective; the chapter title is
+   solid extruded type that pushes out of it. See assets/js/wall.js. */
+
+.step.act { justify-content: center; }
+.wall { position: absolute; inset: 0; perspective: 1400px; perspective-origin: 50% 46%; overflow: hidden; }
+.wall-rig { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 0;
+  transform-style: preserve-3d; }
+
+/* the wall itself: paper with a fine grid, a spotlight where the title lands, dark edges */
+.wall-bg { position: absolute; inset: -30%; transform: translateZ(0);
+  background-color: var(--paper-2);
+  background-image:
+    radial-gradient(ellipse 46% 40% at 50% 46%, rgba(255,255,255,.9), rgba(255,255,255,0) 70%),
+    linear-gradient(90deg, rgba(21,137,63,.085) 0 1px, transparent 1px),
+    linear-gradient(180deg, rgba(21,137,63,.085) 0 1px, transparent 1px),
+    radial-gradient(ellipse 80% 70% at 50% 50%, transparent 55%, rgba(18,26,21,.14) 100%);
+  background-size: auto, 64px 64px, 64px 64px, auto; }
+
+/* extruded type: one element, many identical layers stepped along z */
+.ex { position: relative; width: max-content; transform-style: preserve-3d; line-height: 1; white-space: nowrap; }
+.ex .ly { position: absolute; left: 0; top: 0; display: block; transform-style: preserve-3d; backface-visibility: hidden;
+  will-change: transform; }
+.ex .ly.base { position: relative; }               /* keeps the box's size */
+.ex-h { font-weight: 800; font-size: clamp(54px, 9.6vw, 148px); letter-spacing: -.035em; }
+.ex-h .ly { color: var(--green-d); }
+.ex-h .ly.face { color: var(--green); }
+.ex-n { font-family: var(--mono); font-weight: 700; font-size: clamp(30px, 3.6vw, 52px); letter-spacing: .08em; margin-bottom: clamp(10px, 1.6vh, 18px); }
+.ex-n .ly { color: var(--gold-d); }
+.ex-n .ly.face { color: var(--gold); }
+/* a light sweeps across the front face once it is out */
+.ex .ly.sheen { pointer-events: none; color: transparent; -webkit-background-clip: text; background-clip: text;
+  background-image: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.75) 50%, transparent 62%);
+  background-size: 300% 100%; background-position: 150% 0; background-repeat: no-repeat; }
+/* the shadow it throws on the wall */
+.ex .ly.shade { color: rgba(18,26,21,.28); filter: blur(10px); transform: translate(14px, 18px) translateZ(0.5px); opacity: 0; }
+
+.wall .act-p { margin: clamp(14px, 2.4vh, 26px) 0 0; font-size: clamp(13px, 1.1vw, 16px); color: var(--ink-2); letter-spacing: .01em; opacity: 0;
+  transform: translateZ(2px); }
+.wall .act-k { font: 600 10.5px var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); margin-bottom: clamp(16px, 2.6vh, 28px);
+  opacity: 0; transform: translateZ(2px); }
+
+@media (max-width: 1080px) {
+  .ex-h { font-size: clamp(40px, 10vw, 72px); }
+}
